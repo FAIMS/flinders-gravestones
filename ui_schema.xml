@@ -285,59 +285,59 @@
         <input ref="Headstone_depth" faims_attribute_name="Headstone depth" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
           <label>Headstone/monument Depth (cm)</label>
         </input>
-        <select ref="Marker_form">
+        <select ref="Marker_form" faims_attribute_name="Marker form" faims_certainty="true" faims_attribute_type="voacb">
           <label>Marker Form</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Orientation">
+        <select ref="Orientation" faims_attribute_name="Orientation" faims_certainty="true" faims_attribute_type="voacb">
           <label>Orientation</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Colour">
+        <select ref="Colour" faims_attribute_name="Colour" faims_certainty="true" faims_attribute_type="voacb">
           <label>Colour of Headstone</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Material">
+        <select ref="Material" faims_attribute_name="Material" faims_certainty="true" faims_attribute_type="voacb">
           <label>Material</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Fence">
+        <select ref="Fence" faims_attribute_name="Fence" faims_certainty="true" faims_attribute_type="voacb">
           <label>Fence/Border</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <input ref="Fence_height" faims_attribute_name="Fence height" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+        <input ref="Fence_height" faims_attribute_name="Fence height" faims_certainty="true" faims_attribute_type="measure">
           <label>Fence/Border Height</label>
         </input>
-        <select ref="Lettering">
+        <select ref="Lettering" faims_attribute_name="Lettering" faims_certainty="true" faims_attribute_type="voacb">
           <label>Lettering</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select1 ref="Footstone" appearance="full">
+        <select1 ref="Footstone" appearance="full" faims_attribute_name="Footstone" faims_certainty="true" faims_attribute_type="voacb">
           <label>Includes Footstones</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
-        <select ref="Other_items">
+        <select ref="Other_items" faims_attribute_name="Other items" faims_certainty="true" faims_attribute_type="voacb">
           <label>Other Items Associated With Grave</label>
           <item>
             <label>placeholder</label>
@@ -350,7 +350,7 @@
       </group>
       <group ref="Motif">
         <label>Motif</label>
-        <select ref="Motif">
+        <select ref="Motif" faims_attribute_name="Motif" faims_certainty="true" faims_attribute_type="voacb">
           <label>Motif</label>
           <item>
             <label>placeholder</label>
@@ -369,28 +369,28 @@
         <input ref="Inscription" faims_attribute_name="Inscription" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
           <label>Inscription</label>
         </input>
-        <select ref="Style_of_language">
+        <select ref="Style_of_language" faims_attribute_name="Style of language" faims_certainty="true" faims_attribute_type="voacb">
           <label>Style of languages</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Key_words">
+        <select ref="Key_words" faims_attribute_name="Key words" faims_certainty="true" faims_attribute_type="voacb">
           <label>Key Wording</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Tense">
+        <select ref="Tense" faims_attribute_name="Tense" faims_certainty="true" faims_attribute_type="voacb">
           <label>Tense/Author</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Burials_described_in_relaton_to">
+        <select ref="Burials_described_in_relaton_to" faims_attribute_name="Burials described in relation to" faims_certainty="true" faims_attribute_type="voacb">
           <label>Burial(s) described in relaton to</label>
           <item>
             <label>placeholder</label>
@@ -403,7 +403,7 @@
       </group>
       <group ref="Plots" faims_scrollable="false">
         <label>Plots</label>
-        <select ref="Plot_type">
+        <select ref="Plot_type" faims_attribute_name="Plot type" faims_certainty="true" faims_attribute_type="voacb">
           <label>Plot Type</label>
           <item>
             <label>placeholder</label>

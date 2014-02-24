@@ -167,7 +167,7 @@ makeCemeteryGraveReln() {
     saveEntitiesToRel("CemeteryGrave", cemetery_id, grave_id);
 }
 
-loadArtefactAttributes(){
+loadGraveAttributes(){
     populateCheckBoxGroup("Grave/Monument/Marker_form", makeVocab("Marker form"));
     populateCheckBoxGroup("Grave/Monument/Orientation", makeVocab("Orientation"));
     populateCheckBoxGroup("Grave/Monument/Colour", makeVocab("Colour"));
