@@ -11,6 +11,59 @@
     <description>Implements a N:N between related Graves</description>
   </RelationshipElement>
 
+  <ArchaeologicalElement name="Cemetery">
+  	<description>A collection of graves</description>
+  	<property name="Site" type="freetext" isIdentifier="true">
+      <description>Site of the cemetary</description>
+    </property>
+    <property name="Date of recording" type="timestamp">
+      <description>Date at time of recording</description>
+    </property>
+    <property name="Denomination" type="enum">
+      <description>Denomination of cemetery</description>
+      <lookup>
+      <term>Catholic<description>Denomination</description></term>
+      <term>Anglican<description>Denomination</description></term>
+      <term>Presbytarian<description>Denomination</description></term>
+      <term>Baptist<description>Denomination</description></term>
+      <term>Methodist<description>Denomination</description></term>
+      <term>Uniting<description>Denomination</description></term>
+      <term>Jewish<description>Denomination</description></term>
+      <term>Unknown<description>Denomination</description></term>
+      <term>Other<description>Denomination</description></term>
+  	  </lookup>
+    </property>
+  </ArchaeologicalElement>
+
+  <ArchaeologicalElement name="Grave">
+  	<property name="Grave number" type="number" isIdentifier="true">
+      <description>Number of grave</description>
+    </property>
+    <property name="Family name" type="freetext" isIdentifier="true">
+      <description>Family name on grave</description>
+    </property>
+    <property name="National trust guide number" type="number">
+      <description>National trust guide number</description>
+    </property>
+    <property name="Shape" type="file">
+      <description>Sketch of shape of grave</description>
+    </property>
+    <property name="Photo" type="file">
+      <description>Photo of grave</description>
+    </property>
+    <property name="Mason" type="freetext">
+      <description>Mason of grave</description>
+    </property>
+    <property name="Town" type="file">
+      <description>Town of grave</description>
+    </property>
+    
+
+
+
+
+
+
 
 
 </dataSchema>
