@@ -1,3 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSchema name="hdb_alice_stonetools" preparer="Heurist user: Alice Buhrich">
+<dataSchema name="flinders_gravestones" preparer="Pierre Estephan">
+
+  <RelationshipElement name="CemeteryGrave" type="bidirectional">
+    <description>Implements a 1:N between Cemetery and its Graves</description>
+  </RelationshipElement>
+  <RelationshipElement name="GraveBurial" type="bidirectional">
+    <description>Implements a 1:N between Graves and its burials</description>
+  </RelationshipElement>
+  <RelationshipElement name="GraveGrave" type="bidirectional">
+    <description>Implements a N:N between related Graves</description>
+  </RelationshipElement>
+
+
+
 </dataSchema>
