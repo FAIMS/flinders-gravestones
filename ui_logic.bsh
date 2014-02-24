@@ -13,262 +13,207 @@ setFileSyncEnabled(true);
 showWarning("Thanks for trying this module!", "We have provided this module for Demonstration purposes only. You can customise the module yourself or we can help you. Contact info@fedarch.org for help.");
 
 /*** control ***/
-onEvent("control", "show", "refreshCollections()");
-onEvent("control", "show", "refreshArtefacts()");
-onEvent("control", "show", "refreshReports()");
-onEvent("control", "show", "loadCollectionAttributes()");
-onEvent("control", "show", "loadArtefactAttributes()");
-onEvent("control", "show", "loadReportAttributes()");
+onEvent("control", "show", "refreshCemeteries()");
+onEvent("control", "show", "refreshGraves()");
+onEvent("control", "show", "loadCemeteryAttributes()");
+onEvent("control", "show", "loadGraveAttributes()");
 
-/*** ArchEnt: Collection ***/
-onEvent("control/collection/CollectionList", "click", "loadCollection()");
-onEvent("control/collection/newCollection", "click", "newCollection()");
+/*** ArchEnt: Cemetery ***/
+onEvent("control/cemetery/CemeteryList", "click", "loadCemetery()");
+onEvent("control/cemetery/newCemetery", "click", "newCemetery()");
 
-onEvent("Collection/Collection_GeneralInformation/Update", "delayclick", "saveCollection()");
+onEvent("Cemetery/Cemetery_Admin/Update", "delayclick", "saveCemetery()");
 
-onEvent("Collection/Collection_Location/attachThumbnail_image", "click", "attachPictureTo(\"Collection/Collection_Location/Thumbnail_image\")");
-onEvent("Collection/Collection_Location/Update", "delayclick", "saveCollection()");
+// onEvent("Collection/Collection_Location/attachThumbnail_image", "click", "attachPictureTo(\"Collection/Collection_Location/Thumbnail_image\")");
+// onEvent("Collection/Collection_Location/Update", "delayclick", "saveCollection()");
 
-onEvent("Collection/Collection_Owner/Update", "delayclick", "saveCollection()");
+onEvent("Cemetery/Cemetery_Graves", "show", "updateAllCemetery()");
+onEvent("Cemetery/Cemetery_Graves/newGrave", "click", "newGrave()");
+onEvent("Cemetery/Cemetery_Graves/GraveList", "click", "loadGrave()");
 
-onEvent("Collection/Collection_Artefacts", "show", "updateAllCollection()");
-onEvent("Collection/Collection_Artefacts/newArtefact", "click", "newArtefact()");
-onEvent("Collection/Collection_Artefacts/ArtefactList", "click", "loadArtefact()");
+String cemetery_id = null;
 
-String collection_id = null;
-
-refreshCollections() {
-    populateList("control/collection/CollectionList", fetchEntityList("Collection"));
+refreshCemeteries() {
+    populateList("control/cemetery/CemeteryList", fetchEntityList("Cemetery"));
 }
 
-newCollection(){
-    collection_id = null;
-    newTabGroup("Collection");
-    loadCollectionAttributes();
+newCemetery(){
+    cememtery_id = null;
+    newTabGroup("Cemetery");
 }
-loadCollection() {
-    collection_id = getListItemValue();
-    loadCollectionFrom(collection_id);
+loadCemetery() {
+    cemetery_id = getListItemValue();
+    loadCemeteryFrom(cemetery_id);
 }
-loadCollectionFrom(entid) {
-    collection_id = entid;
+loadCemeteryFrom(entid) {
+    cemetery_id = entid;
     if (isNull(entid)) return;
-    showTabGroup("Collection", entid);    
+    showTabGroup("Cemetery", entid);    
 }
 
-saveCollection() {
+saveCemetery() {
     if (false) { 
         showWarning("Logic Error", "Cannot save record without id");
         return;
     }
-    if (!isNull(collection_id)) {
-        entity = fetchArchEnt(collection_id);
+    if (!isNull(cemetery_id)) {
+        entity = fetchArchEnt(cemetery_id);
     }
     // first null is map data
-    saveTabGroup("Collection", collection_id, null, null, "collection_id = getLastSavedRecordId();");
+    saveTabGroup("Cemetery", cemetery_id, null, null, "cemetery_id = getLastSavedRecordId();");
 }
  
-loadCollectionAttributes() {
-    populateDropDown("Collection/Collection_GeneralInformation/Identity", makeVocab("Identity"));
+loadCemeteryAttributes() {
+    populateCheckBoxGroup("Cemetery/Cemetery_Admin/Denomination", makeVocab("Denomination"));
 }
 
-updateAllCollection(){
-    if (!isNull(collection_id)){
-        artefactsInCollection = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+updateAllCemetery(){
+    if (!isNull(cemetery_id)){
+        gravesInCemetery = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
         "            FROM latestNonDeletedArchentIdentifiers\n"+
-        "           WHERE aenttypename = 'Artefact'\n"+
+        "           WHERE aenttypename = 'Grave'\n"+
         "             AND uuid in (select uuid\n"+
         "                            FROM latestNonDeletedAentReln\n"+
         "                           where relationshipid in (select relationshipid\n"+
         "                                                      FROM latestNonDeletedAentReln\n"+
         "                                                      JOIN relationship using (relationshipid)\n"+
         "                                                      JOIN relntype using (relntypeid)\n"+
-        "                                                     where uuid = "+collection_id+"\n"+
-        "                                                       and relntypeName = 'CollectionArtefact')\n"+
-        "                             and uuid != "+collection_id+")\n"+
+        "                                                     where uuid = "+cemetery_id+"\n"+
+        "                                                       and relntypeName = 'CemeteryGrave')\n"+
+        "                             and uuid != "+cemetery_id+")\n"+
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
-        print(artefactsInCollection);
-        populateList("Collection/Collection_Artefacts/ArtefactList",  artefactsInCollection);
+        populateList("Cemetery/Cemetery_Graves/GraveList",  gravesInCemetery);
     } else {
         Object empty = fetchAll("select '', '';");
-        populateList("Collection/Collection_Artefacts/ArtefactList",  empty);
+        populateList("Cemetery/Cemetery_Graves/GraveList",  empty);
 
     }
 }
 
-/*** ArchEnt: Artefact ***/
-onEvent("Artefact", "show", "hideTabs();showTabCustom();");
-onEvent("control/artefact/ArtefactList", "click", "loadArtefact()");
+/*** ArchEnt: Graves ***/
+onEvent("control/grave/GraveList", "click", "loadGrave()");
 
-onEvent("Artefact/Artefact_Description/Artefact_Classification", "click", "showTabCustom()");
+// onEvent("Artefact/Artefact_Visual_interptretation/attachPhoto", "click", "attachPictureTo(\"Artefact/Artefact_Visual_interptretation/Photo\")");
+// onEvent("Artefact/Artefact_Visual_interptretation/attachDrawing", "click", "attachFileTo(\"Artefact/Artefact_Visual_interptretation/Drawing\")");
+// onEvent("Artefact/Artefact_Visual_interptretation/viewattached", "click", "viewArchEntAttachedFiles(artefact_id)");
 
-onEvent("Artefact/Artefact_Visual_interptretation/attachPhoto", "click", "attachPictureTo(\"Artefact/Artefact_Visual_interptretation/Photo\")");
-onEvent("Artefact/Artefact_Visual_interptretation/attachDrawing", "click", "attachFileTo(\"Artefact/Artefact_Visual_interptretation/Drawing\")");
-onEvent("Artefact/Artefact_Visual_interptretation/viewattached", "click", "viewArchEntAttachedFiles(artefact_id)");
-onEvent("Artefact/Artefact_Visual_interptretation/Update", "delayclick", "saveArtefact()");
+onEvent("Grave/Grave/Update", "delayclick", "saveGrave()");
+onEvent("Grave/Monument/Update", "delayclick", "saveGrave()");
+onEvent("Grave/Motif/Update", "delayclick", "saveGrave()");
+onEvent("Grave/Inscription/Update", "delayclick", "saveGrave()");
 
-onEvent("Artefact/Artefact_Description/Update", "delayclick", "saveArtefact()");
-onEvent("Artefact/Artefact_Provenance/Update", "delayclick", "saveArtefact()");
-onEvent("Artefact/Artefact_Preservation/Update", "delayclick", "saveArtefact()");
-onEvent("Artefact/Artefact_Morah/Update", "delayclick", "saveArtefact()");
-onEvent("Artefact/Artefact_Ooyurka_attributes/Update", "delayclick", "saveArtefact()");
-onEvent("Artefact/Artefact_Axe_attributes/Update", "delayclick", "saveArtefact()");
-onEvent("Artefact/Artefact_Pebble_attributes/Update", "delayclick", "saveArtefact()");
-onEvent("Artefact/Artefact_Attributes_other/Update", "delayclick", "saveArtefact()");
-onEvent("Artefact/Artefact_Nut_cracking_rock/Update", "delayclick", "saveArtefact()");
+onEvent("Grave/Plots", "show", "updateAllGrave()");
+onEvent("Grave/Plots/newBurial", "click", "newBurial()");
+onEvent("Grave/Plots/BurialList", "click", "loadBurial()");
 
-onEvent("Artefact/Artefact_Report", "show", "updateAllArtefact()");
-onEvent("Artefact/Artefact_Report/newReport", "click", "newReport()");
-onEvent("Artefact/Artefact_Report/ReportList", "click", "loadReport()");
+String grave_id = null;
 
-String artefact_id = null;
-
-refreshArtefacts() {
-    populateList("control/artefact/ArtefactList", fetchEntityList("Artefact"));
+refreshGraves() {
+    populateList("control/grave/GraveList", fetchEntityList("Grave"));
 }
 
-hideTabs(){
-    cancelTab("Artefact/Artefact_Pebble_attributes", false);
-    cancelTab("Artefact/Artefact_Axe_attributes", false);
-    cancelTab("Artefact/Artefact_Ooyurka_attributes", false);
-    cancelTab("Artefact/Artefact_Morah", false);
-    cancelTab("Artefact/Artefact_Attributes_other", false);
-    cancelTab("Artefact/Artefact_Nut_cracking_rock", false);
+newGrave(){
+    grave_id = null;
+    newTabGroup("Grave");
+    saveCemetery();
 }
 
-showTabCustom(){
-    Object values = fetchOne("select vocabName from vocabulary where vocabid = '"+getFieldValue("Artefact/Artefact_Description/Artefact_Classification")+"';");   
-    String art_type = values.get(0);
-    if(art_type.equals("{Axe}")){
-        showTab("Artefact/Artefact_Axe_attributes");
-    } else if (art_type.equals("{Ooyurka}")) {
-        showTab("Artefact/Artefact_Ooyurka_attributes");
-    } else if ( art_type.equals("{Pestle_other}")){
-        showTab("Artefact/Artefact_Pebble_attributes");
-    } else if ( art_type.equals("{Morah}")){
-        showTab("Artefact/Artefact_Morah");
-    } else if ( art_type.equals("{Nut_cracking_rock}")){
-        showTab("Artefact/Artefact_Nut_cracking_rock");
-    } else if ( art_type.equals("{Other_(describe)}")){
-        showTab("Artefact/Artefact_Attributes_other");
-    } else if ( art_type.equals("{Multiple_Uses}")){
-        showTab("Artefact/Artefact_Pebble_attributes");
-        showTab("Artefact/Artefact_Axe_attributes");
-        showTab("Artefact/Artefact_Ooyurka_attributes");
-        showTab("Artefact/Artefact_Morah");
-        showTab("Artefact/Artefact_Attributes_other");
-        showTab("Artefact/Artefact_Nut_cracking_rock");
-    }
-    showTab("Artefact/Artefact_Description");
-}
-
-newArtefact(){
-    artefact_id = null;
-    newTabGroup("Artefact");
-    saveCollection();
-}
-
-loadArtefact() {
+loadGrave() {
     artefact_id = getListItemValue();
-    loadArtefactFrom(artefact_id);
+    loadGraveFrom(grave_id);
 }
-loadArtefactFrom(entid) {
-    artefact_id = entid;
+loadGraveFrom(entid) {
+    grave_id = entid;
     if (isNull(entid)) return;
-    showTabGroup("Artefact", entid);
+    showTabGroup("Grave", entid);
 }
 
-saveArtefact() {
+saveGrave() {
     if (false){ 
         showWarning("Logic Error", "Cannot save record without id");
         return;
     }
     
-    if (!isNull(artefact_id)) {
-        entity = fetchArchEnt(artefact_id);
+    if (!isNull(grave_id)) {
+        entity = fetchArchEnt(grave_id);
     }
     // first null is map data
-    saveTabGroup("Artefact", artefact_id, null, null, "makeCollectionArtefactReln();");  
+    saveTabGroup("Grave", grave_id, null, null, "makeCemeteryGraveReln();");  
 }
 
-makeCollectionArtefactReln() {
-    artefact_id = getLastSavedRecordId(); 
-    if (isNull(collection_id)) {
-        colleciton_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+makeCemeteryGraveReln() {
+    grave_id = getLastSavedRecordId(); 
+    if (isNull(cemetery_id)) {
+        cemetery_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
         "            FROM latestNonDeletedArchentIdentifiers\n"+
-        "           WHERE aenttypename = 'Collection'\n"+
+        "           WHERE aenttypename = 'Cemetery'\n"+
         "             AND uuid in (select uuid\n"+
         "                            FROM latestNonDeletedAentReln\n"+
         "                           where relationshipid in (select relationshipid\n"+
         "                                                      FROM latestNonDeletedAentReln\n"+
         "                                                      JOIN relationship using (relationshipid)\n"+
         "                                                      JOIN relntype using (relntypeid)\n"+
-        "                                                     where uuid = "+artefact_id+"\n"+
-        "                                                       and relntypeName = 'CollecitonArtefact')\n"+
-        "                             and uuid != "+artefact_id+")\n"+
+        "                                                     where uuid = "+grave_id+"\n"+
+        "                                                       and relntypeName = 'CemeteryGrave')\n"+
+        "                             and uuid != "+grave_id+")\n"+
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
     }
-    saveEntitiesToRel("CollectionArtefact", artefact_id, collection_id);
+    saveEntitiesToRel("CemeteryGrave", cemetery_id, grave_id);
 }
 
 loadArtefactAttributes(){
-    populateDropDown("Artefact/Artefact_Description/Artefact_Classification", makeVocab("Artefact Classification"));
-    populateRadioGroup("Artefact/Artefact_Description/Completeness", makeVocab("Completeness"));
-    populateDropDown("Artefact/Artefact_Description/Raw_material", makeVocab("Raw material"));
-    populateRadioGroup("Artefact/Artefact_Description/Location_of_raw_material", makeVocab("Location of raw material"));
-    populateDropDown("Artefact/Artefact_Axe_attributes/Axe_head_shape", makeVocab("Axe head shape"));
-    populateDropDown("Artefact/Artefact_Axe_attributes/Ground_edge_", makeVocab("Ground edge"));
-    populateDropDown("Artefact/Artefact_Ooyurka_attributes/Shape_", makeVocab("Shape"));
-    populateRadioGroup("Artefact/Artefact_Ooyurka_attributes/Base", makeVocab("Base"));
-    populateRadioGroup("Artefact/Artefact_Ooyurka_attributes/Symmetry", makeVocab("Symmetry"));
-    populateRadioGroup("Artefact/Artefact_Nut_cracking_rock/Portablility", makeVocab("Portablility"));
-    populateCheckBoxGroup("Artefact/Artefact_Pebble_attributes/Pebble_attributes", makeVocab("Pebble attributes"));
-    populateCheckBoxGroup("Artefact/Artefact_Attributes_other/Attributes", makeVocab("Attributes"));
-    populateDropDown("Artefact/Artefact_Provenance/Activity", makeVocab("Activity"));
-    populateDropDown("Artefact/Artefact_Provenance/Locality", makeVocab("Locality"));
-    populateDropDown("Artefact/Artefact_Provenance/Landform_where_found", makeVocab("Landform where found"));
-    populateDropDown("Artefact/Artefact_Provenance/Geological_substrate", makeVocab("Geological substrate"));
-    populateRadioGroup("Artefact/Artefact_Preservation/Condition_of_object", makeVocab("Condition of object"));
-    populateDropDown("Artefact/Artefact_Preservation/How_is_the_item_stored", makeVocab("How is the item stored"));
+    populateCheckBoxGroup("Grave/Monument/Marker_form", makeVocab("Marker form"));
+    populateCheckBoxGroup("Grave/Monument/Orientation", makeVocab("Orientation"));
+    populateCheckBoxGroup("Grave/Monument/Colour", makeVocab("Colour"));
+    populateCheckBoxGroup("Grave/Monument/Material", makeVocab("Material"));
+    populateCheckBoxGroup("Grave/Monument/Fence", makeVocab("Fence"));
+    populateCheckBoxGroup("Grave/Monument/Lettering", makeVocab("Lettering"));
+    populateCheckBoxGroup("Grave/Monument/Footstone", makeVocab("Footstone"));
+    populateCheckBoxGroup("Grave/Monument/Other_items", makeVocab("Other items"));
+    populateCheckBoxGroup("Grave/Motif/Motif", makeVocab("Motif"));
+    populateCheckBoxGroup("Grave/Inscription/Style_of_language", makeVocab("Style of language"));
+    populateCheckBoxGroup("Grave/Inscription/Key_words", makeVocab("Key words"));
+    populateCheckBoxGroup("Grave/Inscription/Tense", makeVocab("Tense"));
+    populateCheckBoxGroup("Grave/Inscription/Burials_described_in_relation_to", makeVocab("Burials described in relation to"));
+    populateCheckBoxGroup("Grave/Plots/Plot_type", makeVocab("Plot type"));
 }
 
 updateAllArtefact(){
-    if (!isNull(artefact_id)){
-        reportsInArtefact= fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+    if (!isNull(grave_id)){
+        burialsInGrave= fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
         "            FROM latestNonDeletedArchentIdentifiers\n"+
-        "           WHERE aenttypename = 'Report'\n"+
+        "           WHERE aenttypename = 'Burial'\n"+
         "             AND uuid in (select uuid\n"+
         "                            FROM latestNonDeletedAentReln\n"+
         "                           where relationshipid in (select relationshipid\n"+
         "                                                      FROM latestNonDeletedAentReln\n"+
         "                                                      JOIN relationship using (relationshipid)\n"+
         "                                                      JOIN relntype using (relntypeid)\n"+
-        "                                                     where uuid = "+artefact_id+"\n"+
-        "                                                       and relntypeName = 'ArtefactReport')\n"+
-        "                             and uuid != "+artefact_id+")\n"+
+        "                                                     where uuid = "+grave_id+"\n"+
+        "                                                       and relntypeName = 'GraveBurial')\n"+
+        "                             and uuid != "+grave_id+")\n"+
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
-        populateList("Artefact/Artefact_Report/ReportList",  reportsInArtefact);
+        populateList("Grave/Plots/BurialList",  burialsInGrave);
     } else {
         Object empty = fetchAll("select '', '';");
-        populateList("Artefact/Artefact_Report/ReportList",  empty);
-
+        populateList("Grave/Plots/BurialList",  empty);
     }
 }      
 
 /*** ArchEnt: Report ***/
 
 
-onEvent("control/report/ReportList", "click", "loadReport()");
-onEvent("Report/Report/Update", "delayclick", "saveReport()");
+// onEvent("control/report/ReportList", "click", "loadReport()");
+// onEvent("Report/Report/Update", "delayclick", "saveReport()");
 
 String report_id = null;
 
