@@ -54,10 +54,134 @@
     <property name="Mason" type="freetext">
       <description>Mason of grave</description>
     </property>
-    <property name="Town" type="file">
+    <property name="Town" type="freetext">
       <description>Town of grave</description>
     </property>
-    
+    <property name="Total height" type="number">
+      <description>Total height</description>
+    </property>
+    <property name="Plinth height" type="number">
+      <description>Plinth height</description>
+    </property>
+    <property name="Plinth depth" type="number">
+      <description>Plinth depth</description>
+    </property>
+    <property name="Headstone height" type="number">
+      <description>Headstone height</description>
+    </property>
+    <property name="Headstone depth" type="number">
+      <description>Headstone depth</description>
+    </property>
+    <property name="Headstone width" type="number">
+      <description>Headstone width</description>
+    </property>
+    <property name="Marker form" type="enum">
+      <description>Marker form</description>
+      <lookup>
+      	<term>Tablet (Upright Slab)<description>Marker form</description></term>
+      	<term>Horizontal Slab<description>Marker form</description></term>
+      	<term>Block<description>Marker form</description></term>
+      	<term>Obelisk/Pillar<description>Marker form</description></term>
+      	<term>Statue/Sculpture<description>Marker form</description></term>
+      	<term>Cross<description>Marker form</description></term>
+      	<term>Combination<description>Marker form</description></term>
+      	<term>Other<description>Marker form</description></term>
+      </lookup>
+    </property>
+        <property name="Orientation" type="enum">
+      <description>Orientation</description>
+      <lookup>
+      	<term>North<description>Orientation of grave</description></term>
+      	<term>Northeast<description>Orientation of grave</description></term>
+      	<term>East<description>Orientation of grave</description></term>
+      	<term>Southeast<description>Orientation of grave</description></term>
+      	<term>South<description>Orientation of grave</description></term>
+      	<term>Southwest<description>Orientation of grave</description></term>
+      	<term>West<description>Orientation of grave</description></term>
+      	<term>Northwest<description>Orientation of grave</description></term>
+      </lookup>
+    </property>
+    <property name="Colour" type="enum">
+      <description>Colour</description>
+      <lookup>
+      	<type>Black<description>Colour of headstone</description></type>
+      	<type>White<description>Colour of headstone</description></type>
+      	<type>Grey<description>Colour of headstone</description></type>
+      	<type>Pink<description>Colour of headstone</description></type>
+      	<type>Other<description>Colour of headstone</description></type>
+      </lookup>
+    </property>
+    <property name="Material" type="enum">
+      <description>Material of headstone</description>
+      <lookup>
+      	<type>Slate<description> Material</description></type>
+      	<type>Marble<description> Material</description></type>
+      	<type>Granite<description> Material</description></type>
+      	<type>Cast Iron<description> Material</description></type>
+      	<type>Timber<description> Material</description></type>
+      	<type>Tile<description> Material</description></type>
+      	<type>Sandstone<description> Material</description></type>
+      	<type>Brick<description> Material</description></type>
+      	<type>Concrete<description> Material</description></type>
+      	<type>Cement<description> Material</description></type>
+      	<type>Other<description> Material</description></type>
+      </lookup>
+    </property>
+    <property name="Fence" type="enum">
+      <description>Fence/Border of grave</description>
+      <lookup>
+      	<type>None<description> Border of grave</description></type>
+      	<type>Cast Iron Picket<description> Border of grave</description></type>
+      	<type>Timber Picket<description> Border of grave</description></type>
+      	<type>Brick Border<description> Border of grave</description></type>
+      	<type>Stone Border<description> Border of grave</description></type>
+      	<type>Tile Border<description> Border of grave</description></type>
+      	<type>Other<description> Border of grave</description></type>
+      </lookup>
+    </property>
+    <property name="Fence height" type="number">
+      <description>Fence Height (cm)</description>
+    </property>
+    <property name="Lettering" type="enum">
+      <description>Lettering</description>
+      <lookup>
+      	<type>Engraved<description>Lettering on headstone</description></type>
+      	<type>Lead<description>Lettering on headstone</description></type>
+      	<type>Engraved and Painted<description>Lettering on headstone</description></type>
+      	<type>Painted Only<description>Lettering on headstone</description></type>
+      	<type>Other<description>Lettering on headstone</description></type>
+      </lookup>
+    </property>
+    <property name="Footstone" type="enum">
+      <description>Includes Footstone</description>
+      <lookup>
+      	<type>Yes<description>Footstone</description></type>
+      	<type>No<description>Footstone</description></type>
+      	<type>Not Observed<description>Footstone</description></type>
+      </lookup>
+    </property>
+    <property name="Other items" type="enum">
+      <description>Other Items associated with grave</description>
+      <lookup>
+      	<type>None<description>Other items</description></type>
+      	<type>Vase<description>Other items</description></type>
+      	<type>Glass covered display<description>Other items</description></type>
+      	<type>Personal Items<description>Other items</description></type>
+      	<type>Photos<description>Other items</description></type>
+      	<type>Statues<description>Other items</description></type>
+      	<type>Tiles<description>Other items</description></type>
+      	<type>Shells<description>Other items</description></type>
+      	<type>Plantings<description>Other items</description></type>
+      	<type>Other<description>Other items</description></type>
+      </lookup>
+    </property>
+    <property name="Inscription" type="freetext">
+      <description>Inscription</description>
+    </property>
+    <property name="Inscription" type="freetext">
+      <description>Inscription</description>
+    </property>
+
 
 
 
