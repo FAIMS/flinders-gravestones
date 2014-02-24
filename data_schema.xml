@@ -175,19 +175,101 @@
       	<type>Other<description>Other items</description></type>
       </lookup>
     </property>
-    <property name="Inscription" type="freetext">
-      <description>Inscription</description>
+    <property name="Motif" type="enum">
+      <description>Motif</description>
+      <lookup>
+      	<type>None<description>Motif</description></type>
+      	<type>Angel<description>Motif</description></type>
+      	<type>Wreath<description>Motif</description></type>
+      	<type>Hands<description>Motif</description></type>
+      	<type>Ribbon<description>Motif</description></type>
+      	<type>Dove<description>Motif</description></type>
+      	<type>Flowers<description>Motif</description></type>
+      	<type>Tree<description>Motif</description></type>
+      	<type>Ivy<description>Motif</description></type>
+      	<type>Other Foliage<description>Motif</description></type>
+      	<type>Book<description>Motif</description></type>
+      	<type>Cross<description>Motif</description></type>
+      	<type>Masonic<description>Motif</description></type>
+      	<type>War Service<description>Motif</description></type>
+      	<type>Pillar/Urn<description>Motif</description></type>
+      	<type>Anchor<description>Motif</description></type>
+      	<type>Other<description>Motif</description></type>
+      </lookup>
+    </property>
+    <property name="Motif Details" type="freetext">
+      <description>Motif Details</description>
     </property>
     <property name="Inscription" type="freetext">
       <description>Inscription</description>
     </property>
+    <property name="Style of language" type="enum">
+      <description>Style of Language</description>
+      <lookup>
+      	<type>Emotive<description> Style of Language </description></type>
+      	<type>Biographical<description> Style of Language </description></type>
+      	<type>Factual<description> Style of Language </description></type>
+      	<type>Religious<description> Style of Language </description></type>
+      </lookup>
+    </property>
+    <property name="Key words" type="enum">
+      <description>Inscription</description>
+      <lookup>
+      	<type>Sacred to the memory of<description>Key Words</description></type>
+      	<type>In loving memory of/In memory of<description>Key Words</description></type>
+      	<type>Beloved<description>Key Words</description></type>
+      	<type>Re-union/Re-united<description>Key Words</description></type>
+      	<type>Resting/Sleeping<description>Key Words</description></type>
+      	<type>Religeous<description>Key Words</description></type>
+      	<type>Personalised Inscription<description>Key Words</description></type>
+      	<type>Passed away/Leaving<description>Key Words</description></type>
+      	<type>War Service<description>Key Words</description></type>
+      	<type>No Embellishment<description>Key Words</description></type>
+      	<type>Other<description>Key Words</description></type>
+      </lookup>
+    </property>
+    <property name="Tense" type="enum">
+      <description>Inscription</description>
+      <lookup>
+      	<type>Written in first person ("I", "Me")<description>Tense</description></type>
+      	<type>Written in third person ("He", "She")<description>Tense</description></type>
+      	<type>Written by spouse<description>Tense</description></type>
+      	<type>Written by children<description>Tense</description></type>
+      	<type>Written by friend/other<description>Tense</description></type>
+      	<type>War Service<description>Tense</description></type>
+      </lookup>
+    </property>
+    <property name="Burials described in relation to" type="enum">
+      <description>Burials described in relation to</description>
+      <lookup>
+      	<type>Family patriarch<description>Burials described</description></type>
+      	<type>Order of death<description>Burials described</description></type>
+      	<type>Position within family unit (e.g mother,son, wife)<description>Burials described</description></type>
+      	<type>Unrelated to others<description>Burials described</description></type>
+      </lookup>
+    </property>
+    <property name="Plot type" type="enum">
+      <description>Plot type</description>
+      <lookup>
+      	<type>Individual (Single)<description>Plot type</description></type>
+      	<type>Double (2 People)<description>Plot type</description></type>
+      	<type>Group (>2)<description>Plot type</description></type>
+      </lookup>
+    </property>
+    <property name="Total number of internments" type="number">
+      <description>Internments</description>
+    </property>
+    <property name="Total number of headstones" type="number">
+      <description>Total number of headstones</description>
+    </property>
+  </ArchaeologicalElement>
 
-
-
-
-
-
-
-
-
+  <ArchaeologicalElement name="Burial">
+  	<property name="Name" type="freetext">
+      <description>Burial Name</description>
+    </property>
+    <property name="Burial Date" type="freetext">
+      <description>Date</description>
+    </property>
+  </ArchaeologicalElement>
 </dataSchema>
