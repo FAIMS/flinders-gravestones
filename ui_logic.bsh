@@ -4,13 +4,14 @@
  Database: hdb_alice_stonetools   Heurist user:Alice Buhrich
  ******/
 
+
 User user; // dont touch
 String userid;
 
 setSyncEnabled(true);
 setFileSyncEnabled(true);
 
-showWarning("Thanks for trying this module!", "We have provided this module for Demonstration purposes only. You can customise the module yourself or we can help you. Contact info@fedarch.org for help.");
+//showWarning("Thanks for trying this module!", "We have provided this module for Demonstration purposes only. You can customise the module yourself or we can help you. Contact info@fedarch.org for help.");
 
 /*** control ***/
 onEvent("control", "show", "refreshCemeteries()");
@@ -96,9 +97,9 @@ updateAllCemetery(){
 /*** ArchEnt: Graves ***/
 onEvent("control/grave/GraveList", "click", "loadGrave()");
 
-// onEvent("Artefact/Artefact_Visual_interptretation/attachPhoto", "click", "attachPictureTo(\"Artefact/Artefact_Visual_interptretation/Photo\")");
-// onEvent("Artefact/Artefact_Visual_interptretation/attachDrawing", "click", "attachFileTo(\"Artefact/Artefact_Visual_interptretation/Drawing\")");
-// onEvent("Artefact/Artefact_Visual_interptretation/viewattached", "click", "viewArchEntAttachedFiles(artefact_id)");
+onEvent("Grave/Grave/attachPhoto", "click", "attachPictureTo(\"Grave/Grave/Photo\")");
+onEvent("Grave/Grave/attachShape", "click", "attachFileTo(\"Grave/Grave/Shape\")");
+onEvent("Grave/Grave/viewattached", "click", "viewArchEntAttachedFiles(grave_id)");
 
 onEvent("Grave/Grave/Update", "delayclick", "saveGrave()");
 onEvent("Grave/Monument/Update", "delayclick", "saveGrave()");
@@ -109,7 +110,55 @@ onEvent("Grave/Plots", "show", "updateAllGrave()");
 onEvent("Grave/Plots/newBurial", "click", "newBurial()");
 onEvent("Grave/Plots/BurialList", "click", "loadBurial()");
 
+onEvent("Grave/Associated_Plots", "show", "refreshAssociatedPlots()" );
+onEvent("Grave/Associated_Plots/AddPlot", "click", "makeGraveGraveReln()");
+onEvent("Grave/Associated_Plots/Associate_plot", "click", "getAssociatedValue()");
+
+
+
 String grave_id = null;
+String new_grave_id = null;
+getAssociatedValue(){
+    new_grave_id = getListItemValue();
+}
+
+makeGraveGraveReln(){
+    if(isNull(new_grave_id)){ 
+        showWarning("Please select a plot to associate");
+    } else {
+        saveEntitiesToRel("GraveGrave", grave_id, new_grave_id);
+        showTab("Grave/Associated_Plots");
+    }
+}
+refreshAssociatedPlots(){
+    populateDropDown("Grave/Associated_Plots/Associate_plot", fetchEntityList("Grave"));
+
+
+    if (!isNull(grave_id)){
+        graveInGrave = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+        "            FROM latestNonDeletedArchentIdentifiers\n"+
+        "           WHERE aenttypename = 'Grave'\n"+
+        "             AND uuid in (select uuid\n"+
+        "                            FROM latestNonDeletedAentReln\n"+
+        "                           where relationshipid in (select relationshipid\n"+
+        "                                                      FROM latestNonDeletedAentReln\n"+
+        "                                                      JOIN relationship using (relationshipid)\n"+
+        "                                                      JOIN relntype using (relntypeid)\n"+
+        "                                                     where uuid = "+grave_id+"\n"+
+        "                                                       and relntypeName = 'GraveGrave')\n"+
+        "                             and uuid != "+grave_id+")\n"+
+        "        ORDER BY uuid, attributename ASC)\n"+
+        "group by uuid\n"+
+        "order by valuetimestamp desc, uuid, attributename;");
+        populateDropDown("Grave/Associated_Plots/Associated_Plots",  graveInGrave);
+    } else {
+        showToast("please dont show this");
+        Object empty = fetchAll("select '', '';");
+        populateDropDown("Grave/Associated_Plots/Associated_Plots",  empty);
+
+    }
+}
 
 refreshGraves() {
     populateList("control/grave/GraveList", fetchEntityList("Grave"));
@@ -122,7 +171,7 @@ newGrave(){
 }
 
 loadGrave() {
-    artefact_id = getListItemValue();
+    grave_id = getListItemValue();
     loadGraveFrom(grave_id);
 }
 loadGraveFrom(entid) {
@@ -132,6 +181,7 @@ loadGraveFrom(entid) {
 }
 
 saveGrave() {
+
     if (false){ 
         showWarning("Logic Error", "Cannot save record without id");
         return;
@@ -164,6 +214,7 @@ makeCemeteryGraveReln() {
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
     }
+    print(cemetery_id);
     saveEntitiesToRel("CemeteryGrave", cemetery_id, grave_id);
 }
 
@@ -181,12 +232,12 @@ loadGraveAttributes(){
     populateCheckBoxGroup("Grave/Inscription/Key_words", makeVocab("Key words"));
     populateCheckBoxGroup("Grave/Inscription/Tense", makeVocab("Tense"));
     populateCheckBoxGroup("Grave/Inscription/Burials_described_in_relation_to", makeVocab("Burials described in relation to"));
-    populateCheckBoxGroup("Grave/Plots/Plot_type", makeVocab("Plot type"));
+    populateDropDown("Grave/Plots/Plot_type", makeVocab("Plot type"));
 }
 
-updateAllArtefact(){
+updateAllGrave(){
     if (!isNull(grave_id)){
-        burialsInGrave= fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        burialsInGrave = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
         "            FROM latestNonDeletedArchentIdentifiers\n"+
         "           WHERE aenttypename = 'Burial'\n"+
@@ -204,79 +255,70 @@ updateAllArtefact(){
         "order by valuetimestamp desc, uuid, attributename;");
         populateList("Grave/Plots/BurialList",  burialsInGrave);
     } else {
+        showToast("grave empty... beware undead");
         Object empty = fetchAll("select '', '';");
         populateList("Grave/Plots/BurialList",  empty);
+
     }
 }      
 
 /*** ArchEnt: Report ***/
 
+onEvent("Burial/Burial/Update", "delayclick", "saveBurial()");
 
-// onEvent("control/report/ReportList", "click", "loadReport()");
-// onEvent("Report/Report/Update", "delayclick", "saveReport()");
+String burial_id = null;
 
-String report_id = null;
-
-refreshReports() {
-    populateList("control/report/ReportList", fetchEntityList("Report"));
+newBurial(){
+    burial_id = null;
+    newTabGroup("Burial");
+    saveGrave();
 }
 
-newReport(){
-    report_id = null;
-    newTabGroup("Report");
-    saveArtefact();
+loadBurial() {
+    burial_id = getListItemValue();
+    loadBurialFrom(burial_id);
 }
 
-loadReport() {
-    report_id = getListItemValue();
-    loadReportFrom(report_id);
-}
-
-loadReportFrom(entid) {
-    report_id = entid;
+loadBurialFrom(entid) {
+    burial_id = entid;
     if (isNull(entid)) return;
-    showTabGroup("Report", entid);
+    showTabGroup("Burial", entid);
 }
 
-saveReport() {
+saveBurial() {
     if (false){ 
         showWarning("Logic Error", "Cannot save record without id");
         return;
     }
     
-    if (!isNull(report_id)) {
-        entity = fetchArchEnt(report_id);
+    if (!isNull(burial_id)) {
+        entity = fetchArchEnt(burial_id);
     }
     // first null is map data
-    saveTabGroup("Report", report_id, null, null, "makeArtefactReportReln();");
+    saveTabGroup("Burial", burial_id, null, null, "makeGraveBurialReln();");
 }
 
-makeArtefactReportReln() {
-    report_id = getLastSavedRecordId(); 
-    if (isNull(artefact_id)) {
-        Object artefactElement = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+makeGraveBurialReln() {
+    burial_id = getLastSavedRecordId(); 
+    if (isNull(grave_id)) {
+        grave_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
         "            FROM latestNonDeletedArchentIdentifiers\n"+
-        "           WHERE aenttypename = 'Artefact'\n"+
+        "           WHERE aenttypename = 'Grave'\n"+
         "             AND uuid in (select uuid\n"+
         "                            FROM latestNonDeletedAentReln\n"+
         "                           where relationshipid in (select relationshipid\n"+
         "                                                      FROM latestNonDeletedAentReln\n"+
         "                                                      JOIN relationship using (relationshipid)\n"+
         "                                                      JOIN relntype using (relntypeid)\n"+
-        "                                                     where uuid = "+report_id+"\n"+
-        "                                                       and relntypeName = 'ArtefactReport')\n"+
-        "                             and uuid != "+report_id+")\n"+
+        "                                                     where uuid = "+burial_id+"\n"+
+        "                                                       and relntypeName = 'GraveBurial')\n"+
+        "                             and uuid != "+burial_id+")\n"+
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
-        artefact_id = artefactElement.get(0);
     }
-    saveEntitiesToRel("ArtefactReport", artefact_id, report_id);
-}
-
-loadReportAttributes(){
-    populateRadioGroup("Report/Report/Published", makeVocab("Published"));
+    saveEntitiesToRel("GraveBurial", burial_id, grave_id);
 }
 
 // MISC FUNCTIONS    
