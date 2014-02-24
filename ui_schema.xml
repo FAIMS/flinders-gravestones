@@ -55,6 +55,7 @@
               <National_trust_guide_number/>
               <Shape/>
               <Photo/>
+              <attachPhoto/>
               <Mason/>
               <Town/>
               <Update/>
@@ -159,33 +160,23 @@
     </group>
     <group ref="control">
       <label/>
-      <group ref="collection" faims_scrollable="false">
-        <label>Collections</label>
-        <trigger ref="newCollection">
-          <label>New Collection</label>
+      <group ref="cemetery" faims_scrollable="false">
+        <label>Cemetery</label>
+        <trigger ref="newCemetery">
+          <label>New Cemetery</label>
         </trigger>
-        <select1 appearance="compact" ref="CollectionList">
-          <label>Collections:</label>
+        <select1 appearance="compact" ref="CemeteryList">
+          <label>Cemetery:</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
       </group>
-      <group ref="artefact" faims_scrollable="false">
-        <label>Artefacts</label>
-        <select1 appearance="compact" ref="ArtefactList">
-          <label>Artefacts:</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-      </group>
-      <group ref="report" faims_scrollable="false">
-        <label>Reports</label>
-        <select1 appearance="compact" ref="ReportList">
-          <label>Reports:</label>
+      <group ref="grave" faims_scrollable="false">
+        <label>Graves</label>
+        <select1 appearance="compact" ref="GraveList">
+          <label>Grave:</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
@@ -194,319 +185,66 @@
       </group>
     </group>
     
-    <!--ARTEFACT-->
-    <group ref="Artefact" faims_archent_type="Artefact">
-      <label>{Artefact}</label>
-      <group ref="Artefact_Description">
-        <label>{Description}</label>
-        <input ref="Inventory_Number" faims_attribute_name="Inventory Number" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Inventory_Number}</label>
+    <!--CEMETERY-->
+    <group ref="Cemetery" faims_archent_type="Cemetery">
+      <label>Cemetery</label>
+      <group ref="Cemetery_Admin">
+        <label>Administration</label>
+        <input ref="Site" faims_attribute_name="Site" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Site/Location</label>
         </input>
-        <input ref="Other_ID" faims_attribute_name="Other ID" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Other_ID}</label>
+        <input ref="Date_of_recording" faims_attribute_name="Date of recording" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Date of recording</label>
         </input>
-        <select1 ref="Artefact_Classification" faims_attribute_name="Artefact Classification" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Artefact_Type}</label>
+        <select1 ref="Denomination" faims_attribute_name="Denomination" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false" appearance="full">
+          <label>Denomination</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
-        <select1 ref="Completeness" faims_attribute_name="Completeness" faims_certainty="true" appearance="full" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Completeness}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <select1 ref="Raw_material" faims_attribute_name="Raw material" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Raw_material}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <select1 ref="Location_of_raw_material" faims_attribute_name="Location of raw material" faims_certainty="true" appearance="full" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Is_the_raw_material}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <input ref="Width" faims_attribute_name="Width" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Width_-_median_(mm)}</label>
-        </input>
-        <input ref="Width_max" faims_attribute_name="Width max" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Width_-_maximum}</label>
-        </input>
-        <input ref="Width_minimum" faims_attribute_name="Width - minimum" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Width_-_minimum}</label>
-        </input>
-        <input ref="Length" faims_attribute_name="Length" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Length_-_median_(mm)}</label>
-        </input>
-        <input ref="Length_maximum" faims_attribute_name="Length maximum" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Length_-_maximum}</label>
-        </input>
-        <input ref="Length_minimum" faims_attribute_name="Length minimum" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Length_-_minimum}</label>
-        </input>
-        <input ref="Thickness" faims_attribute_name="Thickness" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Thickness_(mm)}</label>
-        </input>
-        <input ref="Perimeter" faims_attribute_name="Perimeter" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Perimeter}</label>
-        </input>
-        <input ref="Weight" faims_attribute_name="Weight" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Weight}</label>
-        </input>
-        <input ref="Description_note" faims_attribute_name="Description - note" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Description_-_note}</label>
-        </input>
         <trigger ref="Update">
-          <label>{Save_Record}</label>
+          <label>Save Record</label>
         </trigger>
       </group>
-      <group ref="Artefact_Axe_attributes" faims_hidden="true">
-        <label>{Axe_attributes}</label>
-        <select1 ref="Axe_head_shape" faims_attribute_name="Axe head shape" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Axe_head_shape}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <select1 ref="Ground_edge_" faims_attribute_name="Ground edge" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Ground_edge_}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <input ref="Ground_edge_length" faims_attribute_name="Ground edge length" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Ground_edge_length}</label>
-        </input>
-        <input ref="Perimeter_ground_" faims_attribute_name="Perimeter ground %" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Perimeter_ground_%}</label>
-        </input>
-        <input ref="Single_Waist_Width" faims_attribute_name="Waist 1 - width" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Single Waist Width</label>
-        </input>
-        <input ref="Double_Waist_Width" faims_attribute_name="Waist 2 - width" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Double Waist Width</label>
-        </input>
-        <input ref="Triple_Waist_Width" faims_attribute_name="Waist 3 - width" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Triple Waist Width</label>
-        </input>
-        <input ref="Notes_on_axe_attributes" faims_attribute_name="Notes on axe attributes" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Notes_on_axe_attributes}</label>
-        </input>
-        <trigger ref="Update">
-          <label>{Save_Record}</label>
+      <group ref="Cemetery_Graves" faims_hidden="true" faims_scrollable="false">
+        <label>Graves</label>
+        <trigger ref="newGrave">
+          <label>New Cemetery</label>
         </trigger>
-      </group>
-      <group ref="Artefact_Ooyurka_attributes" faims_hidden="true" >
-        <label>{Ooyurka_attributes}</label>
-        <input ref="Use_wear" faims_attribute_name="Use wear" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Use_wear}</label>
-        </input>
-        <input ref="Other" faims_attribute_name="Other" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Other}</label>
-        </input>
-        <select1 ref="Shape_" faims_attribute_name="Shape" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Shape_}</label>
+        <select1 appearance="compact" ref="GraveList">
+          <label>Grave:</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
-        <select1 ref="Base" faims_attribute_name="Base" faims_certainty="true" appearance="full" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Base}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <select1 ref="Symmetry" faims_attribute_name="Symmetry" faims_certainty="true" appearance="full" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Symmetry}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <input ref="Working_face_width_mm_" faims_attribute_name="Working face width (mm)" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Working_face_width_(mm)}</label>
-        </input>
-        <input ref="Working_face_length_mm_" faims_attribute_name="Working face length (mm)" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Working_face_length_(mm)}</label>
-        </input>
-        <input ref="Body_length_mm_" faims_attribute_name="Body length (mm)" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Body_length_(mm)}</label>
-        </input>
-        <input ref="Neck_width_at_mid_point_mm_" faims_attribute_name="Neck width at mid point (mm)" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Neck_width_at_mid_point_(mm)}</label>
-        </input>
-        <trigger ref="Update">
-          <label>{Save_Record}</label>
-        </trigger>
       </group>
-      <group ref="Artefact_Morah" faims_hidden="true">
-        <label>{Morah}</label>
-        <input ref="Incised_surfaces" faims_attribute_name="Incised surfaces" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Incised_surfaces}</label>
+    </group>
+
+    <!--GRAVE-->
+    <group ref="Grave" faims_archent_type="Grave">
+      <label>Grave</label>
+      <group ref="Grave">
+        <label>Grave</label>
+        <input ref="Grave_number" faims_attribute_name="Grave number" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Grave Number</label>
         </input>
-        <input ref="Incisions_no_" faims_attribute_name="Incisions (no.)" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{No._incisions_on_main_surface}</label>
+        <input ref="Family_name" faims_attribute_name="Family Name" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Family Name</label>
         </input>
-        <input ref="No_of_incisions_2nd_surface" faims_attribute_name="No of incisions - 2nd surface" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{No_of_incisions_-_2nd_surface}</label>
+        <input ref="National_trust_guide_number" faims_attribute_name="National trust guide number" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
+          <label>National Trust Guide Number</label>
         </input>
-        <input ref="Notes_morah" faims_attribute_name="Notes morah" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Notes_morah}</label>
-        </input>
-        <trigger ref="Update">
-          <label>{Save_Record}</label>
-        </trigger>
-      </group>
-      <group ref="Artefact_Nut_cracking_rock" faims_hidden="true">
-        <label>{Nut_cracking_rock}</label>
-        <input ref="Cupules_no_" faims_attribute_name="Cupules (no.)" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Cupules_1st_surface}</label>
-        </input>
-        <input ref="Cupule_no_2nd_side" faims_attribute_name="Cupule no. 2nd side" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>{Cupules_2nd_surface}</label>
-        </input>
-        <select1 ref="Portablility" faims_attribute_name="Portablility" faims_certainty="true" appearance="full" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Portablility}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <input ref="Notes_nut_cracking" faims_attribute_name="Notes nut cracking" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Notes_nut_cracking}</label>
-        </input>
-        <trigger ref="Update">
-          <label>{Save_Record}</label>
-        </trigger>
-      </group>
-      <group ref="Artefact_Pebble_attributes" faims_hidden="true">
-        <label>{Pebble_attributes}</label>
-        <select ref="Pebble_attributes" faims_attribute_name="Pebble attributes" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Pebble_attributes}</label>
+        <select ref="Shape" faims_attribute_name="Shape" faims_certainty="true" faims_attribute_type="freetext" type="file" faims_annotation="false">
+          <label>Shape</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <trigger ref="Update">
-          <label>{Save_Record}</label>
-        </trigger>
-      </group>
-      <group ref="Artefact_Attributes_other" faims_hidden="true">
-        <label>{Attributes_-_other}</label>
-        <select ref="Attributes" faims_attribute_name="Attributes" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Attributes}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select>
-        <input ref="Notes_attributes" faims_attribute_name="Notes attributes" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Notes_attributes}</label>
-        </input>
-        <trigger ref="Update">
-          <label>{Save_Record}</label>
-        </trigger>
-      </group>
-      <group ref="Artefact_Provenance">
-        <label>{Provenance}</label>
-        <input ref="Name_of_locality_where_found" faims_attribute_name="Name of locality where found" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Name_of_locality_where_found}</label>
-        </input>
-        <input ref="Location_description" faims_attribute_name="Location description" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Location_description}</label>
-        </input>
-        <select1 ref="Locality" faims_attribute_name="Locality" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Locality}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <select1 ref="Landform_where_found" faims_attribute_name="Landform where found" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Landform_where_found}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <select1 ref="Geological_substrate" faims_attribute_name="Geological substrate" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Geological_substrate}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <input ref="Lat" faims_attribute_name="Lat" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Latitude</label>
-        </input>
-        <input ref="Long" faims_attribute_name="Long" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Longitude</label>
-        </input>
-        <input ref="Error_in_metres" faims_attribute_name="Error_in_metres" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Error in metres</label>
-        </input>
-        <input ref="Notes" faims_attribute_name="Notes" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Notes}</label>
-        </input>
-        <input ref="Contact_details" faims_attribute_name="Contact details" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Name}</label>
-        </input>
-        <select1 ref="Activity" faims_attribute_name="Activity" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Activity}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <input ref="Date_found" faims_attribute_name="Date found" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Date_found}</label>
-        </input>
-        <trigger ref="Update">
-          <label>{Save_Record}</label>
-        </trigger>
-      </group>
-      <group ref="Artefact_Preservation">
-        <label>{Preservation}</label>
-        <select1 ref="Condition_of_object" faims_attribute_name="Condition of object" faims_certainty="true" appearance="full" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Condition_of_object}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <select1 ref="How_is_the_item_stored" faims_attribute_name="How is the item stored" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{How_is_the_item_stored}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <input ref="Storage" faims_attribute_name="Storage" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Storage_-_other}</label>
-        </input>
-        <input ref="Preservation_notes" faims_attribute_name="Preservation notes" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Preservation_notes}</label>
-        </input>
-        <trigger ref="Update">
-          <label>{Save_Record}</label>
-        </trigger>
-      </group>
-      <group ref="Artefact_Visual_interptretation">
-        <label>{Visual,_interptretation}</label>
         <select ref="Photo" faims_attribute_name="Photo" faims_certainty="true" faims_attribute_type="freetext" faims_sync="true" type="camera" faims_annotation="false">
-          <label>{Photo}</label>
+          <label>Photo</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
@@ -515,140 +253,215 @@
         <trigger ref="attachPhoto">
           <label>Take Picture</label>
         </trigger>
-        <select ref="Drawing" faims_attribute_name="Drawing" faims_certainty="true" faims_attribute_type="freetext" type="file" faims_annotation="false">
-          <label>{Drawing}</label>
+        <input ref="Mason" faims_attribute_name="Mason" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Mason</label>
+        </input>
+        <input ref="Town" faims_attribute_name="Family Name" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Town</label>
+        </input>
+        <trigger ref="Update">
+          <label>Save Record</label>
+        </trigger>
+      </group>
+
+
+
+
+      <group ref="Monument">
+        <label>Monument</label>
+        <input ref="Total_height" faims_attribute_name="Total Height" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+          <label>Total Height (cm)</label>
+        </input>
+        <input ref="Plinth_height" faims_attribute_name="Plinth Height" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+          <label>Plinth Height (cm)</label>
+        </input>
+        <input ref="Plinth_depth" faims_attribute_name="Plinth depth" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+          <label>Plinth Depth (cm)</label>
+        </input>
+        <input ref="Headstone_height" faims_attribute_name="Headstone height" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+          <label>Headstone/monument height (cm)</label>
+        </input>
+        <input ref="Headstone_width" faims_attribute_name="Plinth width" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+          <label>Headstone/monument Width (cm)</label>
+        </input>
+        <input ref="Headstone_depth" faims_attribute_name="Headstone depth" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+          <label>Headstone/monument Depth (cm)</label>
+        </input>
+        <select1 appearance="full" ref="Orientation">
+          <label>Orientation</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 appearance="full" ref="Colour">
+          <label>Colour of Headstone</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 appearance="full" ref="Material">
+          <label>Material</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 appearance="full" ref="Fence">
+          <label>Fence/Border</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <input ref="Fence_height" faims_attribute_name="Fence height" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+          <label>Fence/Border Height</label>
+        </input>
+        <select1 appearance="full" ref="Lettering">
+          <label>Lettering</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 appearance="full" ref="Footstone">
+          <label>Includes Footstones</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select ref="Other_items">
+          <label>Other Items Associated With Grave</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <trigger ref="attachDrawing">
-          <label>Attach Drawing</label>
-        </trigger>
-        <trigger ref="viewattached">
-          <label>View Attached Drawings</label>
-        </trigger>
         <trigger ref="Update">
-          <label>{Save_Record}</label>
+          <label>Save Record</label>
         </trigger>
       </group>
-      <group ref="Artefact_Report" faims_scrollable="false">
-        <label>Reports</label>
-        <trigger ref="newReport">
-          <label>New Report</label>
-        </trigger>
-        <select1 appearance="compact" ref="ReportList" faims_certainty="false">
-          <label>Reports in collection:</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-      </group>
-    </group>
-    <!--COLLECTION-->
-    <group ref="Collection" faims_archent_type="Collection">
-      <label>{Collection}</label>
-      <group ref="Collection_GeneralInformation">
-        <label>Gen</label>
-        <input ref="Collection_name" faims_attribute_name="Collection name" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Collection_name}</label>
-        </input>
-        <input ref="Holder" faims_attribute_name="Holder" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Holder}</label>
-        </input>
-        <input ref="Organisation" faims_attribute_name="Organisation" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Organisation}</label>
-        </input>
-        <select1 ref="Identity" faims_attribute_name="Identity" faims_certainty="true" faims_attribute_type="vocab" faims_read_only="false">
-          <label>{Holder_identity}</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        
-        <trigger ref="Update">
-          <label>{Save_Record}</label>
-        </trigger>
-      </group>
-      <group ref="Collection_Location">
-        <label>{Location_}</label>
-        <input ref="Address" faims_attribute_name="Address / Location" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Address/_Location}</label>
-        </input>
-        <input ref="Summary" faims_attribute_name="Summary of collection" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Short_summary}</label>
-        </input>
-        <select ref="Thumbnail_image" faims_attribute_name="Picture of collection" faims_certainty="true" faims_attribute_type="freetext" faims_sync="true" type="camera" faims_annotation="false">
-          <label>{Image_of_collection/_location}</label>
+      <group ref="Motif">
+        <label>Motif</label>
+        <select appearance="full" ref="Motif">
+          <label>Motif</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <trigger ref="attachThumbnail_image">
-          <label>Take Picture</label>
-        </trigger>
-        <trigger ref="Update">
-          <label>{Save_Record}</label>
-        </trigger>
-      </group>
-      <group ref="Collection_Owner">
-        <label>Owner</label>
-        <input ref="Attitude_of_owner" faims_attribute_name="Attitude of owner" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Attitude_of_owner}</label>
-        </input>
-        <input ref="Contact_details" faims_attribute_name="Contact details" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>{Contact_details}</label>
+        <input ref="Motif_details" faims_attribute_name="Motif details" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Motif Details</label>
         </input>
         <trigger ref="Update">
-          <label>{Save_Record}</label>
+          <label>Save Record</label>
         </trigger>
       </group>
-      <group ref="Collection_Artefacts" faims_scrollable="false">
-        <label>Artefacts</label>
-        <trigger ref="newArtefact">
-          <label>New Artefact</label>
-        </trigger>
-        <select1 appearance="compact" ref="ArtefactList" faims_certainty="false">
-          <label>Artefacts in collection:</label>
+      <group ref="Inscription">
+        <label>Inscription</label>
+        <input ref="Inscription" faims_attribute_name="Inscription" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Inscription</label>
+        </input>
+        <select1 appearance="full" ref="Style_of_language">
+          <label>Style of languages</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
+        <select ref="Key_words">
+          <label>Key Wording</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+        <select1 appearance="full" ref="Tense">
+          <label>Tense/Author</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 appearance="full" ref="Burials_described_in_relaton_to">
+          <label>Burial(s) described in relaton to</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <trigger ref="Update">
+          <label>Save Record</label>
+        </trigger>
+      </group>
+      <group ref="Plots" faims_scrollable="false">
+        <label>Plots</label>
+        <select1 appearance="full" ref="Plot_type">
+          <label>Plot Type</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <input ref="Total_number_of_internments" faims_attribute_name="Total number of internments" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+          <label>Total number of internments in this plot</label>
+        </input>
+        <input ref="Total_number_of_headstones" faims_attribute_name="Total number of headstones" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+          <label>Total number of headstones in this plot</label>
+        </input>
+        <trigger ref="newBurial">
+          <label>New Burial</label>
+        </trigger>
+        <select1 appearance="compact" ref="BurialList" faims_certainty="false">
+          <label>Burials:</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+      </group>
+      <group ref="Associated_Plots">
+        <label>Associated Plots</label>
+        <select1 ref="Associate_plot">
+          <label>Associate Plots</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <trigger ref="AddPlot">
+          <label>Add Plot</label>
+        </trigger>
+        <select1 ref="Associate_plot">
+          <label>Associate Plots</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <trigger ref="ShowPlot">
+          <label>Show Plot</label>
+        </trigger>
+        <trigger ref="RemovePlot">
+          <label>Remove Plot</label>
+        </trigger>
       </group>
     </group>
-    <!--REPORT-->
-    <group ref="Report" faims_archent_type="Report">
-      <label>{Report}</label>
-      <group ref="Report">
-        <label>Report</label>
-        <input ref="Author" faims_attribute_name="Author" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
-          <label>Author</label>
+    <!--BURIAL-->
+    <group ref="Burial" faims_archent_type="Burial">
+      <label>Burial</label>
+      <group ref="Burial">
+        <label>Burial</label>
+        <input ref="Name" faims_attribute_name="Name" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Name</label>
         </input>
-        <input ref="Title" faims_attribute_name="Title" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
-          <label>Title</label>
-        </input>
-        <select1 ref="Published" faims_attribute_name="Published" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false" appearance="full">
-          <label>Published</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <input ref="Held_by" faims_attribute_name="Held by" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
-          <label>Held By</label>
-        </input>
-        <input ref="Year_of_publication" faims_attribute_name="Year of publication" faims_certainty="false" faims_attribute_type="measure" faims_read_only="false">
-          <label>Year of Publication</label>
-        </input>
-        <input ref="Access_requirements" faims_attribute_name="Access requirements" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
-          <label>Access Requirements</label>
+        <input ref="Date" faims_attribute_name="Date" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Date</label>
         </input>
         <trigger ref="Update">
-          <label>{Save_Record}</label>
+          <label>Save Record</label>
         </trigger>
       </group>
     </group>
