@@ -5,7 +5,7 @@
   <!--Database: hdb_alice_stonetools   Heurist user:Alice Buhrich-->
   <!-- ****** -->
   <h:head>
-    <h:title>hdb alice stonetools</h:title>
+    <h:title>flinder gravestones</h:title>
     <!--model lists user interface tabgroups, tabs and content of tabs-->
     <model>
       <instance>
@@ -25,10 +25,6 @@
           </user>
           <!--control tabgroup that contains button to manipulate entities: load, list, create-->
           <control>
-            <buttonholder>
-              <Cemetery/>
-              <Grave/>
-            </buttonholder>
             <cemetery>
               <newCemetery/>
               <CemeteryList/>
@@ -41,7 +37,7 @@
           <!--ArchEnt / Record Type: CEMETERY-->
           <Cemetery>
             <Cemetery_Admin>
-              <Site_ID/>
+              <Site/>
               <Date_of_recording/>
               <Denomination/>
               <Update/>
@@ -81,6 +77,10 @@
               <Other_items/>
               <Update/>
             </Monument>
+            <Motif>
+              <Motif/>
+              <Motif_details/>
+            </Motif>
             <Inscription>
               <Inscription/>
               <Style_of_language/>
@@ -113,49 +113,18 @@
         </faims>
       </instance>
       <!--list of numeric and blocktext(memo) attributes(fields)-->
-      <bind nodeset="/faims/Artefact/Artefact_Description/Width" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Description/Width_max" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Description/Width_minimum" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Description/Length" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Description/Length_maximum" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Description/Length_minimum" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Description/Thickness" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Description/Perimeter" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Description/Weight" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Description/Description_note" type="string"/>
-      <bind nodeset="/faims/Artefact/Artefact_Axe_attributes/Ground_edge_length" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Axe_attributes/Perimeter_ground_" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Axe_attributes/Single_Waist_Width" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Axe_attributes/Double_Waist_Width" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Axe_attributes/Triple_Waist_Width" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Axe_attributes/Notes_on_axe_attributes" type="string"/>
-      <bind nodeset="/faims/Artefact/Artefact_Ooyurka_attributes/Use_wear" type="string"/>
-      <bind nodeset="/faims/Artefact/Artefact_Ooyurka_attributes/Other" type="string"/>
-      <bind nodeset="/faims/Artefact/Artefact_Ooyurka_attributes/Working_face_width_mm_" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Ooyurka_attributes/Working_face_length_mm_" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Ooyurka_attributes/Body_length_mm_" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Ooyurka_attributes/Neck_width_at_mid_point_mm_" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Morah/Incised_surfaces" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Morah/Incisions_no_" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Morah/No_of_incisions_2nd_surface" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Morah/Notes_morah" type="string"/>
-      <bind nodeset="/faims/Artefact/Artefact_Nut_cracking_rock/Cupules_no_" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Nut_cracking_rock/Cupule_no_2nd_side" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Nut_cracking_rock/Notes_nut_cracking" type="string"/>
-      <bind nodeset="/faims/Artefact/Artefact_Attributes_other/Notes_attributes" type="string"/>
-
-      <bind nodeset="/faims/Artefact/Artefact_Provenance/Location_description" type="string"/>
-      <bind nodeset="/faims/Artefact/Artefact_Provenance/Notes" type="string"/>
-      <bind nodeset="/faims/Artefact/Artefact_Provenance/Lat" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Provenance/Long" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Provenance/Error_in_metres" type="decimal"/>
-      <bind nodeset="/faims/Artefact/Artefact_Provenance/Contact_details" type="string"/>
-      <bind nodeset="/faims/Artefact/Artefact_Preservation/Storage" type="string"/>
-      <bind nodeset="/faims/Artefact/Artefact_Preservation/Preservation_notes" type="string"/>
-      <bind nodeset="/faims/Collection/Collection_Location/Summary" type="string"/>
-      <bind nodeset="/faims/Collection/Collection_Owner/Attitude_of_owner" type="string"/>
-      <bind nodeset="/faims/Collection/Collection_Owner/Contact_details" type="string"/>
-      <bind nodeset="faims/Report/Report/Year_of_publication" type="decimal"/>
+      <bind nodeset="/faims/Grave/Monument/Total_height" type="decimal"/>
+      <bind nodeset="/faims/Grave/Monument/Plinth_height" type="decimal"/>
+      <bind nodeset="/faims/Grave/Monument/Plinth_depth" type="decimal"/>
+      <bind nodeset="/faims/Grave/Monument/Headstone_height" type="decimal"/>
+      <bind nodeset="/faims/Grave/Monument/Headstone_width" type="decimal"/>
+      <bind nodeset="/faims/Grave/Monument/Headstone_depth" type="decimal"/>
+      <bind nodeset="/faims/Grave/Monument/Fence_height" type="decimal"/>
+      <bind nodeset="/faims/Grave/Monument/Other_items" type="string"/>
+      <bind nodeset="/faims/Grave/Motif/Motif_details" type="string"/>
+      <bind nodeset="/faims/Grave/Inscription/Inscription" type="string"/>
+      <bind nodeset="/faims/Grave/Plots/Total_number_of_internments" type="decimal"/>
+      <bind nodeset="/faims/Grave/Plots/Total_number_of_headstones" type="decimal"/>
     </model>
   </h:head>
   <h:body>
