@@ -104,39 +104,39 @@
     <property name="Colour" type="enum">
       <description>Colour</description>
       <lookup>
-      	<type>Black<description>Colour of headstone</description></type>
-      	<type>White<description>Colour of headstone</description></type>
-      	<type>Grey<description>Colour of headstone</description></type>
-      	<type>Pink<description>Colour of headstone</description></type>
-      	<type>Other<description>Colour of headstone</description></type>
+      	<term>Black<description>Colour of headstone</description></term>
+      	<term>White<description>Colour of headstone</description></term>
+      	<term>Grey<description>Colour of headstone</description></term>
+      	<term>Pink<description>Colour of headstone</description></term>
+      	<term>Other<description>Colour of headstone</description></term>
       </lookup>
     </property>
     <property name="Material" type="enum">
       <description>Material of headstone</description>
       <lookup>
-      	<type>Slate<description> Material</description></type>
-      	<type>Marble<description> Material</description></type>
-      	<type>Granite<description> Material</description></type>
-      	<type>Cast Iron<description> Material</description></type>
-      	<type>Timber<description> Material</description></type>
-      	<type>Tile<description> Material</description></type>
-      	<type>Sandstone<description> Material</description></type>
-      	<type>Brick<description> Material</description></type>
-      	<type>Concrete<description> Material</description></type>
-      	<type>Cement<description> Material</description></type>
-      	<type>Other<description> Material</description></type>
+      	<term>Slate<description> Material</description></term>
+      	<term>Marble<description> Material</description></term>
+      	<term>Granite<description> Material</description></term>
+      	<term>Cast Iron<description> Material</description></term>
+      	<term>Timber<description> Material</description></term>
+      	<term>Tile<description> Material</description></term>
+      	<term>Sandstone<description> Material</description></term>
+      	<term>Brick<description> Material</description></term>
+      	<term>Concrete<description> Material</description></term>
+      	<term>Cement<description> Material</description></term>
+      	<term>Other<description> Material</description></term>
       </lookup>
     </property>
     <property name="Fence" type="enum">
       <description>Fence/Border of grave</description>
       <lookup>
-      	<type>None<description> Border of grave</description></type>
-      	<type>Cast Iron Picket<description> Border of grave</description></type>
-      	<type>Timber Picket<description> Border of grave</description></type>
-      	<type>Brick Border<description> Border of grave</description></type>
-      	<type>Stone Border<description> Border of grave</description></type>
-      	<type>Tile Border<description> Border of grave</description></type>
-      	<type>Other<description> Border of grave</description></type>
+      	<term>None<description> Border of grave</description></term>
+      	<term>Cast Iron Picket<description> Border of grave</description></term>
+      	<term>Timber Picket<description> Border of grave</description></term>
+      	<term>Brick Border<description> Border of grave</description></term>
+      	<term>Stone Border<description> Border of grave</description></term>
+      	<term>Tile Border<description> Border of grave</description></term>
+      	<term>Other<description> Border of grave</description></term>
       </lookup>
     </property>
     <property name="Fence height" type="number">
@@ -145,56 +145,56 @@
     <property name="Lettering" type="enum">
       <description>Lettering</description>
       <lookup>
-      	<type>Engraved<description>Lettering on headstone</description></type>
-      	<type>Lead<description>Lettering on headstone</description></type>
-      	<type>Engraved and Painted<description>Lettering on headstone</description></type>
-      	<type>Painted Only<description>Lettering on headstone</description></type>
-      	<type>Other<description>Lettering on headstone</description></type>
+      	<term>Engraved<description>Lettering on headstone</description></term>
+      	<term>Lead<description>Lettering on headstone</description></term>
+      	<term>Engraved and Painted<description>Lettering on headstone</description></term>
+      	<term>Painted Only<description>Lettering on headstone</description></term>
+      	<term>Other<description>Lettering on headstone</description></term>
       </lookup>
     </property>
     <property name="Footstone" type="enum">
       <description>Includes Footstone</description>
       <lookup>
-      	<type>Yes<description>Footstone</description></type>
-      	<type>No<description>Footstone</description></type>
-      	<type>Not Observed<description>Footstone</description></type>
+      	<term>Yes<description>Footstone</description></term>
+      	<term>No<description>Footstone</description></term>
+      	<term>Not Observed<description>Footstone</description></term>
       </lookup>
     </property>
     <property name="Other items" type="enum">
       <description>Other Items associated with grave</description>
       <lookup>
-      	<type>None<description>Other items</description></type>
-      	<type>Vase<description>Other items</description></type>
-      	<type>Glass covered display<description>Other items</description></type>
-      	<type>Personal Items<description>Other items</description></type>
-      	<type>Photos<description>Other items</description></type>
-      	<type>Statues<description>Other items</description></type>
-      	<type>Tiles<description>Other items</description></type>
-      	<type>Shells<description>Other items</description></type>
-      	<type>Plantings<description>Other items</description></type>
-      	<type>Other<description>Other items</description></type>
+      	<term>None<description>Other items</description></term>
+      	<term>Vase<description>Other items</description></term>
+      	<term>Glass covered display<description>Other items</description></term>
+      	<term>Personal Items<description>Other items</description></term>
+      	<term>Photos<description>Other items</description></term>
+      	<term>Statues<description>Other items</description></term>
+      	<term>Tiles<description>Other items</description></term>
+      	<term>Shells<description>Other items</description></term>
+      	<term>Plantings<description>Other items</description></term>
+      	<term>Other<description>Other items</description></term>
       </lookup>
     </property>
     <property name="Motif" type="enum">
       <description>Motif</description>
       <lookup>
-      	<type>None<description>Motif</description></type>
-      	<type>Angel<description>Motif</description></type>
-      	<type>Wreath<description>Motif</description></type>
-      	<type>Hands<description>Motif</description></type>
-      	<type>Ribbon<description>Motif</description></type>
-      	<type>Dove<description>Motif</description></type>
-      	<type>Flowers<description>Motif</description></type>
-      	<type>Tree<description>Motif</description></type>
-      	<type>Ivy<description>Motif</description></type>
-      	<type>Other Foliage<description>Motif</description></type>
-      	<type>Book<description>Motif</description></type>
-      	<type>Cross<description>Motif</description></type>
-      	<type>Masonic<description>Motif</description></type>
-      	<type>War Service<description>Motif</description></type>
-      	<type>Pillar/Urn<description>Motif</description></type>
-      	<type>Anchor<description>Motif</description></type>
-      	<type>Other<description>Motif</description></type>
+      	<term>None<description>Motif</description></term>
+      	<term>Angel<description>Motif</description></term>
+      	<term>Wreath<description>Motif</description></term>
+      	<term>Hands<description>Motif</description></term>
+      	<term>Ribbon<description>Motif</description></term>
+      	<term>Dove<description>Motif</description></term>
+      	<term>Flowers<description>Motif</description></term>
+      	<term>Tree<description>Motif</description></term>
+      	<term>Ivy<description>Motif</description></term>
+      	<term>Other Foliage<description>Motif</description></term>
+      	<term>Book<description>Motif</description></term>
+      	<term>Cross<description>Motif</description></term>
+      	<term>Masonic<description>Motif</description></term>
+      	<term>War Service<description>Motif</description></term>
+      	<term>Pillar/Urn<description>Motif</description></term>
+      	<term>Anchor<description>Motif</description></term>
+      	<term>Other<description>Motif</description></term>
       </lookup>
     </property>
     <property name="Motif Details" type="freetext">
@@ -206,54 +206,54 @@
     <property name="Style of language" type="enum">
       <description>Style of Language</description>
       <lookup>
-      	<type>Emotive<description> Style of Language </description></type>
-      	<type>Biographical<description> Style of Language </description></type>
-      	<type>Factual<description> Style of Language </description></type>
-      	<type>Religious<description> Style of Language </description></type>
+      	<term>Emotive<description> Style of Language </description></term>
+      	<term>Biographical<description> Style of Language </description></term>
+      	<term>Factual<description> Style of Language </description></term>
+      	<term>Religious<description> Style of Language </description></term>
       </lookup>
     </property>
     <property name="Key words" type="enum">
       <description>Inscription</description>
       <lookup>
-      	<type>Sacred to the memory of<description>Key Words</description></type>
-      	<type>In loving memory of/In memory of<description>Key Words</description></type>
-      	<type>Beloved<description>Key Words</description></type>
-      	<type>Re-union/Re-united<description>Key Words</description></type>
-      	<type>Resting/Sleeping<description>Key Words</description></type>
-      	<type>Religeous<description>Key Words</description></type>
-      	<type>Personalised Inscription<description>Key Words</description></type>
-      	<type>Passed away/Leaving<description>Key Words</description></type>
-      	<type>War Service<description>Key Words</description></type>
-      	<type>No Embellishment<description>Key Words</description></type>
-      	<type>Other<description>Key Words</description></type>
+      	<term>Sacred to the memory of<description>Key Words</description></term>
+      	<term>In loving memory of/In memory of<description>Key Words</description></term>
+      	<term>Beloved<description>Key Words</description></term>
+      	<term>Re-union/Re-united<description>Key Words</description></term>
+      	<term>Resting/Sleeping<description>Key Words</description></term>
+      	<term>Religeous<description>Key Words</description></term>
+      	<term>Personalised Inscription<description>Key Words</description></term>
+      	<term>Passed away/Leaving<description>Key Words</description></term>
+      	<term>War Service<description>Key Words</description></term>
+      	<term>No Embellishment<description>Key Words</description></term>
+      	<term>Other<description>Key Words</description></term>
       </lookup>
     </property>
     <property name="Tense" type="enum">
       <description>Inscription</description>
       <lookup>
-      	<type>Written in first person ("I", "Me")<description>Tense</description></type>
-      	<type>Written in third person ("He", "She")<description>Tense</description></type>
-      	<type>Written by spouse<description>Tense</description></type>
-      	<type>Written by children<description>Tense</description></type>
-      	<type>Written by friend/other<description>Tense</description></type>
-      	<type>War Service<description>Tense</description></type>
+      	<term>Written in first person ("I", "Me")<description>Tense</description></term>
+      	<term>Written in third person ("He", "She")<description>Tense</description></term>
+      	<term>Written by spouse<description>Tense</description></term>
+      	<term>Written by children<description>Tense</description></term>
+      	<term>Written by friend/other<description>Tense</description></term>
+      	<term>War Service<description>Tense</description></term>
       </lookup>
     </property>
     <property name="Burials described in relation to" type="enum">
       <description>Burials described in relation to</description>
       <lookup>
-      	<type>Family patriarch<description>Burials described</description></type>
-      	<type>Order of death<description>Burials described</description></type>
-      	<type>Position within family unit (e.g mother,son, wife)<description>Burials described</description></type>
-      	<type>Unrelated to others<description>Burials described</description></type>
+      	<term>Family patriarch<description>Burials described</description></term>
+      	<term>Order of death<description>Burials described</description></term>
+      	<term>Position within family unit (e.g mother,son, wife)<description>Burials described</description></term>
+      	<term>Unrelated to others<description>Burials described</description></term>
       </lookup>
     </property>
     <property name="Plot type" type="enum">
       <description>Plot type</description>
       <lookup>
-      	<type>Individual (Single)<description>Plot type</description></type>
-      	<type>Double (2 People)<description>Plot type</description></type>
-      	<type>Group (>2)<description>Plot type</description></type>
+      	<term>Individual (Single)<description>Plot type</description></term>
+      	<term>Double (2 People)<description>Plot type</description></term>
+      	<term>Group (>2)<description>Plot type</description></term>
       </lookup>
     </property>
     <property name="Total number of internments" type="number">
