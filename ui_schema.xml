@@ -27,15 +27,15 @@
           <control>
             <buttonholder>
               <Cemetery/>
-              <Plot/>
+              <Grave/>
             </buttonholder>
             <cemetery>
               <newCemetery/>
               <CemeteryList/>
             </cemetery>
-            <plot>
-              <PlotList/>
-            </plot>
+            <grave>
+              <GraveList/>
+            </grave>
           </control>
           <!--list of tabgroups for entities-->
           <!--ArchEnt / Record Type: CEMETERY-->
@@ -66,21 +66,50 @@
             <Monument>
               <Total_height/>
               <Plinth_height/>
-              <Plinth_width/>
-              <Headstonge_height/>
-              <viewattached/>
+              <Plinth_depth/>
+              <Headstone_height/>
+              <Headstone_width/>
+              <Headstone_depth/>
+              <Marker_form/>
+              <Orientation/>
+              <Colour/>
+              <Material/>
+              <Fence/>
+              <Fence_height/>
+              <Lettering/>
+              <Footstone/>
+              <Other_items/>
               <Update/>
-            </Collection_Location>
-            <Collection_Owner>
-              <Attitude_of_owner/>
-              <Contact_details/>
+            </Monument>
+            <Inscription>
+              <Inscription/>
+              <Style_of_language/>
+              <Key_words/>
+              <Tense/>
+              <Burials_described_in_relaton_to/>
               <Update/>
-            </Collection_Owner>
-            <Collection_Artefacts>
-              <newArtefact/>
-              <ArtefactList/>
-            </Collection_Artefacts>
+            </Inscription>
+            <Plots>
+              <Plot_type/>
+              <Total_number_of_internments/>
+              <Total_number_of_headstones/>
+              <newBurial/>
+              <BurialList/>
+            </Plots>
+            <Associated_Plots>
+              <Associate_plot/>
+              <AddPlot/>
+              <Associated_Plots/>
+              <ShowPlot/>
+              <RemovePlot/>
+            </Associated_Plots>
           </Grave>
+          <Burial>
+            <Burial>
+              <Name/>
+              <Date/>
+            </Burial>
+          </Burial>
         </faims>
       </instance>
       <!--list of numeric and blocktext(memo) attributes(fields)-->
