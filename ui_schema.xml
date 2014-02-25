@@ -275,14 +275,15 @@
           <label>Total Height (cm)</label>
         </input>
         <group faims_style="orientation" ref="Plinth_container">
+          <label>Plinth Container</label>
           <group faims_style="even" ref="Plinth_child0">
-            <label>Plinth_height</label>
+            <label>Plinth height</label>
             <input ref="Plinth_height" faims_attribute_name="Plinth height" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
               <label>Plinth Height</label>
             </input>
           </group>
           <group faims_style="even" ref="Plinth_child1">
-            <label>Plinth_depth</label>
+            <label>Plinth depth</label>
             <input ref="Plinth_depth" faims_attribute_name="Plinth depth" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
               <label>Plinth Depth</label>
             </input>
