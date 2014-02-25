@@ -265,7 +265,7 @@
   </ArchaeologicalElement>
 
   <ArchaeologicalElement name="Burial">
-  	<property name="Name" type="freetext">
+  	<property name="Name" type="freetext" isIdentifier="true">
       <description>Burial Name</description>
     </property>
     <property name="Burial Date" type="freetext">
