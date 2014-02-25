@@ -58,22 +58,22 @@
       <description>Town of grave</description>
     </property>
     <property name="Total height" type="number">
-      <description>Total height</description>
+      <description>Total height (cm)</description>
     </property>
     <property name="Plinth height" type="number">
-      <description>Plinth height</description>
+      <description>Plinth height (cm)</description>
     </property>
     <property name="Plinth depth" type="number">
-      <description>Plinth depth</description>
+      <description>Plinth depth (cm)</description>
     </property>
     <property name="Headstone height" type="number">
-      <description>Headstone height</description>
+      <description>Headstone height (cm)</description>
     </property>
     <property name="Headstone depth" type="number">
-      <description>Headstone depth</description>
+      <description>Headstone depth (cm)</description>
     </property>
     <property name="Headstone width" type="number">
-      <description>Headstone width</description>
+      <description>Headstone width (cm)</description>
     </property>
     <property name="Marker form" type="enum">
       <description>Marker form</description>

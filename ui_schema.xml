@@ -54,14 +54,18 @@
               <Photo/>
               <attachPhoto/>
               <viewattached/>
-              <Mason/>
-              <Town/>
               <Update/>
             </Grave>
-            <Monument>
+            <Marker>
               <Total_height/>
-              <Plinth_height/>
-              <Plinth_depth/>
+              <Plinth_container>
+                <Plinth_child0>
+                  <Plinth_height/>
+                </Plinth_child0>
+                <Plinth_child1>
+                  <Plinth_depth/>
+                </Plinth_child1>
+              </Plinth_container>
               <Headstone_height/>
               <Headstone_width/>
               <Headstone_depth/>
@@ -74,8 +78,10 @@
               <Lettering/>
               <Footstone/>
               <Other_items/>
+              <Mason/>
+              <Town/>
               <Update/>
-            </Monument>
+            </Marker>
             <Motif>
               <Motif/>
               <Motif_details/>
@@ -114,14 +120,14 @@
         </faims>
       </instance>
       <!--list of numeric and blocktext(memo) attributes(fields)-->
-      <bind nodeset="/faims/Grave/Monument/Total_height" type="decimal"/>
-      <bind nodeset="/faims/Grave/Monument/Plinth_height" type="decimal"/>
-      <bind nodeset="/faims/Grave/Monument/Plinth_depth" type="decimal"/>
-      <bind nodeset="/faims/Grave/Monument/Headstone_height" type="decimal"/>
-      <bind nodeset="/faims/Grave/Monument/Headstone_width" type="decimal"/>
-      <bind nodeset="/faims/Grave/Monument/Headstone_depth" type="decimal"/>
-      <bind nodeset="/faims/Grave/Monument/Fence_height" type="decimal"/>
-      <bind nodeset="/faims/Grave/Monument/Other_items" type="string"/>
+      <bind nodeset="/faims/Grave/Marker/Total_height" type="decimal"/>
+      <bind nodeset="/faims/Grave/Marker/Plinth/Plinth_height" type="decimal"/>
+      <bind nodeset="/faims/Grave/Marker/Plinth/Plinth_depth" type="decimal"/>
+      <bind nodeset="/faims/Grave/Marker/Headstone_height" type="decimal"/>
+      <bind nodeset="/faims/Grave/Marker/Headstone_width" type="decimal"/>
+      <bind nodeset="/faims/Grave/Marker/Headstone_depth" type="decimal"/>
+      <bind nodeset="/faims/Grave/Marker/Fence_height" type="decimal"/>
+      <bind nodeset="/faims/Grave/Marker/Other_items" type="string"/>
       <bind nodeset="/faims/Grave/Motif/Motif_details" type="string"/>
       <bind nodeset="/faims/Grave/Inscription/Inscription" type="string"/>
       <bind nodeset="/faims/Grave/Plots/Total_number_of_internments" type="decimal"/>
@@ -259,35 +265,37 @@
         <trigger ref="attachPhoto">
           <label>Take Picture</label>
         </trigger>
-        <input ref="Mason" faims_attribute_name="Mason" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>Mason</label>
-        </input>
-        <input ref="Town" faims_attribute_name="Town" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
-          <label>Town</label>
-        </input>
         <trigger ref="Update">
           <label>Save Record</label>
         </trigger>
       </group>
-      <group ref="Monument">
-        <label>Monument</label>
+      <group ref="Marker">
+        <label>Marker</label>
         <input ref="Total_height" faims_attribute_name="Total height" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
           <label>Total Height (cm)</label>
         </input>
-        <input ref="Plinth_height" faims_attribute_name="Plinth height" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Plinth Height (cm)</label>
-        </input>
-        <input ref="Plinth_depth" faims_attribute_name="Plinth depth" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Plinth Depth (cm)</label>
-        </input>
+        <group faims_style="orientation" ref="Plinth_container">
+          <group faims_style="even" ref="Plinth_child0">
+            <label>Plinth_height</label>
+            <input ref="Plinth_height" faims_attribute_name="Plinth height" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+              <label>Plinth Height</label>
+            </input>
+          </group>
+          <group faims_style="even" ref="Plinth_child1">
+            <label>Plinth_depth</label>
+            <input ref="Plinth_depth" faims_attribute_name="Plinth depth" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+              <label>Plinth Depth</label>
+            </input>
+          </group>
+        </group>
         <input ref="Headstone_height" faims_attribute_name="Headstone height" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Headstone/monument height (cm)</label>
+          <label>Headstone/Marker height (cm)</label>
         </input>
         <input ref="Headstone_width" faims_attribute_name="Headstone width" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Headstone/monument Width (cm)</label>
+          <label>Headstone/Marker Width (cm)</label>
         </input>
         <input ref="Headstone_depth" faims_attribute_name="Headstone depth" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Headstone/monument Depth (cm)</label>
+          <label>Headstone/Marker Depth (cm)</label>
         </input>
         <select ref="Marker_form" faims_attribute_name="Marker form" faims_certainty="true" faims_attribute_type="vocab">
           <label>Marker Form</label>
@@ -296,13 +304,13 @@
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Orientation" faims_attribute_name="Orientation" faims_certainty="true" faims_attribute_type="vocab">
+        <select1 ref="Orientation" faims_attribute_name="Orientation" faims_certainty="true" faims_attribute_type="vocab">
           <label>Orientation</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
-        </select>
+        </select1>
         <select ref="Colour" faims_attribute_name="Colour" faims_certainty="true" faims_attribute_type="vocab">
           <label>Colour of Headstone</label>
           <item>
@@ -327,13 +335,13 @@
         <input ref="Fence_height" faims_attribute_name="Fence height" faims_certainty="true" faims_attribute_type="measure">
           <label>Fence/Border Height</label>
         </input>
-        <select ref="Lettering" faims_attribute_name="Lettering" faims_certainty="true" faims_attribute_type="vocab">
+        <select1 ref="Lettering" faims_attribute_name="Lettering" faims_certainty="true" faims_attribute_type="vocab">
           <label>Lettering</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
-        </select>
+        </select1>
         <select1 ref="Footstone" appearance="full" faims_attribute_name="Footstone" faims_certainty="true" faims_attribute_type="vocab">
           <label>Includes Footstones</label>
           <item>
@@ -348,6 +356,12 @@
             <value>placeholder</value>
           </item>
         </select>
+        <input ref="Mason" faims_attribute_name="Mason" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Mason</label>
+        </input>
+        <input ref="Town" faims_attribute_name="Town" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
+          <label>Town</label>
+        </input>
         <trigger ref="Update">
           <label>Save Record</label>
         </trigger>
