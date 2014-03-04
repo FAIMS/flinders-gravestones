@@ -41,9 +41,8 @@ loadCemeteryFrom(entid) {
 }
 
 saveCemetery() {
-    if (isNull(getFieldValue("Cemetery/Cemetery_Admin/Site"))) { 
-        showTabGroup("Cemetery");
-        showWarning("Validation Error", "Cannot save Cemetery without a Site/Location.");
+    if (false) { 
+        showWarning("Logic Error", "Cannot save record without id");
         return;
     }
     if (!isNull(cemetery_id)) {
@@ -89,7 +88,7 @@ onEvent("Grave/Grave/attachShape", "click", "attachFileTo(\"Grave/Grave/Shape\")
 onEvent("Grave/Grave/viewattached", "click", "viewArchEntAttachedFiles(grave_id)");
 
 onEvent("Grave/Grave/Update", "delayclick", "saveGrave()");
-onEvent("Grave/Marker/Update", "delayclick", "saveGrave()");
+onEvent("Grave/Monument/Update", "delayclick", "saveGrave()");
 onEvent("Grave/Motif/Update", "delayclick", "saveGrave()");
 onEvent("Grave/Inscription/Update", "delayclick", "saveGrave()");
 
@@ -126,9 +125,9 @@ loadGraveFrom(entid) {
 }
 
 saveGrave() {
-    if (isNull(getFieldValue("Grave/Grave/Family_name")) || isNull(getFieldValue("Grave/Grave/Grave_number"))){ 
-        showTabGroup("Grave");
-        showWarning("Validation Error", "Cannot save Grave without Grave Number or Family Name.");
+
+    if (false){ 
+        showWarning("Logic Error", "Cannot save record without id");
         return;
     }
     
@@ -168,14 +167,14 @@ makeCemeteryGraveReln() {
 }
 
 loadGraveAttributes(){
-    populateCheckBoxGroup("Grave/Marker/Marker_form", makeVocab("Marker form"));
-    populateDropDown("Grave/Marker/Orientation", makeVocab("Orientation"));
-    populateCheckBoxGroup("Grave/Marker/Colour", makeVocab("Colour"));
-    populateCheckBoxGroup("Grave/Marker/Material", makeVocab("Material"));
-    populateCheckBoxGroup("Grave/Marker/Fence", makeVocab("Fence"));
-    populateDropDown("Grave/Marker/Lettering", makeVocab("Lettering"));
-    populateCheckBoxGroup("Grave/Marker/Footstone", makeVocab("Footstone"));
-    populateCheckBoxGroup("Grave/Marker/Other_items", makeVocab("Other items"));
+    populateCheckBoxGroup("Grave/Monument/Marker_form", makeVocab("Marker form"));
+    populateCheckBoxGroup("Grave/Monument/Orientation", makeVocab("Orientation"));
+    populateCheckBoxGroup("Grave/Monument/Colour", makeVocab("Colour"));
+    populateCheckBoxGroup("Grave/Monument/Material", makeVocab("Material"));
+    populateCheckBoxGroup("Grave/Monument/Fence", makeVocab("Fence"));
+    populateCheckBoxGroup("Grave/Monument/Lettering", makeVocab("Lettering"));
+    populateCheckBoxGroup("Grave/Monument/Footstone", makeVocab("Footstone"));
+    populateCheckBoxGroup("Grave/Monument/Other_items", makeVocab("Other items"));
     populateCheckBoxGroup("Grave/Motif/Motif", makeVocab("Motif"));
     populateCheckBoxGroup("Grave/Inscription/Style_of_language", makeVocab("Style of language"));
     populateCheckBoxGroup("Grave/Inscription/Key_words", makeVocab("Key words"));
@@ -185,6 +184,7 @@ loadGraveAttributes(){
 }
 
 updateAllGrave(){
+    showToast("I'm happy");
     if (!isNull(grave_id)){
         burialsInGrave = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
@@ -219,8 +219,14 @@ makeGraveGraveReln(){
         showToast("Please select a plot to associate");
         return;
     } else {
-        saveEntitiesToRel("GraveGrave", grave_id, new_grave_id);
-        refreshAssociatedPlots();
+        if(isNull(grave_id)) {
+            showToast("Saving grave. Please click on Add Plot again.");
+            saveGrave();
+            return;
+        } else {
+            saveEntitiesToRel("GraveGrave", grave_id, new_grave_id);
+            refreshAssociatedPlots();
+        }
     }
 }
 
@@ -269,12 +275,11 @@ refreshAssociatedPlots(){
 }
 
 showPlot(){
-    new_grave_id = getFieldValue("Grave/Associated_Plots/Associated_Plots");
-    if(isNull(new_grave_id)) {
+    grave_id = getFieldValue("Grave/Associated_Plots/Associated_Plots");
+    if(isNull(grave_id)) {
         showToast("Please select a an associated plot to show");
         return;
     } else {
-        grave_id = new_grave_id;
         loadGraveFrom(grave_id);        
     }
 }
@@ -322,9 +327,8 @@ loadBurialFrom(entid) {
 }
 
 saveBurial() {
-    if (isNull("Burial/Burial/Name")){ 
-        showTabGroup("Burial");
-        showWarning("Validation Error", "Cannot save Burial without a Name.");
+    if (false){ 
+        showWarning("Logic Error", "Cannot save record without id");
         return;
     }
     
@@ -336,7 +340,7 @@ saveBurial() {
 }
 
 makeGraveBurialReln() {
-    burial_id = getLastSavedRecordId();
+    burial_id = getLastSavedRecordId(); 
     if (isNull(grave_id)) {
         grave_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
