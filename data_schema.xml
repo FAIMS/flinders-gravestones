@@ -31,7 +31,7 @@
   <!-- ARCHENT: PLOT -->
   <ArchaeologicalElement name="Plot">
     <!-- Admin tab -->
-    <property name="Site" type="freetext" isIdentifier="true">
+    <property name="Site" type="freetext">
       <description>Site of the cemetary</description>
     </property>
     <property name="Date" type="timestamp">
@@ -40,8 +40,7 @@
     <property name="Grave number" type="number" isIdentifier="true">
       <description>Number of grave</description>
     </property>
-    </property>
-        <property name="Orientation" type="enum">
+    <property name="Orientation" type="enum">
       <description>Orientation</description>
       <lookup>
         <term>North<description>Orientation of Plot</description></term>
@@ -160,7 +159,7 @@
   <!-- ARCHENT: MARKER -->
   <ArchaeologicalElement name="Marker">
     <!-- Marker tab -->
-    <property name="Form" type="enum">
+    <property name="Form" type="enum" isIdentifier="true">
       <description>Form</description>
       <lookup>
         <term>Tablet (Upright Slab)<description>Marker form</description></term>
@@ -204,7 +203,7 @@
         <term>Other<description>Colour of headstone</description></term>
       </lookup>
     </property>
-    <property name="Material" type="enum">
+    <property name="Material" type="enum" isIdentifier="true">
       <description>Material of headstone</description>
       <lookup>
         <term>Slate<description> Material</description></term>
@@ -246,7 +245,7 @@
     </property>
     
     <!-- Inscription tab -->
-    <property name="Inscription" type="freetext">
+    <property name="Inscription" type="freetext" isIdentifier="true">
       <description>Inscription</description>
     </property>
     <property name="Style of language" type="enum">
@@ -279,7 +278,6 @@
       <lookup>
         <term>Written in first person ("I", "Me")<description>Tense</description></term>
         <term>Written in third person ("He", "She")<description>Tense</description></term>
-        
       </lookup>
     </property>
     <property name="Author" type="enum">
@@ -303,7 +301,7 @@
 
   <!-- ARCHENT:MOTIF -->
   <ArchaeologicalElement name="Motif">
-    <property name="Motif" type="enum">
+    <property name="Motif" type="enum" isIdentifier="true">
       <description>Motif</description>
       <lookup>
       	<term>Body Parts<description>Body Parts on Headstones</description>
@@ -314,7 +312,7 @@
             <term>Hands, Holding a chain with a broken link<description>Symbolises the death of a family member.</description></term>
           </term>
         </term>
-        <term>Animals & Insects<description>Animals & Insects</description>
+        <term>Animals and Insects<description>Animals and Insects</description>
           <term>Ants<description>Christian industry.</description></term>
           <term>Bees<description>Resurrection; risen Christ.</description></term>
           <term>Bird/s in flight<description>Symbolic of the ‘winged soul.’ The representation of the soul by a bird goes back to ancient Egypt. Some older burial art features only wings to convey the symbol of divine mission. Often denote the graves of children, eternal life.</description></term>
