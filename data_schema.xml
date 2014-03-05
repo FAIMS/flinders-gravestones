@@ -1,70 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSchema name="flinders_gravestones" preparer="Pierre Estephan">
+<dataSchema name="flinders_Plotstones" preparer="Pierre Estephan">
 
-  <RelationshipElement name="CemeteryGrave" type="bidirectional">
-    <description>Implements a 1:N between Cemetery and its Graves</description>
+  <RelationshipElement name="CemeteryPlot" type="bidirectional">
+    <description>Implements a 1:N between Cemetery and its Plots</description>
   </RelationshipElement>
-  <RelationshipElement name="GraveBurial" type="bidirectional">
-    <description>Implements a 1:N between Graves and its burials</description>
+  <RelationshipElement name="PlotBurial" type="bidirectional">
+    <description>Implements a 1:N between Plots and its Burials</description>
   </RelationshipElement>
-  <RelationshipElement name="GraveGrave" type="bidirectional">
-    <description>Implements a N:N between related Graves</description>
+  <RelationshipElement name="PlotPlot" type="bidirectional">
+    <description>Implements a N:N between related Plots</description>
+  </RelationshipElement>
+  <RelationshipElement name="PlotMarker" type="bidirectional">
+    <description>Implements a 1:N between Plots and its Markers</description>
+  </RelationshipElement>
+  <RelationshipElement name="MarkerMotif" type="bidirectional">
+    <description>Implements a 1:N between Markers and its Motifs</description>
   </RelationshipElement>
 
+  <!-- ARCHENT: CEMETERY -->
   <ArchaeologicalElement name="Cemetery">
-  	<description>A collection of graves</description>
+  	<description>A collection of Plots</description>
   	<property name="Site" type="freetext" isIdentifier="true">
       <description>Site of the cemetary</description>
     </property>
     <property name="Date of recording" type="timestamp">
       <description>Date at time of recording</description>
     </property>
+  </ArchaeologicalElement>
+
+  <!-- ARCHENT: PLOT -->
+  <ArchaeologicalElement name="Plot">
+    <!-- Admin tab -->
+    <property name="Site" type="freetext" isIdentifier="true">
+      <description>Site of the cemetary</description>
+    </property>
+    <property name="Date" type="timestamp">
+      <description>Date</description>
+    </property>
+    <property name="Grave number" type="number" isIdentifier="true">
+      <description>Number of grave</description>
+    </property>
+    </property>
+        <property name="Orientation" type="enum">
+      <description>Orientation</description>
+      <lookup>
+        <term>North<description>Orientation of Plot</description></term>
+        <term>Northeast<description>Orientation of Plot</description></term>
+        <term>East<description>Orientation of Plot</description></term>
+        <term>Southeast<description>Orientation of Plot</description></term>
+        <term>South<description>Orientation of Plot</description></term>
+        <term>Southwest<description>Orientation of Plot</description></term>
+        <term>West<description>Orientation of Plot</description></term>
+        <term>Northwest<description>Orientation of Plot</description></term>
+      </lookup>
+    </property>
+    <property name="Number of headstones" type="number">
+      <description>Number of headstones</description>
+    </property>
+    <property type="file" name="Photo">
+      <description>Photo</description>
+    </property>
+
+    <!-- Historical info tab -->
+    <property name="Lease number" type="freetext">
+      <description>Number of the lease </description>
+    </property>
+    <property name="Lessee" type="freetext">
+      <description>Lessee</description>
+    </property>
+    <property name="Date of lease" type="freetext">
+      <description>Date of lease</description>
+    </property>
+    <property name="Number of burials" type="number">
+      <description>Number of burials</description>
+    </property>
+    <property name="Name" type="freetext">
+      <description>Name</description>
+    </property>
+    <property name="Date of death" type="freetext">
+      <description>Date of death</description>
+    </property>
+    <property name="Age at death" type="freetext">
+      <description>Age at death</description>
+    </property>
+    <property name="Cause of death" type="freetext">
+      <description>Cause of death</description>
+    </property>
+    <property name="Ministers" type="freetext">
+      <description>Ministers</description>
+    </property>
     <property name="Denomination" type="enum">
       <description>Denomination of cemetery</description>
       <lookup>
-      <term>Catholic<description>Denomination</description></term>
-      <term>Anglican<description>Denomination</description></term>
-      <term>Presbytarian<description>Denomination</description></term>
-      <term>Baptist<description>Denomination</description></term>
-      <term>Methodist<description>Denomination</description></term>
-      <term>Uniting<description>Denomination</description></term>
-      <term>Jewish<description>Denomination</description></term>
-      <term>Unknown<description>Denomination</description></term>
-      <term>Other<description>Denomination</description></term>
-  	  </lookup>
+        <term>Catholic<description>Denomination</description></term>
+        <term>Anglican<description>Denomination</description></term>
+        <term>Presbyterian<description>Denomination</description></term>
+        <term>Baptist<description>Denomination</description></term>
+        <term>Methodist<description>Denomination</description></term>
+        <term>Uniting<description>Denomination</description></term>
+        <term>Jewish<description>Denomination</description></term>
+        <term>Unknown<description>Denomination</description></term>
+        <term>Other<description>Denomination</description></term>
+      </lookup>
+    </property>
+    <property name="Sources" type="enum">
+      <description>Sources </description>
+      <lookup>
+        <term>Cemetery Records<description>Sources</description></term>
+        <term>Parish Register<description>Sources</description></term>
+        <term>Births/Deaths/Marriages<description>Sources</description></term>
+        <term>Other<description>Sources</description></term>
+      </lookup>
+    </property>
+  	
+    <!-- Plot tab -->
+    <property name="Plot type" type="enum">
+      <description>Plot type</description>
+      <lookup>
+        <term>Individual (Single)<description>Plot type</description></term>
+        <term>Double (2 People)<description>Plot type</description></term>
+        <term>Group (>2)<description>Plot type</description></term>
+      </lookup>
+    </property>
+    <property name="Number of interments" type="number">
+      <description>interments</description>
+    </property>
+    <property name="Fence" type="enum">
+      <description>Fence/Border of Plot</description>
+      <lookup>
+        <term>None<description> Border of Plot</description></term>
+        <term>Cast Iron Picket<description> Border of Plot</description></term>
+        <term>Timber Picket<description> Border of Plot</description></term>
+        <term>Brick Border<description> Border of Plot</description></term>
+        <term>Stone Border<description> Border of Plot</description></term>
+        <term>Tile Border<description> Border of Plot</description></term>
+        <term>Other<description> Border of Plot</description></term>
+      </lookup>
+    </property>
+    <property name="Fence height" type="number">
+      <description>Fence Height (cm)</description>
+    </property>
+    <property name="Other items" type="enum">
+      <description>Other Items associated with Plot</description>
+      <lookup>
+        <term>None<description>Other items</description></term>
+        <term>Vase<description>Other items</description></term>
+        <term>Glass covered display<description>Other items</description></term>
+        <term>Personal Items<description>Other items</description></term>
+        <term>Photos<description>Other items</description></term>
+        <term>Statues<description>Other items</description></term>
+        <term>Tiles<description>Other items</description></term>
+        <term>Shells<description>Other items</description></term>
+        <term>Plantings<description>Other items</description></term>
+        <term>Other<description>Other items</description></term>
+      </lookup>
     </property>
   </ArchaeologicalElement>
 
-  <ArchaeologicalElement name="Grave">
-  	<property name="Grave number" type="number" isIdentifier="true">
-      <description>Number of grave</description>
-    </property>
-    <property name="Family name" type="freetext" isIdentifier="true">
-      <description>Family name on grave</description>
-    </property>
-    <property name="National trust guide number" type="number">
-      <description>National trust guide number</description>
+  <!-- ARCHENT: MARKER -->
+  <ArchaeologicalElement name="Marker">
+    <!-- Marker tab -->
+    <property name="Form" type="enum">
+      <description>Form</description>
+      <lookup>
+        <term>Tablet (Upright Slab)<description>Marker form</description></term>
+        <term>Horizontal Slab<description>Marker form</description></term>
+        <term>Block<description>Marker form</description></term>
+        <term>Obelisk/Pillar<description>Marker form</description></term>
+        <term>Statue/Sculpture<description>Marker form</description></term>
+        <term>Cross<description>Marker form</description></term>
+        <term>Combination<description>Marker form</description></term>
+        <term>Other<description>Marker form</description></term>
+      </lookup>
     </property>
     <property name="Shape" type="file">
-      <description>Sketch of shape of grave</description>
-    </property>
-    <property name="Photo" type="file">
-      <description>Photo of grave</description>
-    </property>
-    <property name="Mason" type="freetext">
-      <description>Mason of grave</description>
-    </property>
-    <property name="Town" type="freetext">
-      <description>Town of grave</description>
-    </property>
-    <property name="Total height" type="number">
-      <description>Total height</description>
+      <description>Sketch of shape of Plot</description>
     </property>
     <property name="Plinth height" type="number">
       <description>Plinth height</description>
     </property>
     <property name="Plinth depth" type="number">
       <description>Plinth depth</description>
+    </property>
+    <property name="Pedestal height" type="number">
+      <description>Pedestal height</description>
     </property>
     <property name="Headstone height" type="number">
       <description>Headstone height</description>
@@ -75,82 +194,47 @@
     <property name="Headstone width" type="number">
       <description>Headstone width</description>
     </property>
-    <property name="Marker form" type="enum">
-      <description>Marker form</description>
+    <property name="Marker colour" type="enum">
+      <description>Marker colour</description>
       <lookup>
-      	<term>Tablet (Upright Slab)<description>Marker form</description></term>
-      	<term>Horizontal Slab<description>Marker form</description></term>
-      	<term>Block<description>Marker form</description></term>
-      	<term>Obelisk/Pillar<description>Marker form</description></term>
-      	<term>Statue/Sculpture<description>Marker form</description></term>
-      	<term>Cross<description>Marker form</description></term>
-      	<term>Combination<description>Marker form</description></term>
-      	<term>Other<description>Marker form</description></term>
-      </lookup>
-    </property>
-        <property name="Orientation" type="enum">
-      <description>Orientation</description>
-      <lookup>
-      	<term>North<description>Orientation of grave</description></term>
-      	<term>Northeast<description>Orientation of grave</description></term>
-      	<term>East<description>Orientation of grave</description></term>
-      	<term>Southeast<description>Orientation of grave</description></term>
-      	<term>South<description>Orientation of grave</description></term>
-      	<term>Southwest<description>Orientation of grave</description></term>
-      	<term>West<description>Orientation of grave</description></term>
-      	<term>Northwest<description>Orientation of grave</description></term>
-      </lookup>
-    </property>
-    <property name="Colour" type="enum">
-      <description>Colour</description>
-      <lookup>
-      	<term>Black<description>Colour of headstone</description></term>
-      	<term>White<description>Colour of headstone</description></term>
-      	<term>Grey<description>Colour of headstone</description></term>
-      	<term>Pink<description>Colour of headstone</description></term>
-      	<term>Other<description>Colour of headstone</description></term>
+        <term>Black<description>Colour of headstone</description></term>
+        <term>White<description>Colour of headstone</description></term>
+        <term>Grey<description>Colour of headstone</description></term>
+        <term>Pink<description>Colour of headstone</description></term>
+        <term>Other<description>Colour of headstone</description></term>
       </lookup>
     </property>
     <property name="Material" type="enum">
       <description>Material of headstone</description>
       <lookup>
-      	<term>Slate<description> Material</description></term>
-      	<term>Marble<description> Material</description></term>
-      	<term>Granite<description> Material</description></term>
-      	<term>Cast Iron<description> Material</description></term>
-      	<term>Timber<description> Material</description></term>
-      	<term>Tile<description> Material</description></term>
-      	<term>Sandstone<description> Material</description></term>
-      	<term>Brick<description> Material</description></term>
-      	<term>Concrete<description> Material</description></term>
-      	<term>Cement<description> Material</description></term>
-      	<term>Other<description> Material</description></term>
+        <term>Slate<description> Material</description></term>
+        <term>Marble<description> Material</description></term>
+        <term>Granite<description> Material</description></term>
+        <term>Cast Iron<description> Material</description></term>
+        <term>Timber<description> Material</description></term>
+        <term>Tile<description> Material</description></term>
+        <term>Sandstone<description> Material</description></term>
+        <term>Brick<description> Material</description></term>
+        <term>Concrete<description> Material</description></term>
+        <term>Cement<description> Material</description></term>
+        <term>Other<description> Material</description></term>
       </lookup>
-    </property>
-    <property name="Fence" type="enum">
-      <description>Fence/Border of grave</description>
-      <lookup>
-      	<term>None<description> Border of grave</description></term>
-      	<term>Cast Iron Picket<description> Border of grave</description></term>
-      	<term>Timber Picket<description> Border of grave</description></term>
-      	<term>Brick Border<description> Border of grave</description></term>
-      	<term>Stone Border<description> Border of grave</description></term>
-      	<term>Tile Border<description> Border of grave</description></term>
-      	<term>Other<description> Border of grave</description></term>
-      </lookup>
-    </property>
-    <property name="Fence height" type="number">
-      <description>Fence Height (cm)</description>
     </property>
     <property name="Lettering" type="enum">
       <description>Lettering</description>
       <lookup>
-      	<term>Engraved<description>Lettering on headstone</description></term>
-      	<term>Lead<description>Lettering on headstone</description></term>
-      	<term>Engraved and Painted<description>Lettering on headstone</description></term>
-      	<term>Painted Only<description>Lettering on headstone</description></term>
-      	<term>Other<description>Lettering on headstone</description></term>
+        <term>EnPlotd<description>Lettering on headstone</description></term>
+        <term>Lead<description>Lettering on headstone</description></term>
+        <term>EnPlotd and Painted<description>Lettering on headstone</description></term>
+        <term>Painted Only<description>Lettering on headstone</description></term>
+        <term>Other<description>Lettering on headstone</description></term>
       </lookup>
+    </property>
+    <property name="Mason" type="freetext">
+      <description>Mason of Plot</description>
+    </property>
+    <property name="Town" type="freetext">
+      <description>Town of Plot</description>
     </property>
     <property name="Footstone" type="enum">
       <description>Includes Footstone</description>
@@ -160,116 +244,131 @@
       	<term>Not Observed<description>Footstone</description></term>
       </lookup>
     </property>
-    <property name="Other items" type="enum">
-      <description>Other Items associated with grave</description>
-      <lookup>
-      	<term>None<description>Other items</description></term>
-      	<term>Vase<description>Other items</description></term>
-      	<term>Glass covered display<description>Other items</description></term>
-      	<term>Personal Items<description>Other items</description></term>
-      	<term>Photos<description>Other items</description></term>
-      	<term>Statues<description>Other items</description></term>
-      	<term>Tiles<description>Other items</description></term>
-      	<term>Shells<description>Other items</description></term>
-      	<term>Plantings<description>Other items</description></term>
-      	<term>Other<description>Other items</description></term>
-      </lookup>
-    </property>
-    <property name="Motif" type="enum">
-      <description>Motif</description>
-      <lookup>
-      	<term>None<description>Motif</description></term>
-      	<term>Angel<description>Motif</description></term>
-      	<term>Wreath<description>Motif</description></term>
-      	<term>Hands<description>Motif</description></term>
-      	<term>Ribbon<description>Motif</description></term>
-      	<term>Dove<description>Motif</description></term>
-      	<term>Flowers<description>Motif</description></term>
-      	<term>Tree<description>Motif</description></term>
-      	<term>Ivy<description>Motif</description></term>
-      	<term>Other Foliage<description>Motif</description></term>
-      	<term>Book<description>Motif</description></term>
-      	<term>Cross<description>Motif</description></term>
-      	<term>Masonic<description>Motif</description></term>
-      	<term>War Service<description>Motif</description></term>
-      	<term>Pillar/Urn<description>Motif</description></term>
-      	<term>Anchor<description>Motif</description></term>
-      	<term>Other<description>Motif</description></term>
-      </lookup>
-    </property>
-    <property name="Motif Details" type="freetext">
-      <description>Motif Details</description>
-    </property>
+    
+    <!-- Inscription tab -->
     <property name="Inscription" type="freetext">
       <description>Inscription</description>
     </property>
     <property name="Style of language" type="enum">
       <description>Style of Language</description>
       <lookup>
-      	<term>Emotive<description> Style of Language </description></term>
-      	<term>Biographical<description> Style of Language </description></term>
-      	<term>Factual<description> Style of Language </description></term>
-      	<term>Religious<description> Style of Language </description></term>
+        <term>Emotive<description> Style of Language </description></term>
+        <term>Biographical<description> Style of Language </description></term>
+        <term>Factual<description> Style of Language </description></term>
+        <term>Religious<description> Style of Language </description></term>
       </lookup>
     </property>
     <property name="Key words" type="enum">
       <description>Inscription</description>
       <lookup>
-      	<term>Sacred to the memory of<description>Key Words</description></term>
-      	<term>In loving memory of/In memory of<description>Key Words</description></term>
-      	<term>Beloved<description>Key Words</description></term>
-      	<term>Re-union/Re-united<description>Key Words</description></term>
-      	<term>Resting/Sleeping<description>Key Words</description></term>
-      	<term>Religeous<description>Key Words</description></term>
-      	<term>Personalised Inscription<description>Key Words</description></term>
-      	<term>Passed away/Leaving<description>Key Words</description></term>
-      	<term>War Service<description>Key Words</description></term>
-      	<term>No Embellishment<description>Key Words</description></term>
-      	<term>Other<description>Key Words</description></term>
+        <term>Sacred to the memory of<description>Key Words</description></term>
+        <term>In loving memory of/In memory of<description>Key Words</description></term>
+        <term>Beloved<description>Key Words</description></term>
+        <term>Re-union/Re-united<description>Key Words</description></term>
+        <term>Resting/Sleeping<description>Key Words</description></term>
+        <term>Religous<description>Key Words</description></term>
+        <term>Personalised Inscription<description>Key Words</description></term>
+        <term>Passed away/Leaving<description>Key Words</description></term>
+        <term>War Service<description>Key Words</description></term>
+        <term>No Embellishment<description>Key Words</description></term>
+        <term>Other<description>Key Words</description></term>
       </lookup>
     </property>
     <property name="Tense" type="enum">
       <description>Inscription</description>
       <lookup>
-      	<term>Written in first person ("I", "Me")<description>Tense</description></term>
-      	<term>Written in third person ("He", "She")<description>Tense</description></term>
-      	<term>Written by spouse<description>Tense</description></term>
-      	<term>Written by children<description>Tense</description></term>
-      	<term>Written by friend/other<description>Tense</description></term>
-      	<term>War Service<description>Tense</description></term>
+        <term>Written in first person ("I", "Me")<description>Tense</description></term>
+        <term>Written in third person ("He", "She")<description>Tense</description></term>
+        
+      </lookup>
+    </property>
+    <property name="Author" type="enum">
+      <description>Author</description>
+      <lookup>
+        <term>Written by Spouse<description>Author</description></term>
+        <term>Written by Children<description>Author</description></term>
+        <term>Written by Friend/Other<description>Author</description></term>
       </lookup>
     </property>
     <property name="Burials described in relation to" type="enum">
       <description>Burials described in relation to</description>
       <lookup>
-      	<term>Family patriarch<description>Burials described</description></term>
-      	<term>Order of death<description>Burials described</description></term>
-      	<term>Position within family unit (e.g mother,son, wife)<description>Burials described</description></term>
-      	<term>Unrelated to others<description>Burials described</description></term>
+        <term>Family patriarch<description>Burials described</description></term>
+        <term>Order of death<description>Burials described</description></term>
+        <term>Position within family unit (e.g mother,son, wife)<description>Burials described</description></term>
+        <term>Unrelated to others<description>Burials described</description></term>
       </lookup>
-    </property>
-    <property name="Plot type" type="enum">
-      <description>Plot type</description>
-      <lookup>
-      	<term>Individual (Single)<description>Plot type</description></term>
-      	<term>Double (2 People)<description>Plot type</description></term>
-      	<term>Group (>2)<description>Plot type</description></term>
-      </lookup>
-    </property>
-    <property name="Total number of interments" type="number">
-      <description>interments</description>
-    </property>
-    <property name="Total number of headstones" type="number">
-      <description>Total number of headstones</description>
     </property>
   </ArchaeologicalElement>
 
+  <!-- ARCHENT:MOTIF -->
+  <ArchaeologicalElement name="Motif">
+    <property name="Motif" type="enum">
+      <description>Motif</description>
+      <lookup>
+      	<term>Body Parts<description>Body Parts on Headstones</description>
+          <term>Arms outstretched<description>Plea for Mercy</description></term>
+          <term>Death's Head  files/data/gallery/headstones/DeathsHead.png<description>Death's Head Death or a reminder that death comes to everyone. A heart in the mouth of a death's head means the soul emerging triumphant from death.</description></term>
+          <term pictureURL="files/data/gallery/headstones/eyeofgod.png">Eye of God/All-Seeing Eye <description>The all-knowing and ever-present God. During the Renaissance period in Europe, it was common to illustrate the Eye of God surrounded by a triangle (the Holy Trinity). The eye within the triangle, surrounded by a circle and radiating rays of light is used to symbolize the holiness of the true God. [Known to be found in South Australian cemeteries (see McDougall and Vines 2004)]</description></term>
+          <term>Hands, holding<description>Hands, holding</description>
+            <term>Hands, Holding a chain with a broken link<description>Symbolises the death of a family member.</description></term>
+          </term>
+        </term>
+        <term>Animals & Insects<description>Animals & Insects</description>
+          <term>Ants<description>Christian industry.</description></term>
+          <term>Bees<description>Resurrection; risen Christ.</description></term>
+          <term>Bird/s in flight<description>Symbolic of the ‘winged soul.’ The representation of the soul by a bird goes back to ancient Egypt. Some older burial art features only wings to convey the symbol of divine mission. Often denote the graves of children, eternal life.</description></term>
+          <term>Butterfly<description>The soul. Although quite rare, it is occasionally seen on graves (most often of children). It is symbolic of the resurrection of Christ. The meaning is derived from the three stages of the life of the butterfly—the caterpillar, the chrysalis, and the butterfly. The three stages are symbols of life, death and resurrection. Short-life.</description></term>
+          <term>Cocoon or Chrysalis<description>The soul. Although quite rare, it is occasionally seen on graves (most often of children). It is symbolic of the resurrection of Christ. The meaning is derived from the three stages of the life of the butterfly—the caterpillar, the chrysalis, and the butterfly. The three stages are symbols of life, death and resurrection. Short-life.</description></term>
+          <term>Dog<description>Dogs often appear at the feet of medieval women, signifying the loyalty and inferior place of each in the chivalric order. Modern dogs only imply that the master was worth loving.</description></term>
+          <term>Dolphin<description>Portrays the idea of resurrection.</description></term>
+          <term>Dove<description>An important symbolic animal in Christianity representing the Holy Spirit. The white dove is referred to in the story of baptism of Christ. ‘And John bore record, saying, I saw the Spirit descending from heaven like a dove, and it abode upon him’ (Bible, John 1:32).  The descending dove is a very common motif on grave memorials.  Seven doves are representative of the seven spirits of God or the Holy Spirit in its sevenfold gifts of grace. Purity, devotion, Divine Spirit. People of the Jewish faith believe the dove to symbolize peace.</description></term>
+          <term>Dove and Olive Branch<description>Peace, hope or promise. This symbol stems from Judeo-Christian culture and the biblical story of Noah and the great flood.  When the dove returned to the ark with an olive branch from the Mount of Olives in its beak, it was a sign of God's forgiveness.  It is now a common secular symbol.</description></term>
+          <term>Dragon<description>Dramatically different interpretation between Eastern and Western cultures. In the Orient, the dragon protects humans from evil spirits and represents joy, health and fertility. But in Western cultures, the dragon possesses the negative traits of the snake, destruction, danger, depravity, and loss of innocence. In Jewish tradition, mythical danger, depravity, and loss of innocence. In Jewish tradition, mythical beasts like the dragon are messianic creatures. Also, a dragon being defeated by St. George depicts triumph over sin.</description></term>
+          <term>Eagle<description>Suggests courage and possibly a military career, symbol for Saint John.</description></term>
+          <term>Egg<description>Regeneration.  An ‘egg and dart’ motif was a common design in classical architecture and used on the edges of tombstones or as a frieze, symbolising resurrection after death.  The egg symbolised life and birth while the dart (arrow) depicted death.</description></term>
+          <term>Fish<description>Indictes faith.</description></term>
+          <term>Horse<description>Courage or generosity. An attribute of St. George, St. Martin, St. Maurice and St. Victor, all of whom are represented in Christian art on horseback. It was in honor of the crusaders.</description></term>
+          <term>Lamb<description>This is the most common animal symbol found on a child's grave. The lamb appears throughout the ages with great regularity in Christian art and because it is a symbol of Christ: ‘Behold the Lamb of God, which taketh away the sin of the world!’ (John 1:29).  The use of the lamb in religious art pre-dates Christianity and appears to have been used first by the Egyptians. It signifies purity and innocence. Christ in his sacrificial role and personifies: innocence, meekness, gentleness and humility.</description></term>
+          <term>Lion<description>The power of God and guards the tomb against evil spirits. Like other guardians, the lion's watch is as eternal as the stone of which it is depicted. The lion also recalls the courage and determination of the souls which they guard; they manifest the spirit of the departed. Resurrection.</description></term>
+          <term>Lion, Winged<description>St. Mark the Evangelist</description></term>
+          <term>Peacock<description>The incorruptibility of flesh, a symbol of immortality (even St. Augustine believed the peacock's flesh to have ‘antiseptic qualities’ and that it didn't corrupt), the peacock became a symbol of Christ and the Resurrection. Its image embellished everything from the Catacombs to everyday objects, like lamps, especially in early Romanesque and Byzantine churches. (The peacock, for obvious reasons, was also used as a symbol for pride, too).</description></term>
+          <term>Rooster<description>Awakening to resurrection. Vigilance.</description></term>
+          <term>Swallow<description>Indicates a child or motherhood.</description></term>
+        </term>
+        <term>Body Parts<description>Body Parts</description>
+          <term>Arms outstretched<description>Plea for mercy.</description></term>
+          <term pictureURL="files/data/gallery/headstones/deathsHead.png">Death's Head<description>Death or a reminder that death comes to everyone. A heart in the mouth of a death's head means the soul emerging triumphant from death.</description></term>
+          <term>Eye of God<description>Eye of God</description></term>
+        </term>
+      </lookup>
+    </property>
+    <property name="Location" type="freetext">
+      <description>Motif Location</description>
+      <lookup>
+        <term>On marker<description>Location</description></term>
+        <term>On fence/other<description>Location</description></term>
+      </lookup>
+    </property>   
+  </ArchaeologicalElement>
+
+  <!-- ARCHENT: BURIAL -->
   <ArchaeologicalElement name="Burial">
   	<property name="Name" type="freetext" isIdentifier="true">
       <description>Burial Name</description>
     </property>
-    <property name="Burial Date" type="freetext">
-      <description>Date</description>
+    <property name="Date of death" type="freetext">
+      <description>Date of death</description>
+    </property>
+    <property name="Age at death" type="freetext">
+      <description>Age at death</description>
+    </property>
+    <property name="Is primary burial" type="enum">
+      <description>Is primary burial</description>
+      <lookup>
+        <term>Yes<description>Is primary burial</description></term>
+        <term>No<description>Is not primary burial</description></term>
+      </lookup>
     </property>
   </ArchaeologicalElement>
 </dataSchema>
