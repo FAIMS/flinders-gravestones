@@ -8,6 +8,7 @@ setFileSyncEnabled(true);
 onEvent("control", "show", "refreshCemeteries()");
 onEvent("control", "show", "refreshPlots()");
 onEvent("control", "show", "loadPlotAttributes()");
+onEvent("control", "show", "loadBurialAttributes()");
 
 /*** ArchEnt: Cemetery ***/
 onEvent("control/cemetery/CemeteryList", "click", "loadCemetery()");
@@ -76,25 +77,26 @@ updateAllCemetery(){
 }
 
 /*** ArchEnt: Plot ***/
-onEvent("control/plot/GraveList", "click", "loadPlot()");
+onEvent("control/plot/PlotList", "click", "loadPlot()");
 
-onEvent("Grave/Grave/attachPhoto", "click", "attachPictureTo(\"Grave/Grave/Photo\")");
-onEvent("Grave/Grave/attachShape", "click", "attachFileTo(\"Grave/Grave/Shape\")");
-onEvent("Grave/Grave/viewattached", "click", "viewArchEntAttachedFiles(grave_id)");
+onEvent("Plot/Admin/attachPhoto", "delayclick", "attachPictureTo(\"Plot/Admin/Photo\")");
 
-onEvent("Grave/Grave/Update", "delayclick", "saveGrave()");
-onEvent("Grave/Monument/Update", "delayclick", "saveGrave()");
-onEvent("Grave/Motif/Update", "delayclick", "saveGrave()");
-onEvent("Grave/Inscription/Update", "delayclick", "saveGrave()");
+onEvent("Plot/Admin/Update", "delayclick", "savePlot()");
+onEvent("Plot/Historical_info/Update", "delayclick", "savePlot()");
+onEvent("Plot/Plot/Update", "delayclick", "savePlot()");
 
-onEvent("Grave/Plots", "show", "updateAllGrave()");
-onEvent("Grave/Plots/newBurial", "click", "newBurial()");
-onEvent("Grave/Plots/BurialList", "click", "loadBurial()");
+onEvent("Plot/Plot", "show", "updateAllPlotBurials()");
+onEvent("Plot/Plot/newBurial", "click", "newBurial()");
+onEvent("Plot/Plot/BurialList", "click", "loadBurial()");
 
-onEvent("Grave/Associated_Plots", "show", "refreshAssociatedPlots()" );
-onEvent("Grave/Associated_Plots/AddPlot", "delayclick", "makeGraveGraveReln()");
-onEvent("Grave/Associated_Plots/ShowPlot", "click", "showPlot()");
-onEvent("Grave/Associated_Plots/RemovePlot", "delayclick", "removePlotReln()");
+onEvent("Plot/Plot", "show", "updateAllPlotMarkers()");
+onEvent("Plot/Plot/newMarker", "click", "newMarker()");
+onEvent("Plot/Plot/MarkerList", "click", "loadMarker()");
+
+onEvent("Plot/Associated_plots", "show", "refreshAssociatedPlots()" );
+onEvent("Plot/Associated_plots/AddPlot", "delayclick", "makePlotPlotReln()");
+onEvent("Plot/Associated_plots/ShowPlot", "click", "showPlot()");
+onEvent("Plot/Associated_plots/RemovePlot", "delayclick", "removePlotPlotReln()");
 
 String plot_id = null;
 String new_plot_id = null;
@@ -164,24 +166,25 @@ makeCemeteryPlotReln() {
 loadPlotAttributes(){
     populateCheckBoxGroup("Marker/Marker/Form", makeVocab("Form"));
     populateCheckBoxGroup("Plot/Admin/Orientation", makeVocab("Orientation"));
-    populateCheckBoxGroup("Marker/Marker/Marker_Colour", makeVocab("Marker colour"));
-    populateCheckBoxGroup("Grave/Monument/Material", makeVocab("Material"));
-    populateCheckBoxGroup("Grave/Monument/Fence", makeVocab("Fence"));
-    populateCheckBoxGroup("Grave/Monument/Lettering", makeVocab("Lettering"));
-    populateCheckBoxGroup("Grave/Monument/Footstone", makeVocab("Footstone"));
-    populateCheckBoxGroup("Grave/Monument/Other_items", makeVocab("Other items"));
-    populateCheckBoxGroup("Grave/Motif/Motif", makeVocab("Motif"));
-    populateCheckBoxGroup("Grave/Inscription/Style_of_language", makeVocab("Style of language"));
-    populateCheckBoxGroup("Grave/Inscription/Key_words", makeVocab("Key words"));
-    populateCheckBoxGroup("Grave/Inscription/Tense", makeVocab("Tense"));
-    populateCheckBoxGroup("Grave/Inscription/Burials_described_in_relation_to", makeVocab("Burials described in relation to"));
-    populateDropDown("Grave/Plots/Plot_type", makeVocab("Plot type"));
+    populateCheckBoxGroup("Marker/Marker/Marker_colour", makeVocab("Marker colour"));
+    populateCheckBoxGroup("Marker/Marker/Material", makeVocab("Material"));
+    populateCheckBoxGroup("Plot/Plot/Fence", makeVocab("Fence"));
+    populateCheckBoxGroup("Marker/Marker/Lettering", makeVocab("Lettering"));
+    populateCheckBoxGroup("Marker/Marker/Footstone", makeVocab("Footstone"));
+    populateCheckBoxGroup("Plot/Plot/Other_items", makeVocab("Other items"));
+    populateCheckBoxGroup("Motif/Motif", makeVocab("Motif"));
+    populateCheckBoxGroup("Marker/Inscription/Style_of_language", makeVocab("Style of language"));
+    populateCheckBoxGroup("Marker/Inscription/Key_words", makeVocab("Key words"));
+    populateCheckBoxGroup("Marker/Inscription/Tense", makeVocab("Tense"));
+    populateCheckBoxGroup("Marker/Inscription/Author", maketVocab("Author"));
+    populateCheckBoxGroup("Marker/Inscription/Burials_described_in_relation_to", makeVocab("Burials described in relation to"));
+    populateDropDown("Plot/Plot/Plot_type", makeVocab("Plot type"));
 }
 
-updateAllGrave(){
+updateAllPlotBurials(){
     showToast("I'm happy");
-    if (!isNull(grave_id)){
-        burialsInGrave = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+    if (!isNull(plot_id)){
+        burialsInPlot = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
         "            FROM latestNonDeletedArchentIdentifiers\n"+
         "           WHERE aenttypename = 'Burial'\n"+
@@ -191,24 +194,52 @@ updateAllGrave(){
         "                                                      FROM latestNonDeletedAentReln\n"+
         "                                                      JOIN relationship using (relationshipid)\n"+
         "                                                      JOIN relntype using (relntypeid)\n"+
-        "                                                     where uuid = "+grave_id+"\n"+
-        "                                                       and relntypeName = 'GraveBurial')\n"+
-        "                             and uuid != "+grave_id+")\n"+
+        "                                                     where uuid = "+plot_id+"\n"+
+        "                                                       and relntypeName = 'PlotBurial')\n"+
+        "                             and uuid != "+plot_id+")\n"+
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
-        print(burialsInGrave);
-        populateList("Grave/Plots/BurialList",  burialsInGrave);
+        print(burialsInPlot);
+        populateDropDown("Plot/Plot/BurialList",  burialsInPlot);
     } else {
-        showToast("grave empty... beware undead");
+        showToast("plot empty... beware undead");
         Object empty = fetchAll("select '', '';");
-        populateList("Grave/Plots/BurialList",  empty);
+        populateDropDown("Plot/Plot/BurialList",  empty);
 
     }
-}    
+}
+
+updateAllPlotMarkers(){
+    showToast("I'm happy");
+    if (!isNull(plot_id)){
+        markersInPlot = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+        "            FROM latestNonDeletedArchentIdentifiers\n"+
+        "           WHERE aenttypename = 'Marker'\n"+
+        "             AND uuid in (select uuid\n"+
+        "                            FROM latestNonDeletedAentReln\n"+
+        "                           where relationshipid in (select relationshipid\n"+
+        "                                                      FROM latestNonDeletedAentReln\n"+
+        "                                                      JOIN relationship using (relationshipid)\n"+
+        "                                                      JOIN relntype using (relntypeid)\n"+
+        "                                                     where uuid = "+plot_id+"\n"+
+        "                                                       and relntypeName = 'PlotMarker')\n"+
+        "                             and uuid != "+plot_id+")\n"+
+        "        ORDER BY uuid, attributename ASC)\n"+
+        "group by uuid\n"+
+        "order by valuetimestamp desc, uuid, attributename;");
+        print(markersInPlot);
+        populateList("Plot/Marker/MarkerList",  markersInPlot);
+    } else {
+        Object empty = fetchAll("select '', '';");
+        populateList("Plot/Marker/MarkerList",  empty);
+
+    }
+}
 
 makePlotPlotReln(){
-    new_plot_id = getFieldValue("Grave/Associated_Plots/Associate_plot");
+    new_plot_id = getFieldValue("Plot/Associated_plots/Associate_plot");
 
     if(isNull(new_plot_id)){ 
         showToast("Please select a plot to associate");
@@ -226,51 +257,51 @@ makePlotPlotReln(){
 }
 
 refreshAssociatedPlots(){
-    gravesNotRelatedToGrave = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp " +
+    plotsNotRelatedToPlot = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp " +
     "      FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename " +
     "                FROM latestNonDeletedArchentIdentifiers " +
-    "               WHERE aenttypename = 'Grave' " +
-    "                 AND uuid != "+grave_id+" " +
+    "               WHERE aenttypename = 'Plot' " +
+    "                 AND uuid != "+plot_id+" " +
     "                 AND uuid not in (select uuid " +
     "                                FROM latestNonDeletedAentReln " +
     "                               where relationshipid in (select relationshipid " +
     "                                                          FROM latestNonDeletedAentReln " +
     "                                                          JOIN relationship using (relationshipid) " +
     "                                                          JOIN relntype using (relntypeid) " +
-    "                                                         where uuid = "+grave_id+" " +
-    "                                                           and relntypeName = 'GraveGrave') " +
+    "                                                         where uuid = "+plot_id+" " +
+    "                                                           and relntypeName = 'PlotPlot') " +
     "                                 )                      " +
     "            ORDER BY uuid, attributename ASC) " +
     "    group by uuid " +
     "    order by valuetimestamp desc, uuid, attributename; ");
-    populateDropDown("Grave/Associated_Plots/Associate_plot", gravesNotRelatedToGrave);
+    populateDropDown("Plot/Associated_plots/Associate_plot", plotsNotRelatedToPlot);
 
-    if (!isNull(grave_id)){
-        graveInGrave = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+    if (!isNull(plot_id)){
+        plotInPlot = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
         "            FROM latestNonDeletedArchentIdentifiers\n"+
-        "           WHERE aenttypename = 'Grave'\n"+
+        "           WHERE aenttypename = 'Plot'\n"+
         "             AND uuid in (select uuid\n"+
         "                            FROM latestNonDeletedAentReln\n"+
         "                           where relationshipid in (select relationshipid\n"+
         "                                                      FROM latestNonDeletedAentReln\n"+
         "                                                      JOIN relationship using (relationshipid)\n"+
         "                                                      JOIN relntype using (relntypeid)\n"+
-        "                                                     where uuid = "+grave_id+"\n"+
-        "                                                       and relntypeName = 'GraveGrave')\n"+
-        "                             and uuid != "+grave_id+")\n"+
+        "                                                     where uuid = "+plot_id+"\n"+
+        "                                                       and relntypeName = 'PlotPlot')\n"+
+        "                             and uuid != "+plot_id+")\n"+
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
-        populateDropDown("Grave/Associated_Plots/Associated_Plots",  graveInGrave);
+        populateDropDown("Plot/Associated_plots/Associated_plots",  plotInPlot);
     } else {
         Object empty = fetchAll("select '', '';");
-        populateDropDown("Grave/Associated_Plots/Associated_Plots",  empty);
+        populateDropDown("Plot/Associated_plots/Associated_plots",  empty);
     }
 }
 
 showPlot(){
-    plot_id = getFieldValue("Grave/Associated_Plots/Associated_Plots");
+    plot_id = getFieldValue("Plot/Associated_plots/Associated_plots");
     if(isNull(plot_id)) {
         showToast("Please select a an associated plot to show");
         return;
@@ -280,14 +311,14 @@ showPlot(){
 }
 
 removePlotReln() {
-    new_grave_id = getFieldValue("Grave/Associated_Plots/Associated_Plots");
-    if(isNull(new_grave_id)) {
+    new_plot_id = getFieldValue("Plot/Associated_Plots/Associated_Plots");
+    if(isNull(new_plot_id)) {
         showToast("Please select an associated plot to remove");
         return;
     } else {
         relnToDelete =  fetchAll("select distinct relationshipid " +
         "from latestNonDeletedAentReln a join latestnondeletedRelationship using (relationshipid) " +
-        "join relntype using (relntypeid) join latestNonDeletedAentReln b using (relationshipid) where relntypename = 'GraveGrave' and a.uuid != b.uuid and a.uuid = "+ grave_id +" and b.uuid = "+ new_grave_id + ";"); 
+        "join relntype using (relntypeid) join latestNonDeletedAentReln b using (relationshipid) where relntypename = 'PlotPlot' and a.uuid != b.uuid and a.uuid = "+ plot_id +" and b.uuid = "+ new_plot_id + ";"); 
 
         for(int i =0; i < relnToDelete.size(); i++){
             String query = "insert into aentreln (uuid, relationshipid, deleted, participatesverb, userid) select uuid, relationshipid, 'true', participatesverb, '"+userid+"' from latestnondeletedaentreln where relationshipid = '"+relnToDelete.get(i).get(0)+"';";
@@ -298,16 +329,83 @@ removePlotReln() {
     }
 }
 
+
+/*** ArchEnt: Marker ***/
+String marker_id = null;
+
+
+newMarker(){
+    marker_id = null;
+    newTabGroup("Marker");
+    savePlot();
+}
+
+loadMarker() {
+    marker_id = getListItemValue();
+    loadMarkerFrom(marker_id);
+}
+
+loadMarkerFrom(entid) {
+    marker_id = entid;
+    if (isNull(entid)) return;
+    showTabGroup("Marker", entid);
+}
+
+saveMarker() {
+    if (false){ 
+        showWarning("Logic Error", "Cannot save record without id");
+        return;
+    }
+    
+    if (!isNull(marker_id)) {
+        entity = fetchArchEnt(marker_id);
+    }
+    // first null is map data
+    saveTabGroup("Marker", marker_id, null, null, "makePlotMarkerReln();");
+}
+
+makePlotMarkerReln() {
+    //LOL WUT I DONT WANT TO DO THIS RIGHT NOW I LEAVE IN 5 MINUTES
+    //DONT JUDGE ME OK
+    /***
+    burial_id = getLastSavedRecordId(); 
+    if (isNull(plot_id)) {
+        plot_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+        "            FROM latestNonDeletedArchentIdentifiers\n"+
+        "           WHERE aenttypename = 'Plot'\n"+
+        "             AND uuid in (select uuid\n"+
+        "                            FROM latestNonDeletedAentReln\n"+
+        "                           where relationshipid in (select relationshipid\n"+
+        "                                                      FROM latestNonDeletedAentReln\n"+
+        "                                                      JOIN relationship using (relationshipid)\n"+
+        "                                                      JOIN relntype using (relntypeid)\n"+
+        "                                                     where uuid = "+burial_id+"\n"+
+        "                                                       and relntypeName = 'PlotBurial')\n"+
+        "                             and uuid != "+burial_id+")\n"+
+        "        ORDER BY uuid, attributename ASC)\n"+
+        "group by uuid\n"+
+        "order by valuetimestamp desc, uuid, attributename;");
+    }
+    saveEntitiesToRel("PlotBurial", burial_id, plot_id);
+    ***/
+}
+
+
 /*** ArchEnt: Burial ***/
 
 onEvent("Burial/Burial/Update", "delayclick", "saveBurial()");
+
+loadBurialAttributes() {
+    populateRadioGroup("Burial/Burial/Is_primary_burial", makeVocab("Is primary burial"));
+}
 
 String burial_id = null;
 
 newBurial(){
     burial_id = null;
     newTabGroup("Burial");
-    saveGrave();
+    savePlot(); // Burial is now in Marker, it should save marker not plot
 }
 
 loadBurial() {
@@ -331,16 +429,16 @@ saveBurial() {
         entity = fetchArchEnt(burial_id);
     }
     // first null is map data
-    saveTabGroup("Burial", burial_id, null, null, "makeGraveBurialReln();");
+    saveTabGroup("Burial", burial_id, null, null, "makePlotBurialReln();");
 }
 
-makeGraveBurialReln() {
+makePlotBurialReln() {
     burial_id = getLastSavedRecordId(); 
-    if (isNull(grave_id)) {
-        grave_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+    if (isNull(plot_id)) {
+        plot_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
         "            FROM latestNonDeletedArchentIdentifiers\n"+
-        "           WHERE aenttypename = 'Grave'\n"+
+        "           WHERE aenttypename = 'Plot'\n"+
         "             AND uuid in (select uuid\n"+
         "                            FROM latestNonDeletedAentReln\n"+
         "                           where relationshipid in (select relationshipid\n"+
@@ -348,13 +446,13 @@ makeGraveBurialReln() {
         "                                                      JOIN relationship using (relationshipid)\n"+
         "                                                      JOIN relntype using (relntypeid)\n"+
         "                                                     where uuid = "+burial_id+"\n"+
-        "                                                       and relntypeName = 'GraveBurial')\n"+
+        "                                                       and relntypeName = 'PlotBurial')\n"+
         "                             and uuid != "+burial_id+")\n"+
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
     }
-    saveEntitiesToRel("GraveBurial", burial_id, grave_id);
+    saveEntitiesToRel("PlotBurial", burial_id, plot_id);
 }
 
 // MISC FUNCTIONS    
