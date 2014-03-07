@@ -182,6 +182,13 @@ loadPlotAttributes(){
 }
 
 updateAllPlotBurials(){
+    if(fetchPrimaryBurial() == false) {
+        setFieldValue("Plot/Plot/Primary_burial", "N/A");
+        setFieldValue("Plot/Plot/Date_of_death", "N/A");
+    } else {
+        setFieldValue("Plot/Plot/Primary_burial", primaryBurialName);
+        setFieldValue("Plot/Plot/Date_of_death", primaryBurialDate);
+    }
     if (!isNull(plot_id)){
         burialsInPlot = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
@@ -384,7 +391,6 @@ saveMarker() {
 }
 
 makePlotMarkerReln() {
-    print("ASDSADSAD");
     marker_id = getLastSavedRecordId(); 
     if (isNull(plot_id)) {
         plot_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
@@ -545,6 +551,9 @@ loadBurialAttributes() {
 }
 
 String burial_id = null;
+String primaryBurialID = null;
+String primaryBurialName = null;
+String primaryBurialDate = null;
 
 newBurial(){
     burial_id = null;
@@ -571,13 +580,59 @@ showBurial() {
     loadBurialFrom(burial_id);
 }
 
+fetchPrimaryBurial() {
+    if(!isNull(plot_id)) {
+        List primaryBurial = fetchAll(""+
+        "select distinct uuid, freetext, attributename, relationshipid "+
+        "       from latestnondeletedaentvalue join attributekey using (attributeid)  "+
+        "       join latestnondeletedaentreln using (uuid) "+
+        "      where uuid in (select uuid  "+
+        "                       from latestnondeletedaentvalue  "+
+        "                      where vocabid = (select vocabid  "+
+        "                                         from vocabulary  "+
+        "                                         join attributekey using (attributeid)  "+
+        "                                        where attributeName = 'Is primary burial'  "+
+        "                                          and vocabname = 'Yes') "+
+        "                      )  "+
+        "      and uuid in (select uuid  "+
+        "                     from latestnondeletedaentreln "+
+        "                    where relationshipid in (select relationshipid  "+
+        "                                               from latestnondeletedaentreln "+
+        "                                              where uuid = "+ plot_id +") "+
+        "                   ) "+
+        "         and (attributename = 'Name' "+
+        "              or attributename = 'Date of death') "+
+        "    order by attributename desc;");
+        if(isNull(primaryBurial)) {
+            primaryBurialID = null;
+            primaryBurialName = null;
+            primaryBurialDate =  null;
+            return false;
+        }
+        print(primaryBurial);
+        primaryBurialID = primaryBurial.get(0).get(0);
+        primaryBurialName = primaryBurial.get(0).get(1);
+        primaryBurialDate = primaryBurial.get(1).get(1);
+        return true;
+    } else {
+        primaryBurialID = null;
+        primaryBurialName = null;
+        primaryBurialDate =  null;
+        return false;       
+    }
+}
+
 saveBurial() {
     if (isNull(getFieldValue("Burial/Burial/Name"))){ 
         showWarning("Validation Error", "Cannot save Burial without Name");
-        showTabGroup("Burial");
         return false;
     }
-    
+    if(getFieldValue("Burial/Burial/Is_primary_burial").equals(findVocabID("Is primary burial", "Yes"))){
+        if(fetchPrimaryBurial() == true && !primaryBurialID.equals(burial_id)) {
+            showWarning("Validation Error", "You can only have one primary burial per plot");
+            return;
+        }
+    }
     if (!isNull(burial_id)) {
         entity = fetchArchEnt(burial_id);
     }
@@ -618,6 +673,11 @@ saveEntitiesToRel(type, entity1, entity2) {
 
 makeVocab(String attrib){
     Object a = fetchAll("select vocabid, vocabname from vocabulary join attributekey using (attributeid) where attributename = '"+attrib+"' ");
+    return a;
+}
+
+findVocabID(String attribName, String vocabName) {
+    String a = fetchOne("select vocabid from vocabulary join attributekey using (attributeid) where attributeName = '" + attribName + "' and vocabname = '" + vocabName + "';").get(0);
     return a;
 }
 

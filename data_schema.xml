@@ -301,7 +301,7 @@
     </ArchaeologicalElement>
 
     <!-- ARCHENT:MOTIF -->
-    <ArchaeologicalElement name="    otif">
+    <ArchaeologicalElement name="Motif">
      <property name="Motif" type="enum" isIdentifier="true">
       <description>Motif</description>
       <lookup>
@@ -387,7 +387,7 @@
             <description>God bringin a soul unto himself</description>
           </term>
           <term pictureURL="">Hands, holding a chain with a broken link
-            <de.scription>Symbolises the death of a family member.</description>
+            <description>Symbolises the death of a family member.</description>
           </term>
           <term pictureURL="">Hands, holding a heart
             <description>Symbolic of charity and is common on 19th century memorials. It is typically seen on memorials of members of the Independent Order of Odd fellows. Charity.</description>
