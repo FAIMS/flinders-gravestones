@@ -8,7 +8,9 @@ setFileSyncEnabled(true);
 onEvent("control", "show", "refreshCemeteries()");
 onEvent("control", "show", "refreshPlots()");
 onEvent("control", "show", "loadPlotAttributes()");
+onEvent("control", "show", "loadMarkerAttributes()");
 onEvent("control", "show", "loadBurialAttributes()");
+onEvent("control", "show", "loadMotifAttributes()");
 
 /*** ArchEnt: Cemetery ***/
 onEvent("control/cemetery/CemeteryList", "click", "loadCemetery()");
@@ -21,6 +23,8 @@ onEvent("Cemetery/Cemetery_Plots/newPlot", "click", "newPlot()");
 onEvent("Cemetery/Cemetery_Plots/PlotList", "click", "loadPlot()");
 
 String cemetery_id = null;
+String site = null;
+String date_of_recording = null;
 
 refreshCemeteries() {
     populateList("control/cemetery/CemeteryList", fetchEntityList("Cemetery"));
@@ -29,6 +33,7 @@ refreshCemeteries() {
 newCemetery(){
     cememtery_id = null;
     newTabGroup("Cemetery");
+    setFieldValue("Cemetery/Cemetery_Admin/Date_of_recording", getCurrentTime());
 }
 loadCemetery() {
     cemetery_id = getListItemValue();
@@ -41,9 +46,12 @@ loadCemeteryFrom(entid) {
 }
 
 saveCemetery() {
-    if (false) { 
-        showWarning("Logic Error", "Cannot save record without id");
-        return;
+    site = getFieldValue("Cemetery/Cemetery_Admin/Site");
+    date_of_recording = getFieldValue("Cemetery/Cemetery_Admin/Date_of_recording");
+    if (isNull(getFieldValue("Cemetery/Cemetery_Admin/Site"))) { 
+        showWarning("Validation Error", "Cannot save Cemetery without Site");
+        showTabGroup("Cemetery");
+        return false;
     }
     if (!isNull(cemetery_id)) {
         entity = fetchArchEnt(cemetery_id);
@@ -87,11 +95,11 @@ onEvent("Plot/Plot/Update", "delayclick", "savePlot()");
 
 onEvent("Plot/Plot", "show", "updateAllPlotBurials()");
 onEvent("Plot/Plot/newBurial", "click", "newBurial()");
-onEvent("Plot/Plot/BurialList", "click", "loadBurial()");
+onEvent("Plot/Plot/showBurial", "click", "showBurial()");
 
-onEvent("Plot/Plot", "show", "updateAllPlotMarkers()");
-onEvent("Plot/Plot/newMarker", "click", "newMarker()");
-onEvent("Plot/Plot/MarkerList", "click", "loadMarker()");
+onEvent("Plot/Marker", "show", "updateAllPlotMarkers()");
+onEvent("Plot/Marker/newMarker", "click", "newMarker()");
+onEvent("Plot/Marker/MarkerList", "click", "loadMarker()");
 
 onEvent("Plot/Associated_plots", "show", "refreshAssociatedPlots()" );
 onEvent("Plot/Associated_plots/AddPlot", "delayclick", "makePlotPlotReln()");
@@ -109,6 +117,8 @@ newPlot(){
     plot_id = null;
     newTabGroup("Plot");
     saveCemetery();
+    setFieldValue("Plot/Admin/Site", site);
+    setFieldValue("Plot/Admin/Date", date_of_recording);
 }
 
 loadPlot() {
@@ -123,9 +133,10 @@ loadPlotFrom(entid) {
 
 savePlot() {
 
-    if (false){ 
-        showWarning("Logic Error", "Cannot save record without id");
-        return;
+    if (isNull(getFieldValue("Plot/Admin/Grave_number"))){ 
+        showWarning("Validation Error", "Cannot save Plot without Grave Number");
+        showTabGroup("Plot");
+        return false;
     }
     
     if (!isNull(plot_id)) {
@@ -154,7 +165,6 @@ makeCemeteryPlotReln() {
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;").get(0);
         if(isNull(cemetery_id)) {
-            showToast("This is bad");
             return;
         }
     }
@@ -164,25 +174,16 @@ makeCemeteryPlotReln() {
 }
 
 loadPlotAttributes(){
-    populateCheckBoxGroup("Marker/Marker/Form", makeVocab("Form"));
-    populateCheckBoxGroup("Plot/Admin/Orientation", makeVocab("Orientation"));
-    populateCheckBoxGroup("Marker/Marker/Marker_colour", makeVocab("Marker colour"));
-    populateCheckBoxGroup("Marker/Marker/Material", makeVocab("Material"));
-    populateCheckBoxGroup("Plot/Plot/Fence", makeVocab("Fence"));
-    populateCheckBoxGroup("Marker/Marker/Lettering", makeVocab("Lettering"));
-    populateCheckBoxGroup("Marker/Marker/Footstone", makeVocab("Footstone"));
+    populateDropDown("Plot/Admin/Orientation", makeVocab("Orientation"));
+    populateCheckBoxGroup("Plot/Historical_info/Denomination", makeVocab("Denomination"));
+    populateCheckBoxGroup("Plot/Historical_info/Sources", makeVocab("Sources"));
+    populateDropDown("Plot/Plot/Plot_type", makeVocab("Plot type"));
+    populateDropDown("Plot/Plot/Fence", makeVocab("Fence"));
     populateCheckBoxGroup("Plot/Plot/Other_items", makeVocab("Other items"));
-    populateCheckBoxGroup("Motif/Motif", makeVocab("Motif"));
-    populateCheckBoxGroup("Marker/Inscription/Style_of_language", makeVocab("Style of language"));
-    populateCheckBoxGroup("Marker/Inscription/Key_words", makeVocab("Key words"));
-    populateCheckBoxGroup("Marker/Inscription/Tense", makeVocab("Tense"));
-    populateCheckBoxGroup("Marker/Inscription/Author", maketVocab("Author"));
-    populateCheckBoxGroup("Marker/Inscription/Burials_described_in_relation_to", makeVocab("Burials described in relation to"));
     populateDropDown("Plot/Plot/Plot_type", makeVocab("Plot type"));
 }
 
 updateAllPlotBurials(){
-    showToast("I'm happy");
     if (!isNull(plot_id)){
         burialsInPlot = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
@@ -203,7 +204,6 @@ updateAllPlotBurials(){
         print(burialsInPlot);
         populateDropDown("Plot/Plot/BurialList",  burialsInPlot);
     } else {
-        showToast("plot empty... beware undead");
         Object empty = fetchAll("select '', '';");
         populateDropDown("Plot/Plot/BurialList",  empty);
 
@@ -211,7 +211,6 @@ updateAllPlotBurials(){
 }
 
 updateAllPlotMarkers(){
-    showToast("I'm happy");
     if (!isNull(plot_id)){
         markersInPlot = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
@@ -233,8 +232,8 @@ updateAllPlotMarkers(){
         populateList("Plot/Marker/MarkerList",  markersInPlot);
     } else {
         Object empty = fetchAll("select '', '';");
+        print(empty);
         populateList("Plot/Marker/MarkerList",  empty);
-
     }
 }
 
@@ -310,8 +309,8 @@ showPlot(){
     }
 }
 
-removePlotReln() {
-    new_plot_id = getFieldValue("Plot/Associated_Plots/Associated_Plots");
+removePlotPlotReln() {
+    new_plot_id = getFieldValue("Plot/Associated_plots/Associated_plots");
     if(isNull(new_plot_id)) {
         showToast("Please select an associated plot to remove");
         return;
@@ -331,8 +330,30 @@ removePlotReln() {
 
 
 /*** ArchEnt: Marker ***/
-String marker_id = null;
+onEvent("Marker/Motif", "show", "updateAllMarkerMotifs()");
+onEvent("Marker/Motif/newMotif", "click", "newMotif()");
+onEvent("Marker/Motif/MotifList", "click", "loadMotif()");
 
+onEvent("Marker/Marker/attachShape", "click", "attachFileTo(\"Marker/Marker/Shape\")");
+onEvent("Marker/Marker/viewAttached", "click", "viewArchEntAttachedFiles(marker_id)");
+
+onEvent("Marker/Marker/Update", "delayclick", "saveMarker();");
+onEvent("Marker/Inscription/Update", "delayclick", "saveMarker();");
+
+loadMarkerAttributes(){
+    populateCheckBoxGroup("Marker/Marker/Form", makeVocab("Form"));
+    populateCheckBoxGroup("Marker/Marker/Marker_colour", makeVocab("Marker colour"));
+    populateCheckBoxGroup("Marker/Marker/Material", makeVocab("Material"));
+    populateDropDown("Marker/Marker/Lettering", makeVocab("Lettering"));
+    populateRadioGroup("Marker/Marker/Footstone", makeVocab("Footstone"));
+    populateCheckBoxGroup("Marker/Inscription/Style_of_language", makeVocab("Style of language"));
+    populateCheckBoxGroup("Marker/Inscription/Key_words", makeVocab("Key words"));
+    populateCheckBoxGroup("Marker/Inscription/Tense", makeVocab("Tense"));
+    populateCheckBoxGroup("Marker/Inscription/Author", makeVocab("Author"));
+    populateCheckBoxGroup("Marker/Inscription/Burials_described_in_relation_to", makeVocab("Burials described in relation to"));
+}
+
+String marker_id = null;
 
 newMarker(){
     marker_id = null;
@@ -352,9 +373,10 @@ loadMarkerFrom(entid) {
 }
 
 saveMarker() {
-    if (false){ 
-        showWarning("Logic Error", "Cannot save record without id");
-        return;
+    if (isNull(getFieldValue("Marker/Marker/Form")) && isNull(getFieldValue("Marker/Marker/Material")) && isNull(getFieldValue("Marker/Inscription/Inscription"))){ 
+        showWarning("Validation Error", "Cannot save Marker without Form, Material or Inscription");
+        showTabGroup("Marker");
+        return false;
     }
     
     if (!isNull(marker_id)) {
@@ -365,10 +387,8 @@ saveMarker() {
 }
 
 makePlotMarkerReln() {
-    //LOL WUT I DONT WANT TO DO THIS RIGHT NOW I LEAVE IN 5 MINUTES
-    //DONT JUDGE ME OK
-    /***
-    burial_id = getLastSavedRecordId(); 
+    print("ASDSADSAD");
+    marker_id = getLastSavedRecordId(); 
     if (isNull(plot_id)) {
         plot_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
@@ -380,17 +400,41 @@ makePlotMarkerReln() {
         "                                                      FROM latestNonDeletedAentReln\n"+
         "                                                      JOIN relationship using (relationshipid)\n"+
         "                                                      JOIN relntype using (relntypeid)\n"+
-        "                                                     where uuid = "+burial_id+"\n"+
-        "                                                       and relntypeName = 'PlotBurial')\n"+
-        "                             and uuid != "+burial_id+")\n"+
+        "                                                     where uuid = "+marker_id+"\n"+
+        "                                                       and relntypeName = 'PlotMarker')\n"+
+        "                             and uuid != "+marker_id+")\n"+
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
     }
-    saveEntitiesToRel("PlotBurial", burial_id, plot_id);
-    ***/
+    saveEntitiesToRel("PlotMarker", marker_id, plot_id);
 }
 
+updateAllMarkerMotifs(){
+    if (!isNull(marker_id)){
+        motifInMarker = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+        "            FROM latestNonDeletedArchentIdentifiers\n"+
+        "           WHERE aenttypename = 'Motif'\n"+
+        "             AND uuid in (select uuid\n"+
+        "                            FROM latestNonDeletedAentReln\n"+
+        "                           where relationshipid in (select relationshipid\n"+
+        "                                                      FROM latestNonDeletedAentReln\n"+
+        "                                                      JOIN relationship using (relationshipid)\n"+
+        "                                                      JOIN relntype using (relntypeid)\n"+
+        "                                                     where uuid = "+marker_id+"\n"+
+        "                                                       and relntypeName = 'MarkerMotif')\n"+
+        "                             and uuid != "+marker_id+")\n"+
+        "        ORDER BY uuid, attributename ASC)\n"+
+        "group by uuid\n"+
+        "order by valuetimestamp desc, uuid, attributename;");
+        populateList("Marker/Motif/MotifList",  motifInMarker);
+    } else {
+        Object empty = fetchAll("select '', '';");
+        populateList("Marker/Motif/MotifList",  empty);
+
+    }
+}
 
 /*** ArchEnt: Burial ***/
 
@@ -419,10 +463,19 @@ loadBurialFrom(entid) {
     showTabGroup("Burial", entid);
 }
 
+showBurial() {
+    burial_id = getFieldValue("Plot/Plot/BurialList");
+    if(isNull(burial_id)) {
+        showToast("Please select a burial from the drop down");
+    }
+    loadBurialFrom(burial_id);
+}
+
 saveBurial() {
-    if (false){ 
-        showWarning("Logic Error", "Cannot save record without id");
-        return;
+    if (isNull(getFieldValue("Burial/Burial/Name"))){ 
+        showWarning("Validation Error", "Cannot save Burial without Name");
+        showTabGroup("Burial");
+        return false;
     }
     
     if (!isNull(burial_id)) {
@@ -455,6 +508,112 @@ makePlotBurialReln() {
     saveEntitiesToRel("PlotBurial", burial_id, plot_id);
 }
 
+/** ArchEnt: Motif **/
+
+
+onEvent("Motif/Motif/Update_and_new", "delayclick", "saveAndNewMotif();");
+onEvent("Motif/Motif/Update_and_close", "delayclick", "saveMotif();showTabGroup(\"Marker\", marker_id)");
+onEvent("Motif/Motif/Remove", "delayclick", "removeMotif();");
+
+loadMotifAttributes() {
+    populateHierarchicalPictureGallery("Motif/Motif/Motif", "Motif");
+    populateDropDown("Motif/Motif/Location", makeVocab("Location"));
+}
+
+String motif_id = null;
+String new_motif_id = null;
+
+newMotif(){
+    motif_id = null;
+    newTabGroup("Motif");
+    saveMarker();
+}
+
+loadMotif() {
+    motif_id = getListItemValue();
+    loadMotifFrom(motif_id);
+}
+
+loadMotifFrom(entid) {
+    motif_id = entid;
+    if (isNull(entid)) return;
+    showTabGroup("Motif", entid);
+}
+
+saveMotif() {
+    if (isNull(getFieldValue("Motif/Motif/Motif"))){ 
+        showWarning("Validation Error", "Cannot save Motif without a Motif");
+        showTabGroup("Motif");
+        return false;
+    }
+    
+    if (!isNull(motif_id)) {
+        entity = fetchArchEnt(motif_id);
+    }
+    // first null is map data
+    saveTabGroup("Motif", motif_id, null, null, "makeMarkerMotifReln();");
+}
+
+saveAndNewMotif(){
+    if (isNull(getFieldValue("Motif/Motif/Motif"))){ 
+        showWarning("Validation Error", "Cannot save Motif without a Motif");
+        showTabGroup("Motif");
+        return false;
+    }
+    
+    if (!isNull(motif_id)) {
+        entity = fetchArchEnt(motif_id);
+    }
+    // first null is map data
+    saveTabGroup("Motif", motif_id, null, null, "makeMarkerMotifReln();newMotif();");
+}
+
+makeMarkerMotifReln() {
+    motif_id = getLastSavedRecordId(); 
+    if (isNull(marker_id)) {
+        marker_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+        "            FROM latestNonDeletedArchentIdentifiers\n"+
+        "           WHERE aenttypename = 'Marker'\n"+
+        "             AND uuid in (select uuid\n"+
+        "                            FROM latestNonDeletedAentReln\n"+
+        "                           where relationshipid in (select relationshipid\n"+
+        "                                                      FROM latestNonDeletedAentReln\n"+
+        "                                                      JOIN relationship using (relationshipid)\n"+
+        "                                                      JOIN relntype using (relntypeid)\n"+
+        "                                                     where uuid = "+motif_id+"\n"+
+        "                                                       and relntypeName = 'MarkerMotif')\n"+
+        "                             and uuid != "+motif_id+")\n"+
+        "        ORDER BY uuid, attributename ASC)\n"+
+        "group by uuid\n"+
+        "order by valuetimestamp desc, uuid, attributename;");
+    }
+    saveEntitiesToRel("MarkerMotif", marker_id, motif_id);
+}
+
+removeMotif() {
+    if(isNull(motif_id)) {
+        showTabGroup("Marker", marker_id);
+        return;
+    }
+    removeMarkerMotifReln();
+}
+
+removeMarkerMotifReln() {
+    if(!isNull(marker_id)) {
+        relnToDelete =  fetchAll("select distinct relationshipid " +
+        "from latestNonDeletedAentReln a join latestnondeletedRelationship using (relationshipid) " +
+        "join relntype using (relntypeid) join latestNonDeletedAentReln b using (relationshipid) where relntypename = 'MarkerMotif' and a.uuid != b.uuid and a.uuid = "+ marker_id +" and b.uuid = "+ motif_id + ";"); 
+
+        for(int i =0; i < relnToDelete.size(); i++){
+            String query = "insert into aentreln (uuid, relationshipid, deleted, participatesverb, userid) select uuid, relationshipid, 'true', participatesverb, '"+userid+"' from latestnondeletedaentreln where relationshipid = '"+relnToDelete.get(i).get(0)+"';";
+            fetchOne(query);
+            deleteRel(relnToDelete.get(i).get(0));
+        }
+        updateAllMarkerMotifs();
+    }
+    showTabGroup("Marker", marker_id);
+}
 // MISC FUNCTIONS    
 
 saveEntitiesToRel(type, entity1, entity2) {

@@ -222,9 +222,9 @@
     <property name="Lettering" type="enum">
       <description>Lettering</description>
       <lookup>
-        <term>EnPlotd<description>Lettering on headstone</description></term>
+        <term>Engraved<description>Lettering on headstone</description></term>
         <term>Lead<description>Lettering on headstone</description></term>
-        <term>EnPlotd and Painted<description>Lettering on headstone</description></term>
+        <term>Engravedd and Painted<description>Lettering on headstone</description></term>
         <term>Painted Only<description>Lettering on headstone</description></term>
         <term>Other<description>Lettering on headstone</description></term>
       </lookup>

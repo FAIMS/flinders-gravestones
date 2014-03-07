@@ -83,9 +83,10 @@
               <Update/>
               <newBurial/>
               <BurialList/>
+              <showBurial/>
             </Plot>
             <Marker>
-              <addMarker/>
+              <newMarker/>
               <MarkerList/>
             </Marker>
             <Associated_plots>
@@ -156,7 +157,7 @@
       <bind nodeset="/faims/Plot/Plot/Fence_height" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Plinth_height" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Plinth_depth" type="decimal"/>
-      <bind nodeset="/faims/Marker/Marker//Pedestal_height" type="decimal"/>
+      <bind nodeset="/faims/Marker/Marker/Pedestal_height" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Headstone_height" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Headstone_width" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Headstone_depth" type="decimal"/>
@@ -230,7 +231,7 @@
         <input ref="Site" faims_attribute_name="Site" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
           <label>Site/Location</label>
         </input>
-        <input ref="Date_of_recording" faims_attribute_name="Date of recording" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
+        <input ref="Date_of_recording" faims_attribute_name="Date of recording" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="true">
           <label>Date of recording</label>
         </input>
         <trigger ref="Update">
@@ -266,13 +267,13 @@
         <input ref="Grave_number" faims_attribute_name="Grave number" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
           <label>Grave Number</label>
         </input>
-        <select ref="Orientation" faims_attribute_name="Orientation" faims_certainty="true" faims_attribute_type="vocab">
+        <select1 ref="Orientation" faims_attribute_name="Orientation" faims_certainty="true" faims_attribute_type="vocab">
           <label>Orientation</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
-        </select>
+        </select1>
         <input ref="Number_of_headstones" faims_attribute_name="Number of headstones" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
           <label>Total number of headstones in this plot</label>
         </input>
@@ -326,15 +327,19 @@
             <value>placeholder</value>
           </item>
         </select>
-        <input ref="Sources" faims_attribute_name="Sources" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
+        <select ref="Sources" faims_attribute_name="Sources" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
           <label>Sources</label>
-        </input>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
         <trigger ref="Update">
           <label>Save Record</label>
         </trigger>
       </group>
 
-      <group ref="Plot" faims_scrollable="false">
+      <group ref="Plot">
         <label>Plot</label>
         <select1 ref="Plot_type" faims_attribute_name="Plot type" faims_certainty="true" faims_attribute_type="vocab">
           <label>Plot Type</label>
@@ -352,13 +357,13 @@
         <input ref="Date_of_death" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="true">
           <label>Date of Death</label>
         </input>
-        <select ref="Fence" faims_attribute_name="Fence" faims_certainty="true" faims_attribute_type="vocab">
+        <select1 ref="Fence" faims_attribute_name="Fence" faims_certainty="true" faims_attribute_type="vocab">
           <label>Fence/Border</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
-        </select>
+        </select1>
         <input ref="Fence_height" faims_attribute_name="Fence height" faims_certainty="true" faims_attribute_type="measure">
           <label>Fence/Border Height</label>
         </input>
@@ -373,22 +378,26 @@
           <label>Save Record</label>
         </trigger>
         <trigger ref="newBurial">
-          <label>New Burial</label>
+          <label>Additional Burials</label>
         </trigger>
-        <select1 appearance="compact" ref="BurialList" faims_certainty="false">
+        <select1 ref="BurialList" faims_certainty="false">
           <label>Burials:</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
+        <trigger ref="showBurial">
+          <label>Show Selected Burial</label>
+        </trigger>
+
       </group>
-      <group ref="Marker">
+      <group ref="Marker" faims_scrollable="false">
         <label>Marker</label>
-        <trigger ref="addMarker">
+        <trigger ref="newMarker">
           <label>Add Marker</label>
         </trigger>
-        <select1 ref="MarkerList">
+        <select1 appearance="compact" ref="MarkerList">
           <label>Markers</label>
           <item>
             <label>placeholder</label>
@@ -424,13 +433,12 @@
       </group>
     </group>
     
-
     <!--Marker-->
-    <group ref="Marker">
+    <group ref="Marker" faims_archent_type="Marker">
       <label>Marker</label>
       <group ref="Marker">
         <label>Marker</label>
-        <select ref="Form" faims_attribute_name="Form" faims_certainty="true" faims_attribute_type="vocab">
+        <select ref="Form" faims_attribute_name="Form" faims_certainty="false" faims_attribute_type="vocab">
           <label>Marker Form</label>
           <item>
             <label>placeholder</label>
@@ -475,20 +483,20 @@
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Material" faims_attribute_name="Material" faims_certainty="true" faims_attribute_type="vocab">
+        <select ref="Material" faims_attribute_name="Material" faims_certainty="false" faims_attribute_type="vocab">
           <label>Material</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Lettering" faims_attribute_name="Lettering" faims_certainty="true" faims_attribute_type="vocab">
+        <select1 ref="Lettering" faims_attribute_name="Lettering" faims_certainty="true" faims_attribute_type="vocab">
           <label>Lettering</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
-        </select>
+        </select1>
         <input ref="Mason" faims_attribute_name="Mason" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="false">
           <label>Mason</label>
         </input>
@@ -550,12 +558,12 @@
           <label>Save Record</label>
         </trigger>
       </group>
-      <group ref="Motif">
+      <group ref="Motif" faims_scrollable="false">
         <label>Motif</label>
         <trigger ref="newMotif">
-          <label>Add Marker</label>
+          <label>Add Motif</label>
         </trigger>
-        <select1 ref="MotifList">
+        <select1 appearance="compact" ref="MotifList">
           <label>Motif</label>
           <item>
             <label>placeholder</label>
@@ -565,33 +573,35 @@
       </group>
     </group>
 
-
-      <!--MOTIF-->
-    <group ref="Motif">
+    <!--MOTIF-->
+    <group ref="Motif" faims_archent_type="Motif">
       <label>Motif</label>
-      <select ref="Motif" faims_attribute_name="Motif" faims_certainty="true" faims_attribute_type="vocab">
+      <group ref="Motif">
         <label>Motif</label>
-        <item>
-          <label>placeholder</label>
-          <value>placeholder</value>
-        </item>
-      </select>
-      <select ref="Location" faims_attribute_name="Location" faims_certainty="true" faims_attribute_type="vocab">
-        <label>Location</label>
-        <item>
-          <label>placeholder</label>
-          <value>placeholder</value>
-        </item>
-      </select>
-      <trigger ref="Update_and_new">
-        <label>Save and New</label>
-      </trigger>
-      <trigger ref="Update_and_close">
-        <label>Save and Close</label>
-      </trigger>
-      <trigger ref="Remove">
-        <label>Delete</label>
-      </trigger>
+        <select1 ref="Motif" faims_attribute_name="Motif" faims_certainty="true" faims_attribute_type="vocab" type="image">
+          <label>Motif</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <select1 ref="Location" faims_attribute_name="Location" faims_certainty="true" faims_attribute_type="vocab">
+          <label>Location</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <trigger ref="Update_and_new">
+          <label>Save and New</label>
+        </trigger>
+        <trigger ref="Update_and_close">
+          <label>Save and Close</label>
+        </trigger>
+        <trigger ref="Remove">
+          <label>Delete</label>
+        </trigger>
+      </group>
     </group>
 
 
