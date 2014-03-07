@@ -16,7 +16,7 @@ onEvent("control", "show", "loadMotifAttributes()");
 onEvent("control/cemetery/CemeteryList", "click", "loadCemetery()");
 onEvent("control/cemetery/newCemetery", "click", "newCemetery()");
 
-onEvent("Cemetery/Cemetery_Admin/Update", "click", "saveCemetery()");
+onEvent("Cemetery/Cemetery_Admin/Update", "delayclick", "saveCemetery()");
 
 onEvent("Cemetery/Cemetery_Plots", "show", "updateAllCemetery()");
 onEvent("Cemetery/Cemetery_Plots/newPlot", "click", "newPlot()");
@@ -42,7 +42,7 @@ loadCemetery() {
 loadCemeteryFrom(entid) {
     cemetery_id = entid;
     if (isNull(entid)) return;
-    showTabGroup("Cemetery", entid);    
+    showTabGroup("Cemetery", entid);
 }
 
 saveCemetery() {
@@ -132,7 +132,6 @@ loadPlotFrom(entid) {
 }
 
 savePlot() {
-
     if (isNull(getFieldValue("Plot/Admin/Grave_number"))){ 
         showWarning("Validation Error", "Cannot save Plot without Grave Number");
         showTabGroup("Plot");
@@ -169,7 +168,6 @@ makeCemeteryPlotReln() {
         }
     }
     saveEntitiesToRel("CemeteryPlot", cemetery_id, plot_id);
-
     refreshAssociatedPlots();
 }
 
@@ -206,7 +204,6 @@ updateAllPlotBurials(){
     } else {
         Object empty = fetchAll("select '', '';");
         populateDropDown("Plot/Plot/BurialList",  empty);
-
     }
 }
 
@@ -435,82 +432,7 @@ updateAllMarkerMotifs(){
 
     }
 }
-
-/*** ArchEnt: Burial ***/
-
-onEvent("Burial/Burial/Update", "delayclick", "saveBurial()");
-
-loadBurialAttributes() {
-    populateRadioGroup("Burial/Burial/Is_primary_burial", makeVocab("Is primary burial"));
-}
-
-String burial_id = null;
-
-newBurial(){
-    burial_id = null;
-    newTabGroup("Burial");
-    savePlot(); // Burial is now in Marker, it should save marker not plot
-}
-
-loadBurial() {
-    burial_id = getListItemValue();
-    loadBurialFrom(burial_id);
-}
-
-loadBurialFrom(entid) {
-    burial_id = entid;
-    if (isNull(entid)) return;
-    showTabGroup("Burial", entid);
-}
-
-showBurial() {
-    burial_id = getFieldValue("Plot/Plot/BurialList");
-    if(isNull(burial_id)) {
-        showToast("Please select a burial from the drop down");
-    }
-    loadBurialFrom(burial_id);
-}
-
-saveBurial() {
-    if (isNull(getFieldValue("Burial/Burial/Name"))){ 
-        showWarning("Validation Error", "Cannot save Burial without Name");
-        showTabGroup("Burial");
-        return false;
-    }
-    
-    if (!isNull(burial_id)) {
-        entity = fetchArchEnt(burial_id);
-    }
-    // first null is map data
-    saveTabGroup("Burial", burial_id, null, null, "makePlotBurialReln();");
-}
-
-makePlotBurialReln() {
-    burial_id = getLastSavedRecordId(); 
-    if (isNull(plot_id)) {
-        plot_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
-        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
-        "            FROM latestNonDeletedArchentIdentifiers\n"+
-        "           WHERE aenttypename = 'Plot'\n"+
-        "             AND uuid in (select uuid\n"+
-        "                            FROM latestNonDeletedAentReln\n"+
-        "                           where relationshipid in (select relationshipid\n"+
-        "                                                      FROM latestNonDeletedAentReln\n"+
-        "                                                      JOIN relationship using (relationshipid)\n"+
-        "                                                      JOIN relntype using (relntypeid)\n"+
-        "                                                     where uuid = "+burial_id+"\n"+
-        "                                                       and relntypeName = 'PlotBurial')\n"+
-        "                             and uuid != "+burial_id+")\n"+
-        "        ORDER BY uuid, attributename ASC)\n"+
-        "group by uuid\n"+
-        "order by valuetimestamp desc, uuid, attributename;");
-    }
-    saveEntitiesToRel("PlotBurial", burial_id, plot_id);
-}
-
 /** ArchEnt: Motif **/
-
-
 onEvent("Motif/Motif/Update_and_new", "delayclick", "saveAndNewMotif();");
 onEvent("Motif/Motif/Update_and_close", "delayclick", "saveMotif();showTabGroup(\"Marker\", marker_id)");
 onEvent("Motif/Motif/Remove", "delayclick", "removeMotif();");
@@ -614,8 +536,79 @@ removeMarkerMotifReln() {
     }
     showTabGroup("Marker", marker_id);
 }
-// MISC FUNCTIONS    
 
+/*** ArchEnt: Burial ***/
+onEvent("Burial/Burial/Update", "delayclick", "saveBurial()");
+
+loadBurialAttributes() {
+    populateRadioGroup("Burial/Burial/Is_primary_burial", makeVocab("Is primary burial"));
+}
+
+String burial_id = null;
+
+newBurial(){
+    burial_id = null;
+    newTabGroup("Burial");
+    savePlot();
+}
+
+loadBurial() {
+    burial_id = getListItemValue();
+    loadBurialFrom(burial_id);
+}
+
+loadBurialFrom(entid) {
+    burial_id = entid;
+    if (isNull(entid)) return;
+    showTabGroup("Burial", entid);
+}
+
+showBurial() {
+    burial_id = getFieldValue("Plot/Plot/BurialList");
+    if(isNull(burial_id)) {
+        showToast("Please select a burial from the drop down");
+    }
+    loadBurialFrom(burial_id);
+}
+
+saveBurial() {
+    if (isNull(getFieldValue("Burial/Burial/Name"))){ 
+        showWarning("Validation Error", "Cannot save Burial without Name");
+        showTabGroup("Burial");
+        return false;
+    }
+    
+    if (!isNull(burial_id)) {
+        entity = fetchArchEnt(burial_id);
+    }
+    // first null is map data
+    saveTabGroup("Burial", burial_id, null, null, "makePlotBurialReln();");
+}
+
+makePlotBurialReln() {
+    burial_id = getLastSavedRecordId(); 
+    if (isNull(plot_id)) {
+        plot_id = fetchOne("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+        "            FROM latestNonDeletedArchentIdentifiers\n"+
+        "           WHERE aenttypename = 'Plot'\n"+
+        "             AND uuid in (select uuid\n"+
+        "                            FROM latestNonDeletedAentReln\n"+
+        "                           where relationshipid in (select relationshipid\n"+
+        "                                                      FROM latestNonDeletedAentReln\n"+
+        "                                                      JOIN relationship using (relationshipid)\n"+
+        "                                                      JOIN relntype using (relntypeid)\n"+
+        "                                                     where uuid = "+burial_id+"\n"+
+        "                                                       and relntypeName = 'PlotBurial')\n"+
+        "                             and uuid != "+burial_id+")\n"+
+        "        ORDER BY uuid, attributename ASC)\n"+
+        "group by uuid\n"+
+        "order by valuetimestamp desc, uuid, attributename;");
+    }
+    saveEntitiesToRel("PlotBurial", burial_id, plot_id);
+}
+
+// MISC FUNCTIONS    
 saveEntitiesToRel(type, entity1, entity2) {
     if (isNull(entity1) || isNull(entity2)) return;
     rel_id = saveRel(null, type, null, null);
