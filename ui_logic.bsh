@@ -169,7 +169,6 @@ makeCemeteryPlotReln() {
         }
     }
     saveEntitiesToRel("CemeteryPlot", cemetery_id, plot_id);
-
     refreshAssociatedPlots();
 }
 
@@ -206,7 +205,6 @@ updateAllPlotBurials(){
     } else {
         Object empty = fetchAll("select '', '';");
         populateDropDown("Plot/Plot/BurialList",  empty);
-
     }
 }
 
