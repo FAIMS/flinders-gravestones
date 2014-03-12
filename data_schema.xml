@@ -43,6 +43,7 @@
     <property name="Orientation" type="enum">
       <description>Direction person would be facing if they sat up in this grave.</description>
       <lookup>
+        <term><description>No orientation</description></term>
         <term>North<description>North</description></term>
         <term>North East<description>North East</description></term>
         <term>East<description>East</description></term>
@@ -99,7 +100,7 @@
         <term>Uniting<description>Denomination</description></term>
         <term>Jewish<description>Denomination</description></term>
         <term>Unknown<description>Denomination</description></term>
-        <term>Other<description>Denomination</description></term>
+        <term>{Other}<description>Denomination</description></term>
       </lookup>
     </property>
     <property name="Sources" type="enum">
@@ -108,7 +109,7 @@
         <term>Cemetery Records<description>Sources</description></term>
         <term>Parish Register<description>Sources</description></term>
         <term>Births/Deaths/Marriages<description>Sources</description></term>
-        <term>Other<description>Sources</description></term>
+        <term>{Other}<description>Sources</description></term>
       </lookup>
     </property>
 
@@ -116,6 +117,7 @@
     <property name="Plot type" type="enum">
       <description>Single (single sized grave), Double (two graves side by side in the one plot, e.g. husband/wife), Group (larger than a double sized plot)</description>
       <lookup>
+        <term><description></description></term>
         <term>Individual (Single)<description>Single (single sized grave)</description></term>
         <term>Double (2 People)<description>Double (two graves side by side in the one plot, e.g. husband/wife)</description></term>
         <term>Group (>2)<description>Group (larger than a double sized plot)</description></term>
@@ -127,13 +129,14 @@
     <property name="Fence" type="enum">
       <description>Any enclosure around the plot.</description>
       <lookup>
+        <term><description></description></term>
         <term>None<description> Border of Plot</description></term>
         <term>Cast Iron Picket<description> Border of Plot</description></term>
         <term>Timber Picket<description> Border of Plot</description></term>
         <term>Brick Border<description> Border of Plot</description></term>
         <term>Stone Border<description> Border of Plot</description></term>
         <term>Tile Border<description> Border of Plot</description></term>
-        <term>Other<description> Border of Plot</description></term>
+        <term>{Other}<description> Border of Plot</description></term>
       </lookup>
     </property>
     <property name="Fence height" type="number">
@@ -142,7 +145,6 @@
     <property name="Other items" type="enum">
       <description>Anything else included as part of the plot for decorative or memorial purposes, e.g. flowers, vases, surface coverings, shrubs, statues etc.</description>
       <lookup>
-        <term>None<description>Other items</description></term>
         <term>Vase<description>Other items</description></term>
         <term>Glass covered display<description>Other items</description></term>
         <term>Personal Items<description>Other items</description></term>
@@ -151,7 +153,7 @@
         <term>Tiles<description>Other items</description></term>
         <term>Shells<description>Other items</description></term>
         <term>Plantings<description>Other items</description></term>
-        <term>Other<description>Other items</description></term>
+        <term>{Other}<description>Other items</description></term>
       </lookup>
     </property>
   </ArchaeologicalElement>
@@ -169,7 +171,7 @@
         <term>Statue/Sculpture<description>Marker form</description></term>
         <term>Cross<description>Marker form</description></term>
         <term>Combination<description>Marker form</description></term>
-        <term>Other<description>Marker form</description></term>
+        <term>{Other}<description>Marker form</description></term>
       </lookup>
     </property>
     <property name="Shape" type="file">
@@ -200,7 +202,7 @@
         <term>White<description>Colour of headstone</description></term>
         <term>Grey<description>Colour of headstone</description></term>
         <term>Pink<description>Colour of headstone</description></term>
-        <term>Other<description>Colour of headstone</description></term>
+        <term>{Other}<description>Colour of headstone</description></term>
       </lookup>
     </property>
     <property name="Material" type="enum" isIdentifier="true">
@@ -216,17 +218,18 @@
         <term>Brick<description> Material</description></term>
         <term>Concrete<description> Material</description></term>
         <term>Cement<description> Material</description></term>
-        <term>Other<description> Material</description></term>
+        <term>{Other}<description> Material</description></term>
       </lookup>
     </property>
     <property name="Lettering" type="enum">
       <description>How the marker was inscribed.</description>
       <lookup>
+        <term><description></description></term>
         <term>Engraved<description>Incised or chiselled into the material of the marker</description></term>
         <term>Lead<description>Individual lead letters attached to the marker</description></term>
         <term>Engraved and Painted<description>Incised into the material with painted letters</description></term>
         <term>Painted Only<description>No incision, letters painted directly on to the marker</description></term>
-        <term>Other<description>Other</description></term>
+        <term>{Other}<description>Other</description></term>
       </lookup>
     </property>
     <property name="Mason" type="freetext">
@@ -271,7 +274,7 @@
           <term>Passed away/Leaving<description>Key Words</description></term>
           <term>War Service<description>Key Words</description></term>
           <term>No Embellishment<description>Key Words</description></term>
-          <term>Other<description>Key Words</description></term>
+          <term>{Other}<description>Key Words</description></term>
         </lookup>
       </property>
       <property name="Tense" type="enum">
@@ -835,6 +838,7 @@
   <property name="Location" type="freetext">
     <description>Motif Location</description>
     <lookup>
+      <term><description></description></term>
       <term>On marker<description>Identify all motifs incorporated into the marker/headstone. This includes the shape of the marker and all engraved, painted or applied motifs.</description></term>
       <term>On fence/other<description>Identify all motifs incorporated into the fence or other fittings/furnishings.</description></term>
     </lookup>

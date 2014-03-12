@@ -52,31 +52,18 @@
               <Site/>
               <Date/>
               <Grave_number/>
+              <Primary_burial/>
+              <Date_of_death/>
+              <addNewBurial/>
               <Orientation/>
               <Number_of_headstones/>
               <Photo/>
               <attachPhoto/>
               <Update/>
             </Admin>
-            <Historical_info>
-              <Lease_number/>
-              <Lessee/>
-              <Date_of_lease/>
-              <Number_of_burials/>
-              <Name/>
-              <Date_of_death/>
-              <Age_at_death/>
-              <Cause_of_death/>
-              <Ministers/>
-              <Denomination/>
-              <Sources/>
-              <Update/>
-            </Historical_info>
             <Plot>
               <Plot_type/>
               <Number_of_interments/>
-              <Primary_burial/>
-              <Date_of_death/>
               <Fence/>
               <Fence_height/>
               <Other_items/>
@@ -96,6 +83,20 @@
               <ShowPlot/>
               <RemovePlot/>
             </Associated_plots>
+            <Historical_info>
+              <Lease_number/>
+              <Lessee/>
+              <Date_of_lease/>
+              <Number_of_burials/>
+              <Name/>
+              <Date_of_death/>
+              <Age_at_death/>
+              <Cause_of_death/>
+              <Ministers/>
+              <Denomination/>
+              <Sources/>
+              <Update/>
+            </Historical_info>
           </Plot>
           <Marker>
             <Marker>
@@ -155,14 +156,14 @@
       <bind nodeset="/faims/Plot/Admin/Number_of_headstones" type="decimal"/>
       <bind nodeset="/faims/Plot/Plot/Number_of_interments" type="decimal"/>
       <bind nodeset="/faims/Plot/Plot/Fence_height" type="decimal"/>
+      <bind nodeset="/faims/Plot/Historical_info/Lease_number" type="decimal"/>
+      <bind nodeset="/faims/Plot/Historical_info/Number_of_burials" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Plinth_height" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Plinth_depth" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Pedestal_height" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Headstone_height" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Headstone_width" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Headstone_depth" type="decimal"/>
-      <bind nodeset="/faims/Plot/Historical_info/Lease_number" type="decimal"/>
-      <bind nodeset="/faims/Plot/Historical_info/Number_of_burials" type="decimal"/>
       <bind nodeset="/faims/Marker/Inscription/Inscription" type="string"/>
     </model>
   </h:head>
@@ -258,15 +259,24 @@
       <label>Plot</label>
       <group ref="Admin">
         <label>Admin</label>
-        <input ref="Site" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="true">
+        <input ref="Site" faims_attribute_name="Site" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="true">
           <label>Site/Location</label>
         </input>
-        <input ref="Date" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="true">
+        <input ref="Date" faims_attribute_name="Date" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="true">
           <label>Date of recording</label>
         </input>
         <input ref="Grave_number" faims_attribute_name="Grave number" faims_certainty="false" faims_attribute_type="freetext" faims_read_only="false">
           <label>Grave Number</label>
         </input>
+        <input ref="Primary_burial" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="true">
+          <label>Primary Burial</label>
+        </input>
+        <input ref="Date_of_death" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="true">
+          <label>Date of Death</label>
+        </input>
+        <trigger ref="addNewBurial">
+          <label>Add Primary Burial</label>
+        </trigger>
         <select1 ref="Orientation" faims_attribute_name="Orientation" faims_certainty="true" faims_attribute_type="vocab">
           <label>Orientation</label>
           <item>
@@ -289,6 +299,91 @@
         </trigger>
         <trigger ref="Update">
           <label>Save Record</label>
+        </trigger>
+      </group>
+      <group ref="Plot">
+        <label>Plot</label>
+        <select1 ref="Plot_type" faims_attribute_name="Plot type" faims_certainty="true" faims_attribute_type="vocab">
+          <label>Plot Type</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <input ref="Number_of_interments" faims_attribute_name="Number of interments" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
+          <label>Total number of interments in this plot</label>
+        </input>
+        <select1 ref="Fence" faims_attribute_name="Fence" faims_certainty="true" faims_attribute_type="vocab">
+          <label>Fence/Border</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <input ref="Fence_height" faims_attribute_name="Fence height" faims_certainty="true" faims_attribute_type="measure">
+          <label>Fence/Border Height</label>
+        </input>
+        <select ref="Other_items" faims_attribute_name="Other items" faims_certainty="true" faims_attribute_type="vocab">
+          <label>Other Items Associated With Grave</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select>
+        <trigger ref="Update">
+          <label>Save Record</label>
+        </trigger>
+        <trigger ref="newBurial">
+          <label>Additional Burials</label>
+        </trigger>
+        <select1 ref="BurialList" faims_certainty="false">
+          <label>Burials:</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <trigger ref="showBurial">
+          <label>Show Selected Burial</label>
+        </trigger>
+      </group>
+      <group ref="Marker" faims_scrollable="false">
+        <label>Marker</label>
+        <trigger ref="newMarker">
+          <label>Add Marker</label>
+        </trigger>
+        <select1 appearance="compact" ref="MarkerList">
+          <label>Markers</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+      </group>
+      <group ref="Associated_plots">
+        <label>Associated Plots</label>
+        <select1 ref="Associate_plot">
+          <label>Associate Plots</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <trigger ref="AddPlot">
+          <label>Add Plot</label>
+        </trigger>
+        <select1 ref="Associated_plots">
+          <label>Associated Plots</label>
+          <item>
+            <label>placeholder</label>
+            <value>placeholder</value>
+          </item>
+        </select1>
+        <trigger ref="ShowPlot">
+          <label>Show Plot</label>
+        </trigger>
+        <trigger ref="RemovePlot">
+          <label>Remove Plot</label>
         </trigger>
       </group>
       <group ref="Historical_info">
@@ -336,99 +431,6 @@
         </select>
         <trigger ref="Update">
           <label>Save Record</label>
-        </trigger>
-      </group>
-
-      <group ref="Plot">
-        <label>Plot</label>
-        <select1 ref="Plot_type" faims_attribute_name="Plot type" faims_certainty="true" faims_attribute_type="vocab">
-          <label>Plot Type</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <input ref="Number_of_interments" faims_attribute_name="Number of interments" faims_certainty="true" faims_attribute_type="measure" faims_read_only="false">
-          <label>Total number of interments in this plot</label>
-        </input>
-        <input ref="Primary_burial" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="true">
-          <label>Primary Burial</label>
-        </input>
-        <input ref="Date_of_death" faims_certainty="true" faims_attribute_type="freetext" faims_read_only="true">
-          <label>Date of Death</label>
-        </input>
-        <select1 ref="Fence" faims_attribute_name="Fence" faims_certainty="true" faims_attribute_type="vocab">
-          <label>Fence/Border</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <input ref="Fence_height" faims_attribute_name="Fence height" faims_certainty="true" faims_attribute_type="measure">
-          <label>Fence/Border Height</label>
-        </input>
-        <select ref="Other_items" faims_attribute_name="Other items" faims_certainty="true" faims_attribute_type="vocab">
-          <label>Other Items Associated With Grave</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select>
-        <trigger ref="Update">
-          <label>Save Record</label>
-        </trigger>
-        <trigger ref="newBurial">
-          <label>Additional Burials</label>
-        </trigger>
-        <select1 ref="BurialList" faims_certainty="false">
-          <label>Burials:</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <trigger ref="showBurial">
-          <label>Show Selected Burial</label>
-        </trigger>
-
-      </group>
-      <group ref="Marker" faims_scrollable="false">
-        <label>Marker</label>
-        <trigger ref="newMarker">
-          <label>Add Marker</label>
-        </trigger>
-        <select1 appearance="compact" ref="MarkerList">
-          <label>Markers</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-      </group>
-      <group ref="Associated_plots">
-        <label>Associated Plots</label>
-        <select1 ref="Associate_plot">
-          <label>Associate Plots</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <trigger ref="AddPlot">
-          <label>Add Plot</label>
-        </trigger>
-        <select1 ref="Associated_plots">
-          <label>Associated Plots</label>
-          <item>
-            <label>placeholder</label>
-            <value>placeholder</value>
-          </item>
-        </select1>
-        <trigger ref="ShowPlot">
-          <label>Show Plot</label>
-        </trigger>
-        <trigger ref="RemovePlot">
-          <label>Remove Plot</label>
         </trigger>
       </group>
     </group>

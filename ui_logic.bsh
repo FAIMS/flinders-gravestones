@@ -88,12 +88,14 @@ updateAllCemetery(){
 onEvent("control/plot/PlotList", "click", "loadPlot()");
 
 onEvent("Plot/Admin/attachPhoto", "delayclick", "attachPictureTo(\"Plot/Admin/Photo\")");
+onEvent("Plot/Admin/addNewBurial", "click", "newPrimaryBurial()");
 
 onEvent("Plot/Admin/Update", "delayclick", "savePlot()");
 onEvent("Plot/Historical_info/Update", "delayclick", "savePlot()");
 onEvent("Plot/Plot/Update", "delayclick", "savePlot()");
 
 onEvent("Plot/Plot", "show", "updateAllPlotBurials()");
+onEvent("Plot/Admin", "show", "updateAllPlotBurials()");
 onEvent("Plot/Plot/newBurial", "click", "newBurial()");
 onEvent("Plot/Plot/showBurial", "click", "showBurial()");
 
@@ -134,6 +136,13 @@ loadPlotFrom(entid) {
 savePlot() {
     if (isNull(getFieldValue("Plot/Admin/Grave_number"))){ 
         showWarning("Validation Error", "Cannot save Plot without Grave Number");
+        showTabGroup("Plot");
+        return false;
+    }
+    if(!(pleaseAddAnnotation("Plot/Historical_info/Denomination", "Denomination", true, true)
+        && pleaseAddAnnotation("Plot/Historical_info/Sources", "Sources", true, true)
+        && pleaseAddAnnotation("Plot/Plot/Fence", "Fence", false, true)
+        && pleaseAddAnnotation("Plot/Plot/Other_items", "Other items", true, true))) {
         showTabGroup("Plot");
         return false;
     }
@@ -178,16 +187,15 @@ loadPlotAttributes(){
     populateDropDown("Plot/Plot/Plot_type", makeVocab("Plot type"));
     populateDropDown("Plot/Plot/Fence", makeVocab("Fence"));
     populateCheckBoxGroup("Plot/Plot/Other_items", makeVocab("Other items"));
-    populateDropDown("Plot/Plot/Plot_type", makeVocab("Plot type"));
 }
 
 updateAllPlotBurials(){
     if(fetchPrimaryBurial() == false) {
-        setFieldValue("Plot/Plot/Primary_burial", "N/A");
-        setFieldValue("Plot/Plot/Date_of_death", "N/A");
+        setFieldValue("Plot/Admin/Primary_burial", "N/A");
+        setFieldValue("Plot/Admin/Date_of_death", "N/A");
     } else {
-        setFieldValue("Plot/Plot/Primary_burial", primaryBurialName);
-        setFieldValue("Plot/Plot/Date_of_death", primaryBurialDate);
+        setFieldValue("Plot/Admin/Primary_burial", primaryBurialName);
+        setFieldValue("Plot/Admin/Date_of_death", primaryBurialDate);
     }
     if (!isNull(plot_id)){
         burialsInPlot = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
@@ -206,7 +214,6 @@ updateAllPlotBurials(){
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
-        print(burialsInPlot);
         populateDropDown("Plot/Plot/BurialList",  burialsInPlot);
     } else {
         Object empty = fetchAll("select '', '';");
@@ -232,11 +239,9 @@ updateAllPlotMarkers(){
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
-        print(markersInPlot);
         populateList("Plot/Marker/MarkerList",  markersInPlot);
     } else {
         Object empty = fetchAll("select '', '';");
-        print(empty);
         populateList("Plot/Marker/MarkerList",  empty);
     }
 }
@@ -382,7 +387,16 @@ saveMarker() {
         showTabGroup("Marker");
         return false;
     }
-    
+
+    if(!(pleaseAddAnnotation("Marker/Marker/Form", "Form", true, true)
+        && pleaseAddAnnotation("Marker/Marker/Marker_colour", "Marker colour", true, true)
+        && pleaseAddAnnotation("Marker/Marker/Material", "Material", true, true)
+        && pleaseAddAnnotation("Marker/Marker/Lettering", "Lettering", false, true)
+        && pleaseAddAnnotation("Marker/Inscription/Key_words", "Key words", true, true))) {
+        showTabGroup("Marker");
+        return false;
+    }
+
     if (!isNull(marker_id)) {
         entity = fetchArchEnt(marker_id);
     }
@@ -561,6 +575,13 @@ newBurial(){
     savePlot();
 }
 
+newPrimaryBurial(){
+    savePlot();
+    burial_id = null;
+    newTabGroup("Burial");
+    setFieldValue("Burial/Burial/Is_primary_burial", findVocabID("Is primary burial", "Yes"));
+}
+
 loadBurial() {
     burial_id = getListItemValue();
     loadBurialFrom(burial_id);
@@ -609,7 +630,6 @@ fetchPrimaryBurial() {
             primaryBurialDate =  null;
             return false;
         }
-        print(primaryBurial);
         primaryBurialID = primaryBurial.get(0).get(0);
         primaryBurialName = primaryBurial.get(0).get(1);
         primaryBurialDate = primaryBurial.get(1).get(1);
@@ -661,6 +681,39 @@ makePlotBurialReln() {
         "order by valuetimestamp desc, uuid, attributename;");
     }
     saveEntitiesToRel("PlotBurial", burial_id, plot_id);
+}
+
+/**Annotations on other **/
+onEvent("Plot/Plot/Fence", "click", "pleaseAddAnnotation(\"Plot/Plot/Fence\", \"Fence\", false, false)");
+onEvent("Marker/Marker/Lettering", "click", "pleaseAddAnnotation(\"Marker/Marker/Lettering\", \"Lettering\", false, false)");
+
+pleaseAddAnnotation(attribute, vocabAttribute, checkbox, save){
+    if(checkbox) {
+        other = false;
+        List fieldValues = getFieldValue(attribute);
+        for (NameValuePair pair : fieldValues) {
+           value = pair.getName();
+           if(value.equals(findVocabID(vocabAttribute, "{Other}"))) other = true;
+        }
+        if(other) {
+            if(isNull(getFieldAnnotation(attribute))) {
+                showWarning("Validation","Please add an annotation to " + vocabAttribute + " when selecting \"Other\"");
+                return false;
+            }
+        }
+    } else {
+        if(getFieldValue(attribute).equals(findVocabID(vocabAttribute, "{Other}"))){
+            if(isNull(getFieldAnnotation(attribute))) {
+                if(!save){
+                    showToast("Please add an annotation when selecting \"Other\"");
+                } else {
+                    showWarning("Validation","Please add an annotation to " + vocabAttribute + " when selecting \"Other\"");
+                }
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 // MISC FUNCTIONS    
