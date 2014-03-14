@@ -157,7 +157,7 @@
       <bind nodeset="/faims/Plot/Historical_info/Date_of_lease" type="decimal"/>
       <bind nodeset="/faims/Plot/Historical_info/Number_of_burials" type="decimal"/>
       <bind nodeset="/faims/Plot/Historical_info/Age_at_death" type="decimal"/>
-      <bind nodeset="/faims/Plot/Historical_info/Date_at_death" type="decimal"/>
+      <bind nodeset="/faims/Plot/Historical_info/Date_of_death" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Plinth_height" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Plinth_depth" type="decimal"/>
       <bind nodeset="/faims/Marker/Marker/Pedestal_height" type="decimal"/>
@@ -166,7 +166,7 @@
       <bind nodeset="/faims/Marker/Marker/Headstone_depth" type="decimal"/>
       <bind nodeset="/faims/Marker/Inscription/Inscription" type="string"/>
       <bind nodeset="/faims/Burial/Burial/Age_at_death" type="decimal"/>
-      <bind nodeset="/faims/Burial/Burial/Date_at_death" type="decimal"/>
+      <bind nodeset="/faims/Burial/Burial/Date_of_death" type="decimal"/>
     </model>
   </h:head>
   <h:body>
@@ -330,7 +330,7 @@
           </item>
         </select>
         <trigger ref="newBurial">
-          <label>Additional Burials</label>
+          <label>Add Additional Burial</label>
         </trigger>
         <select1 ref="BurialList" faims_certainty="false">
           <label>Burials:</label>
