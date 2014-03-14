@@ -240,7 +240,6 @@
         <trigger ref="Update">
           <label>Save Cemetery</label>
         </trigger>
-        <label>Plots</label>
         <trigger ref="newPlot">
           <label>New Plot</label>
         </trigger>
