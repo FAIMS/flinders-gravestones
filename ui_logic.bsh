@@ -16,11 +16,11 @@ onEvent("control", "show", "loadMotifAttributes()");
 onEvent("control/cemetery/CemeteryList", "click", "loadCemetery()");
 onEvent("control/cemetery/newCemetery", "click", "newCemetery()");
 
-onEvent("Cemetery/Cemetery_Admin/Update", "delayclick", "saveCemetery()");
+onEvent("Cemetery/Cemetery/Update", "delayclick", "saveCemetery()");
 
-onEvent("Cemetery/Cemetery_Plots", "show", "updateAllCemetery()");
-onEvent("Cemetery/Cemetery_Plots/newPlot", "click", "newPlot()");
-onEvent("Cemetery/Cemetery_Plots/PlotList", "click", "loadPlot()");
+onEvent("Cemetery/Cemetery", "show", "updateAllCemetery()");
+onEvent("Cemetery/Cemetery/newPlot", "click", "newPlot()");
+onEvent("Cemetery/Cemetery/PlotList", "click", "loadPlot()");
 
 String cemetery_id = null;
 String site = null;
@@ -33,7 +33,7 @@ refreshCemeteries() {
 newCemetery(){
     cememtery_id = null;
     newTabGroup("Cemetery");
-    setFieldValue("Cemetery/Cemetery_Admin/Date_of_recording", getCurrentTime());
+    setFieldValue("Cemetery/Cemetery/Date_of_recording", getCurrentTime());
 }
 loadCemetery() {
     cemetery_id = getListItemValue();
@@ -46,9 +46,9 @@ loadCemeteryFrom(entid) {
 }
 
 saveCemetery() {
-    site = getFieldValue("Cemetery/Cemetery_Admin/Site");
-    date_of_recording = getFieldValue("Cemetery/Cemetery_Admin/Date_of_recording");
-    if (isNull(getFieldValue("Cemetery/Cemetery_Admin/Site"))) { 
+    site = getFieldValue("Cemetery/Cemetery/Site");
+    date_of_recording = getFieldValue("Cemetery/Cemetery/Date_of_recording");
+    if (isNull(getFieldValue("Cemetery/Cemetery/Site"))) { 
         showWarning("Validation Error", "Cannot save Cemetery without Site");
         showTabGroup("Cemetery");
         return false;
@@ -61,7 +61,7 @@ saveCemetery() {
  
 updateAllCemetery(){
     if (!isNull(cemetery_id)){
-        plotsInCemetery = fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        plotsInCemetery = fetchAll("select uuid, group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
         "            FROM latestNonDeletedArchentIdentifiers\n"+
         "           WHERE aenttypename = 'Plot'\n"+
@@ -77,10 +77,10 @@ updateAllCemetery(){
         "        ORDER BY uuid, attributename ASC)\n"+
         "group by uuid\n"+
         "order by valuetimestamp desc, uuid, attributename;");
-        populateList("Cemetery/Cemetery_Plots/PlotList",  plotsInCemetery);
+        populateList("Cemetery/Cemetery/PlotList",  plotsInCemetery);
     } else {
         Object empty = fetchAll("select '', '';");
-        populateList("Cemetery/Cemetery_Plots/PlotList",  empty);
+        populateList("Cemetery/Cemetery/PlotList",  empty);
     }
 }
 
@@ -454,7 +454,7 @@ updateAllMarkerMotifs(){
 }
 /** ArchEnt: Motif **/
 onEvent("Motif/Motif/Update_and_new", "delayclick", "saveAndNewMotif();");
-onEvent("Motif/Motif/Update_and_close", "delayclick", "saveMotif();showTabGroup(\"Marker\", marker_id)");
+onEvent("Motif/Motif/Update_and_close", "delayclick", "saveMotif();");
 onEvent("Motif/Motif/Remove", "delayclick", "removeMotif();");
 
 loadMotifAttributes() {
@@ -493,7 +493,7 @@ saveMotif() {
         entity = fetchArchEnt(motif_id);
     }
     // first null is map data
-    saveTabGroup("Motif", motif_id, null, null, "makeMarkerMotifReln();");
+    saveTabGroup("Motif", motif_id, null, null, "makeMarkerMotifReln();cancelTabGroup(\"Motif\", false);");
 }
 
 saveAndNewMotif(){
