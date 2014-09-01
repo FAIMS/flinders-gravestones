@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSchema name="flinders_Plotstones" preparer="Pierre Estephan">
+<dataSchema name="flinders_gravestones" preparer="Vincent Tran">
 
   <RelationshipElement name="CemeteryPlot" type="bidirectional">
     <description>Implements a 1:N between Cemetery and its Plots</description>
