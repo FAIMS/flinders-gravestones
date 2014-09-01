@@ -5,7 +5,7 @@
   <!--Database: hdb_alice_stonetools   Heurist user:Alice Buhrich-->
   <!-- ****** -->
   <h:head>
-    <h:title>flinder gravestones</h:title>
+    <h:title>Flinders gravestones</h:title>
     <!--model lists user interface tabgroups, tabs and content of tabs-->
     <model>
       <instance>
@@ -187,11 +187,11 @@
       </group>
     </group>
     <group ref="user">
-      <label>User_List</label>
+      <label>{User_List}</label>
       <group ref="usertab" faims_scrollable="false">
-        <label>User_List</label>
+        <label>{User_List}</label>
         <select1 appearance="compact" ref="users" faims_certainty="false" faims_annotation="false">
-          <label>Users</label>
+          <label>{Users}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
@@ -206,7 +206,7 @@
         <trigger ref="newCemetery">
           <label>New {Cemetery}</label>
         </trigger>
-        <select1 appearance="compact" ref="CemeteryList" faims_certainty="false" faims_annotation="false">
+        <select1 appearance="compact" ref="CemeteryList" faims_certainty="false" faims_annotation="false" faims_style_class="menu_list">
           <label>{List_of_Cemeteries}:</label>
           <item>
             <label>placeholder</label>
@@ -216,7 +216,7 @@
       </group>
       <group ref="plot" faims_scrollable="false">
         <label>{Plot}</label>
-        <select1 appearance="compact" ref="PlotList" faims_certainty="false" faims_annotation="false">
+        <select1 appearance="compact" ref="PlotList" faims_certainty="false" faims_annotation="false" faims_style_class="menu_list">
           <label>{List_of_Plots}:</label>
           <item>
             <label>placeholder</label>
@@ -237,9 +237,9 @@
         <input ref="Date_of_recording" faims_attribute_name="Date of recording" faims_certainty="false" faims_annotation="false" faims_attribute_type="freetext" faims_read_only="true">
           <label>{Date_of_recording}</label>
         </input>
-        <trigger ref="Update">
+        <!-- <trigger ref="Update">
           <label>Save {Cemetery}</label>
-        </trigger>
+        </trigger> -->
         <trigger ref="newPlot">
           <label>New {Plot}</label>
         </trigger>
@@ -296,9 +296,9 @@
         <trigger ref="attachPhoto">
           <label>{Take_Picture}</label>
         </trigger>
-        <trigger ref="Update">
+        <!-- <trigger ref="Update">
           <label>Save {Plot}</label>
-        </trigger>
+        </trigger> -->
       </group>
       <group ref="Plot">
         <label>{Plot}</label>
@@ -342,11 +342,11 @@
         <trigger ref="showBurial">
           <label>{Show_Selected_Burial}</label>
         </trigger>
-        <trigger ref="Update">
+        <!-- <trigger ref="Update">
           <label>Save {Plot}</label>
-        </trigger>
+        </trigger> -->
       </group>
-      <group ref="Marker" faims_scrollable="false">
+      <group ref="Marker">
         <label>{Marker}</label>
         <trigger ref="newMarker">
           <label>Add {Marker}</label>
@@ -428,9 +428,9 @@
             <value>placeholder</value>
           </item>
         </select>
-        <trigger ref="Update">
+        <!-- <trigger ref="Update">
           <label>Save {Plot}</label>
-        </trigger>
+        </trigger> -->
       </group>
     </group>
     
@@ -505,15 +505,15 @@
           <label>{Town}</label>
         </input>
         <select1 ref="Footstone" appearance="full" faims_attribute_name="Footstone" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false">
-          <label>Includes_Footstones</label>
+          <label>{Includes_Footstones}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select1>
-        <trigger ref="Update">
+        <!-- <trigger ref="Update">
           <label>Save {Marker}</label>
-        </trigger>
+        </trigger> -->
       </group>
       <group ref="Inscription">
         <label>{Inscription}</label>
@@ -555,9 +555,9 @@
             <value>placeholder</value>
           </item>
         </select>
-        <trigger ref="Update">
+        <!-- <trigger ref="Update">
           <label>Save {Marker}</label>
-        </trigger>
+        </trigger> -->
       </group>
       <group ref="Motif" faims_scrollable="false">
         <label>{Motif}</label>
@@ -627,9 +627,9 @@
             <value>placeholder</value>
           </item>
         </select1>
-        <trigger ref="Update">
+        <!-- <trigger ref="Update">
           <label>Save {Burial}</label>
-        </trigger>
+        </trigger> -->
       </group>
     </group>
   </h:body>
