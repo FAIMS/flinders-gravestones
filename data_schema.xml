@@ -43,15 +43,16 @@
     <property name="Orientation" type="enum">
       <description>Direction person would be facing if they sat up in this grave.</description>
       <lookup>
-        <term><description>No orientation</description></term>
-        <term>North<description>North</description></term>
-        <term>North East<description>North East</description></term>
-        <term>East<description>East</description></term>
-        <term>South East<description>South East</description></term>
-        <term>South<description>South</description></term>
-        <term>South West<description>South West</description></term>
-        <term>West<description>West</description></term>
-        <term>North West<description>North West</description></term>
+        <term>{0No_Observation}<description>Denomination</description></term>
+        <term>{0No_Orientation}<description>No orientation</description></term>
+        <term>{aNorth}<description>North</description></term>
+        <term>{bNorth_East}<description>North East</description></term>
+        <term>{cEast}<description>East</description></term>
+        <term>{dSouth_East}<description>South East</description></term>
+        <term>{eSouth}<description>South</description></term>
+        <term>{fSouth_West}<description>South West</description></term>
+        <term>{gWest}<description>West</description></term>
+        <term>{hNorth_West}<description>North West</description></term>
       </lookup>
     </property>
     <property name="Number of headstones" type="number">
@@ -92,24 +93,25 @@
     <property name="Denomination" type="enum">
       <description>Religious denomination of this grave.</description>
       <lookup>
-        <term>Catholic<description>Denomination</description></term>
-        <term>Anglican<description>Denomination</description></term>
-        <term>Presbyterian<description>Denomination</description></term>
-        <term>Baptist<description>Denomination</description></term>
-        <term>Methodist<description>Denomination</description></term>
-        <term>Uniting<description>Denomination</description></term>
-        <term>Jewish<description>Denomination</description></term>
-        <term>Unknown<description>Denomination</description></term>
-        <term>{Other}<description>Denomination</description></term>
+        <term>{0No_Observation}<description>Denomination</description></term>
+        <term>{aCatholic}<description>Denomination</description></term>
+        <term>{bAnglican}<description>Denomination</description></term>
+        <term>{cPresbyterian}<description>Denomination</description></term>
+        <term>{dBaptist}<description>Denomination</description></term>
+        <term>{eMethodist}<description>Denomination</description></term>
+        <term>{fUniting}<description>Denomination</description></term>
+        <term>{gJewish}<description>Denomination</description></term>
+        <term>{hUnknown}<description>Denomination</description></term>
+        <term>{zOther}<description>Denomination</description></term>
       </lookup>
     </property>
     <property name="Sources" type="enum">
       <description>Primary (archival) sources consulted for this plot.</description>
       <lookup>
-        <term>Cemetery Records<description>Sources</description></term>
-        <term>Parish Register<description>Sources</description></term>
-        <term>Births/Deaths/Marriages<description>Sources</description></term>
-        <term>{Other}<description>Sources</description></term>
+        <term>{aCemetery_Records}<description>Sources</description></term>
+        <term>{bParish_Register}<description>Sources</description></term>
+        <term>{cBirths_Deaths_Marriages}<description>Sources</description></term>
+        <term>{zOther}<description>Sources</description></term>
       </lookup>
     </property>
 
@@ -118,9 +120,9 @@
       <description>Single (single sized grave), Double (two graves side by side in the one plot, e.g. husband/wife), Group (larger than a double sized plot)</description>
       <lookup>
         <term><description></description></term>
-        <term>Individual (Single)<description>Single (single sized grave)</description></term>
-        <term>Double (2 People)<description>Double (two graves side by side in the one plot, e.g. husband/wife)</description></term>
-        <term>Group (>2)<description>Group (larger than a double sized plot)</description></term>
+        <term>{aIndividual}<description>Single (single sized grave)</description></term>
+        <term>{bDouble}<description>Double (two graves side by side in the one plot, e.g. husband/wife)</description></term>
+        <term>{cGroup}<description>Group (larger than a double sized plot)</description></term>
       </lookup>
     </property>
     <property name="Number of interments" type="number">
@@ -129,31 +131,29 @@
     <property name="Fence" type="enum">
       <description>Any enclosure around the plot.</description>
       <lookup>
-        <term><description></description></term>
-        <term>None<description> Border of Plot</description></term>
-        <term>Cast Iron Picket<description> Border of Plot</description></term>
-        <term>Timber Picket<description> Border of Plot</description></term>
-        <term>Brick Border<description> Border of Plot</description></term>
-        <term>Stone Border<description> Border of Plot</description></term>
-        <term>Tile Border<description> Border of Plot</description></term>
-        <term>{Other}<description> Border of Plot</description></term>
+        <term>{aCast_Iron_Picket}<description> Border of Plot</description></term>
+        <term>{bTimber_Picket}<description> Border of Plot</description></term>
+        <term>{cBrick_Border}<description> Border of Plot</description></term>
+        <term>{dStone_Border}<description> Border of Plot</description></term>
+        <term>{eTile_Border}<description> Border of Plot</description></term>
+        <term>{zOther}<description> Border of Plot</description></term>
       </lookup>
     </property>
     <property name="Fence height" type="number">
-      <description>Height of enclosure, measured from bottom to top.</description>
+      <description>Height (cm) of enclosure, measured from bottom to top.</description>
     </property>
     <property name="Other items" type="enum">
       <description>Anything else included as part of the plot for decorative or memorial purposes, e.g. flowers, vases, surface coverings, shrubs, statues etc.</description>
       <lookup>
-        <term>Vase<description>Other items</description></term>
-        <term>Glass covered display<description>Other items</description></term>
-        <term>Personal Items<description>Other items</description></term>
-        <term>Photos<description>Other items</description></term>
-        <term>Statues<description>Other items</description></term>
-        <term>Tiles<description>Other items</description></term>
-        <term>Shells<description>Other items</description></term>
-        <term>Plantings<description>Other items</description></term>
-        <term>{Other}<description>Other items</description></term>
+        <term>{aVase}<description>Other items</description></term>
+        <term>{bGlass_covered_display}<description>Other items</description></term>
+        <term>{cPersonal_Items}<description>Other items</description></term>
+        <term>{dPhotos}<description>Other items</description></term>
+        <term>{eStatues}<description>Other items</description></term>
+        <term>{fTiles}<description>Other items</description></term>
+        <term>{gShells}<description>Other items</description></term>
+        <term>{hPlantings}<description>Other items</description></term>
+        <term>{zOther}<description>Other items</description></term>
       </lookup>
     </property>
   </ArchaeologicalElement>
@@ -164,13 +164,13 @@
     <property name="Form" type="enum" isIdentifier="true">
       <description>The three dimensional shape and size of the marker.</description>
       <lookup>
-        <term>Tablet (Upright Slab)<description>Marker form</description></term>
-        <term>Horizontal Slab<description>Marker form</description></term>
-        <term>Block<description>Marker form</description></term>
-        <term>Obelisk/Pillar<description>Marker form</description></term>
-        <term>Statue/Sculpture<description>Marker form</description></term>
-        <term>Cross<description>Marker form</description></term>
-        <term>Combination<description>Marker form</description></term>
+        <term>{aTablet_Upright_Slab}<description>Marker form</description></term>
+        <term>{bHorizontal_Slab}<description>Marker form</description></term>
+        <term>{cBlock}<description>Marker form</description></term>
+        <term>{dObelisk_Pillar}<description>Marker form</description></term>
+        <term>{eStatue_Sculpture}<description>Marker form</description></term>
+        <term>{fCross}<description>Marker form</description></term>
+        <term>{gCombination}<description>Marker form</description></term>
         <term>{Other}<description>Marker form</description></term>
       </lookup>
     </property>
@@ -198,38 +198,38 @@
     <property name="Marker colour" type="enum">
       <description>Primary colour of the marker.</description>
       <lookup>
-        <term>Black<description>Colour of headstone</description></term>
-        <term>White<description>Colour of headstone</description></term>
-        <term>Grey<description>Colour of headstone</description></term>
-        <term>Pink<description>Colour of headstone</description></term>
-        <term>{Other}<description>Colour of headstone</description></term>
+        <term>{aBlack}<description>Colour of headstone</description></term>
+        <term>{bWhite}<description>Colour of headstone</description></term>
+        <term>{cGrey}<description>Colour of headstone</description></term>
+        <term>{dPink}<description>Colour of headstone</description></term>
+        <term>{zOther}<description>Colour of headstone</description></term>
       </lookup>
     </property>
     <property name="Material" type="enum" isIdentifier="true">
       <description>Material of headstone</description>
       <lookup>
-        <term>Slate<description> Material</description></term>
-        <term>Marble<description> Material</description></term>
-        <term>Granite<description> Material</description></term>
-        <term>Cast Iron<description> Material</description></term>
-        <term>Timber<description> Material</description></term>
-        <term>Tile<description> Material</description></term>
-        <term>Sandstone<description> Material</description></term>
-        <term>Brick<description> Material</description></term>
-        <term>Concrete<description> Material</description></term>
-        <term>Cement<description> Material</description></term>
-        <term>{Other}<description> Material</description></term>
+        <term>{aSlate}<description> Material</description></term>
+        <term>{bMarble}<description> Material</description></term>
+        <term>{cGranite}<description> Material</description></term>
+        <term>{dCast_Iron}<description> Material</description></term>
+        <term>{eTimber}<description> Material</description></term>
+        <term>{fTile}<description> Material</description></term>
+        <term>{gSandstone}<description> Material</description></term>
+        <term>{hBrick}<description> Material</description></term>
+        <term>{iConcrete}<description> Material</description></term>
+        <term>{kCement}<description> Material</description></term>
+        <term>{zOther}<description> Material</description></term>
       </lookup>
     </property>
     <property name="Lettering" type="enum">
       <description>How the marker was inscribed.</description>
       <lookup>
-        <term><description></description></term>
-        <term>Engraved<description>Incised or chiselled into the material of the marker</description></term>
-        <term>Lead<description>Individual lead letters attached to the marker</description></term>
-        <term>Engraved and Painted<description>Incised into the material with painted letters</description></term>
-        <term>Painted Only<description>No incision, letters painted directly on to the marker</description></term>
-        <term>{Other}<description>Other</description></term>
+        <term>{0No_Observation}<description></description></term>
+        <term>{aEngraved}<description>Incised or chiselled into the material of the marker</description></term>
+        <term>{bLead}<description>Individual lead letters attached to the marker</description></term>
+        <term>{cEngraved_and_Painted}<description>Incised into the material with painted letters</description></term>
+        <term>{dPainted_Only}<description>No incision, letters painted directly on to the marker</description></term>
+        <term>{zOther}<description>Other</description></term>
       </lookup>
     </property>
     <property name="Mason" type="freetext">
@@ -241,9 +241,9 @@
     <property name="Footstone" type="enum">
       <description>A small marker at the foot of the grave, opposite the headstone.</description>
       <lookup>
-        <term>Yes<description>Footstone</description></term>
-        <term>No<description>Footstone</description></term>
-        <term>Not Observed<description>Footstone</description></term>
+        <term>{0No_Observation}<description></description></term>
+        <term>{Yes}<description>Footstone</description></term>
+        <term>{No}<description>Footstone</description></term>
       </lookup>
     </property>
     
@@ -254,51 +254,51 @@
     <property name="Style of language" type="enum">
       <description>Style of Language</description>
       <lookup>
-        <term>Emotive<description> Use of emotive words or phrases to describe them or their death. </description></term>
-        <term>Biographical<description> Details about their life, e.g. where they were born, where they lived, etc </description></term>
-        <term>Factual<description> No embellishment, use of simple and direct language. </description></term>
-        <term>Religious<description> e.g. Bible verses, or appeals to God </description></term>
+        <term>{aEmotive}<description> Use of emotive words or phrases to describe them or their death. </description></term>
+        <term>{bBiographical}<description> Details about their life, e.g. where they were born, where they lived, etc </description></term>
+        <term>{cFactual}<description> No embellishment, use of simple and direct language. </description></term>
+        <term>{dReligious}<description> e.g. Bible verses, or appeals to God </description></term>
       </lookup>
     </property>
     <property name="Key words" type="enum">
       <description>*Key Wording Introduction: The form of the introductory wording on the marker.
         *Key Wording Death: The type of metaphor used to refer to death.</description>
         <lookup>
-          <term>Sacred to the memory of<description>Key Words</description></term>
-          <term>In loving memory of/In memory of<description>Key Words</description></term>
-          <term>Beloved<description>Key Words</description></term>
-          <term>Re-union/Re-united<description>Key Words</description></term>
-          <term>Resting/Sleeping<description>Key Words</description></term>
-          <term>Religous<description>Key Words</description></term>
-          <term>Personalised Inscription<description>Key Words</description></term>
-          <term>Passed away/Leaving<description>Key Words</description></term>
-          <term>War Service<description>Key Words</description></term>
-          <term>No Embellishment<description>Key Words</description></term>
-          <term>{Other}<description>Key Words</description></term>
+          <term>{aSacred_to_the_memory_of}<description>Key Words</description></term>
+          <term>{bIn_loving_memory_of_In_memory_of}<description>Key Words</description></term>
+          <term>{cBeloved}<description>Key Words</description></term>
+          <term>{dReunion_Reunited}<description>Key Words</description></term>
+          <term>{eResting_Sleeping}<description>Key Words</description></term>
+          <term>{fReligous}<description>Key Words</description></term>
+          <term>{hPersonalised_Inscription}<description>Key Words</description></term>
+          <term>{iPassed_away_Leaving}<description>Key Words</description></term>
+          <term>{jWar_Service}<description>Key Words</description></term>
+          <term>{kNo_Embellishment}<description>Key Words</description></term>
+          <term>{zOther}<description>Key Words</description></term>
         </lookup>
       </property>
       <property name="Tense" type="enum">
         <description>Inscription</description>
         <lookup>
-          <term>Written in first person ("I", "Me")<description>First person (as if the deceased is speaking directly to you – “I”, “Me”)</description></term>
-          <term>Written in third person ("He", "She")<description>Third person (the deceased is being spoken about – “He”, “She”)</description></term>
+          <term>{aWritten_in_first_person}<description>First person (as if the deceased is speaking directly to you – “I”, “Me”)</description></term>
+          <term>{bWritten_in_third_person}<description>Third person (the deceased is being spoken about – “He”, “She”)</description></term>
         </lookup>
       </property>
       <property name="Author" type="enum">
         <description>The person who wrote/chose the epitaph, based on the language or other clues.</description>
         <lookup>
-          <term>Written by Spouse<description>Written by Spouse</description></term>
-          <term>Written by Children<description>Written by Children</description></term>
-          <term>Written by Friend/Other<description>Written by Friend/Other</description></term>
+          <term>{aWritten_by_Spouse}<description>Written by Spouse</description></term>
+          <term>{bWritten_by_Children}<description>Written by Children</description></term>
+          <term>{cWritten_by_Friend_Other}<description>Written by Friend/Other</description></term>
         </lookup>
       </property>
       <property name="Burials described in relation to" type="enum">
         <description>Burials described in relation to</description>
         <lookup>
-          <term>Family patriarch<description>Burials described</description></term>
-          <term>Order of death<description>Burials described</description></term>
-          <term>Position within family unit (e.g mother,son, wife)<description>Burials described</description></term>
-          <term>Unrelated to others<description>Burials described</description></term>
+          <term>{aFamily_patriarch}<description>Burials described</description></term>
+          <term>{bOrder_of_death}<description>Burials described</description></term>
+          <term>{cPosition_within_family_unit}<description>Burials described</description></term>
+          <term>{dUnrelated_to_others}<description>Burials described</description></term>
         </lookup>
       </property>
     </ArchaeologicalElement>
@@ -308,528 +308,528 @@
      <property name="Motif" type="enum" isIdentifier="true">
       <description>Motif</description>
       <lookup>
-        <term>Animals and Insects<description></description>
-          <term pictureURL="">Ants
+        <term>{Animals_and_Insects}<description></description>
+          <term pictureURL="">{Ants}
             <description>Christian industry.</description>
           </term>
-          <term pictureURL="">Bees
+          <term pictureURL="">{Bees}
             <description>Resurrection; risen Christ.</description>
           </term>
-          <term pictureURL="">Bird/s in flight
+          <term pictureURL="">{Birds_in_flight}
             <description>Symbolic of the "winged soul." The representation of the soul by a bird goes back to ancient Egypt. Some older burial art features only wings to convey the symbol of divine mission. Often denote the graves of children, eternal life.</description>
           </term>
-          <term pictureURL="">Butterfly
+          <term pictureURL="">{Butterfly}
             <description>The soul. Although quite rare, it is occasionally seen on graves (most often of children). It is symbolic of the resurrection of Christ. The meaning is derived from the three stages of the life of the butterfly—the caterpillar, the chrysalis, and the butterfly. The three stages are symbols of life, death and resurrection. Short-life.</description>
           </term>
-          <term pictureURL="">Cocoon or Chrysalis
+          <term pictureURL="">{Cocoon_or_Chrysalis}
             <description>The soul. Although quite rare, it is occasionally seen on graves (most often of children). It is symbolic of the resurrection of Christ. The meaning is derived from the three stages of the life of the butterfly—the caterpillar, the chrysalis, and the butterfly. The three stages are symbols of life, death and resurrection. Short-life.</description>
           </term>
-          <term pictureURL="">Dog
+          <term pictureURL="">{Dog}
             <description>Dogs often appear at the feet of medieval women, signifying the loyalty and inferior place of each in the chivalric order. Modern dogs only imply that the master was worth loving.</description>
           </term>
-          <term pictureURL="">Dolphin
+          <term pictureURL="">{Dolphin}
             <description>Portrays the idea of resurrection.</description>
           </term>
-          <term pictureURL="">Dove
+          <term pictureURL="">{Dove}
             <description>An important symbolic animal in Christianity representing the Holy Spirit. The white dove is referred to in the story of baptism of Christ. "And John bore record, saying, I saw the Spirit descending from heaven like a dove, and it abode upon him" (Bible, John 1:32).  The descending dove is a very common motif on grave memorials.  Seven doves are representative of the seven spirits of God or the Holy Spirit in its sevenfold gifts of grace. Purity, devotion, Divine Spirit. People of the Jewish faith believe the dove to symbolize peace.</description>
           </term>
-          <term pictureURL="">Dove and Olive Branch
+          <term pictureURL="">{Dove_and_Olive_Branch}
             <description>Peace, hope or promise. This symbol stems from Judeo-Christian culture and the biblical story of Noah and the great flood.  When the dove returned to the ark with an olive branch from the Mount of Olives in its beak, it was a sign of God's forgiveness.  It is now a common secular symbol.</description>
           </term>
-          <term pictureURL="">Dragon
+          <term pictureURL="">{Dragon}
             <description>Dramatically different interpretation between Eastern and Western cultures. In the Orient, the dragon protects humans from evil spirits and represents joy, health and fertility. But in Western cultures, the dragon possesses the negative traits of the snake, destruction, danger, depravity, and loss of innocence. In Jewish tradition, mythical danger, depravity, and loss of innocence. In Jewish tradition, mythical beasts like the dragon are messianic creatures. Also, a dragon being defeated by St. George depicts triumph over sin.</description>
           </term>
-          <term pictureURL="">Eagle
+          <term pictureURL="">{Eagle}
             <description>Suggests courage and possibly a military career, symbol for Saint John.</description>
           </term>
-          <term pictureURL="">Egg
+          <term pictureURL="">{Egg}
             <description>Regeneration. An "egg and dart" motif was a common design in classical architecture and used on the edges of tombstones or as a frieze, symbolising resurrection after death.  The egg symbolised life and birth while the dart (arrow) depicted death. </description>
           </term>
-          <term pictureURL="">Fish
+          <term pictureURL="">{Fish}
             <description>Indictes faith.</description>
           </term>
-          <term pictureURL="">Horse
+          <term pictureURL="">{Horse}
             <description>Courage or generosity. An attribute of St. George, St. Martin, St. Maurice and St. Victor, all of whom are represented in Christian art on horseback. It was in honor of the crusaders.</description>
           </term>
-          <term pictureURL="">Lamb
+          <term pictureURL="">{Lamb}
             <description>This is the most common animal symbol found on a child's grave. The lamb appears throughout the ages with great regularity in Christian art and because it is a symbol of Christ: "Behold the Lamb of God, which taketh away the sin of the world!" (John 1:29).  The use of the lamb in religious art pre-dates Christianity and appears to have been used first by the Egyptians. It signifies purity and innocence. Christ in his sacrificial role and personifies: innocence, meekness, gentleness and humility.</description>
           </term>
-          <term pictureURL="">Lion
+          <term pictureURL="">{Lion}
             <description>The power of God and guards the tomb against evil spirits. Like other guardians, the lion's watch is as eternal as the stone of which it is depicted. The lion also recalls the courage and determination of the souls which they guard; they manifest the spirit of the departed. Resurrection.</description>
           </term>
-          <term pictureURL="">Lion, Winged
+          <term pictureURL="">{Lion_Winged}
             <description>St. Mark the Evangelist</description>
           </term>
-          <term pictureURL="">Peacock
+          <term pictureURL="">{Peacock}
             <description>The incorruptibility of flesh, a symbol of immortality (even St. Augustine believed the peacock's flesh to have "antiseptic qualities" and that it didn't corrupt), the peacock became a symbol of Christ and the Resurrection. Its image embellished everything from the Catacombs to everyday objects, like lamps, especially in early Romanesque and Byzantine churches. (The peacock, for obvious reasons, was also used as a symbol for pride, too).</description>
           </term>
-          <term pictureURL="">Rooster
+          <term pictureURL="">{Rooster}
             <description>Awakening to resurrection. Vigilance.</description>
           </term>
-          <term pictureURL="">Swallow
+          <term pictureURL="">{Swallow}
             <description>Indicates a child or motherhood.</description>
           </term>
         </term>
-        <term>Body Parts<description></description>
-          <term pictureURL="">Arms outstretched
+        <term>{Body_Parts}<description></description>
+          <term pictureURL="">{Arms_outstretched}
             <description>Plea for mercy.</description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/deathsHead.png">Death's Head
+          <term pictureURL="files/data/gallery/headstones/deathsHead.png">{Deaths_Head}
             <description>Death or a reminder that death comes to everyone. A heart in the mouth of a death's head means the soul emerging triumphant from death.</description>
           </term>
-          <term pictureURL="">Eye of God
+          <term pictureURL="">{Eye_of_God}
             <description>The all-knowing and ever-present God. During the Renaissance period in Europe, it was common to illustrate the Eye of God surrounded by a triangle (the Holy Trinity). The eye within the triangle, surrounded by a circle and radiating rays of light is used to symbolize the holiness of the true God.</description>
           </term>
-          <term pictureURL="">Hands,General
+          <term pictureURL="">{Hands_General}
             <description>The use of hands in some form is very common on grave memorials. Symbol of leaving.</description>
           </term>
-          <term pictureURL="">Hands, clasped
+          <term pictureURL="">{Hands_clasped}
             <description>At first glance, these hands all seem to be in the same fashion but a number of interesting characteristics stand out.  First, most of the hands illustrate the right hand in a grasp with fingers overlapping the other hand, while the left hand is open. This could be the depiction of a man holding a woman's hand and indicate marriage or a close bond between individuals, unity and affection even after death.  Clasped hands are also symbolic of a farewell or last good-bye.  Look at the cuff to distinguish between a man's or woman's hand (women would have a frilly cuff).  The person who died first holds the other's hand, guiding the spouse to heaven.  Clasped hands could be joined by a ribbon.</description>
           </term>
-          <term pictureURL="">Hand of God plucking a link of a chain
+          <term pictureURL="">{Hand_of_God_plucking_a_link_of_a_chain}
             <description>God bringin a soul unto himself</description>
           </term>
-          <term pictureURL="">Hands, holding a chain with a broken link
+          <term pictureURL="">{Hands_holding_a_chain_with_a_broken_link}
             <description>Symbolises the death of a family member.</description>
           </term>
-          <term pictureURL="">Hands, holding a heart
+          <term pictureURL="">{Hands_holding_a_heart}
             <description>Symbolic of charity and is common on 19th century memorials. It is typically seen on memorials of members of the Independent Order of Odd fellows. Charity.</description>
           </term>
-          <term pictureURL="">Hands, holding an open book
+          <term pictureURL="">{Hands_holding_an_open_book}
             <description>The embodiment of faith</description>
           </term>
-          <term pictureURL="">Hand, pointing downward
+          <term pictureURL="">{Hand_pointing_downward}
             <description>Morality or suddent death</description>
           </term>
-          <term pictureURL="">Hand, pointing upward
+          <term pictureURL="">{Hand_pointing_upward}
             <description>The reward of the righteous, confirmation of life after death. Heavenly reward, ascension to heaven.</description>
           </term>
-          <term pictureURL="">Hands, praying
+          <term pictureURL="">{Hands_praying}
             <description>Connote devotion</description>
           </term>
-          <term pictureURL="">Heart, General
+          <term pictureURL="">{Heart_General}
             <description>Love, mortality, love of God, courage and intelligence.</description>
           </term>
-          <term pictureURL="">Heart, Bleeding
+          <term pictureURL="">{Heart_Bleeding}
             <description>Christs suffering for our sins.</description>
           </term>
-          <term pictureURL="">Heart, Encircled with thorns
+          <term pictureURL="">{Heart_Encircled_with_thorns}
             <description>The suffering of Christ.</description>
           </term>
-          <term pictureURL="">Heart, Flaming
+          <term pictureURL="">{Heart_Flaming}
             <description>Extreme religious fervor.</description>
           </term>
-          <term pictureURL="">Heart, Sacred
+          <term pictureURL="">{Heart_Sacred}
             <description>Usually found in Catholic cemeteries, this heart refers to the suffering of CHrist for our sins.</description>
           </term>
-          <term pictureURL="">Skull with a wreath
+          <term pictureURL="">{Skull_with_a_wreath}
             <description>Victory of death over life.</description>
           </term>
         </term>
-        <term>Geometric Symbols<description></description>
-          <term pictureURL="">Circle
+        <term>{Geometric_Symbols}<description></description>
+          <term pictureURL="">{Circle}
             <description>The circle is pre-Christian and its original symbolic meaning has been adopted by Christianity. It is universally known as the symbol of eternity and never ending existence. Extremely common on grave sites, its usual representation is a cross surrounded by circle. Two circles, one above the other, represent earth and sky.  Three interconnected circles represent the Holy Trinity.</description>
           </term>
-          <term pictureURL="">Cross, general
+          <term pictureURL="">{Cross_general}
             <description>Christ"s redemption of humanity from sin.  Faith and belief in God.</description>
           </term>
-          <term pictureURL="">Latin cross
+          <term pictureURL="">{Latin_cross}
             <description>Cross with a vertical axis that it longer than the horizontal.  One of the oldest symbols of Christianity and the most commonly used form, it is also the simplest in design. </description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/greekCross.png">Greek Cross
+          <term pictureURL="files/data/gallery/headstones/greekCross.png">{Greek_Cross}
             <description>Cross with four arms that are all equal in length.  One of the earliest Christian symbols, possibly linked to older pagan representations of the four elements—earth, air, fire and water. </description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/celticCross.png">Celtic Cross
+          <term pictureURL="files/data/gallery/headstones/celticCross.png">{Celtic_Cross}
             <description>Cross with … The circle around the crosspiece symbolizes eternity.  It's origin can be traced to the Celtic cultures of the British Isles.  There is a legend of how St. Patrick when preaching to some soon to be converted heathens was shown a sacred standing stone that was marked with a circle that was symbolic of the moon goddess.  Patrick made the mark of a Latin cross through the circle and blessed the stone making the first Celtic Cross.</description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/easternCross.png">Eastern Cross
+          <term pictureURL="files/data/gallery/headstones/easternCross.png">{Eastern_Cross}
             <description>Used in Orthodox (Russian/Greek) Christian religions, it has the addition of an upper horizontal shoulder representing the inscription over the head of Jesus, and a lower slanting shoulder representing the footrest of the crucified Jesus.</description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/botoneeCross.png">Botonee Cross
+          <term pictureURL="files/data/gallery/headstones/botoneeCross.png">{Botonee_Cross}
             <description>Composed of either four arms of equal length (Trinity Cross), or a Latin Cross (Botonee Cross) with modified trefoil (three-lobed) ends, that represent the trinity.  According to the Vatican, the structure is said to be the union of the Cross of Christ with the sign of ancient druids.  The "budded" ends are also used to represent youth.</description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/cavalryCross.png">Calvary Cross
+          <term pictureURL="files/data/gallery/headstones/cavalryCross.png">{Calvary_Cross}
             <description>A Latin cross standing on three steps or blocks, it signifies faith, hope and love. Love is sometimes replaced by charity.</description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/fleureeCross.png">Fleuree Cross/Gothic Cross
+          <term pictureURL="files/data/gallery/headstones/fleureeCross.png">{Fleuree_Cross_Gothic_Cross}
             <description>This flowered cross symbolizes the adult Christian by its more opened and flared out ends.</description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/prebyterianCross.png">Presbyterian Cross
+          <term pictureURL="files/data/gallery/headstones/prebyterianCross.png">{Presbyterian_Cross}
             <description>Similar to a bottonee cross, with a circle around the crosspiece.</description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/standrewsCross.png">St Andrew's (Scottish) Cross
+          <term pictureURL="files/data/gallery/headstones/standrewsCross.png">{St_Andrews_Scottish_Cross}
             <description>A diagonal cross symbolizing the martyrdom of St Andrew, the Patron Saint of Scotland.</description>
           </term>
-          <term pictureURL="">Star
+          <term pictureURL="">{Star}
             <description>A five-pointed star - Is symbolic of the life of Christ and may also represent the five wounds of Christ.</description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/trefoil.png">Trefoil
+          <term pictureURL="files/data/gallery/headstones/trefoil.png">{Trefoil}
             <description>In Christianity, the equilateral triangle is the symbol of the Trinity. Other geometric shapes representing the Holy Trinity are the trefoil, the triquetra, the circle within the triangle, the triangle in circle and the triquetra and circle. To the ancient Egyptians, the triangle was an emblem of Godhead; to the Pythagoreans, it symbolized wisdom. Another use of the triangle is in the symbol of the eye (eye of God) surrounded by a triangle.</description>
           </term>
-          <term pictureURL="">Spiral
+          <term pictureURL="">{Spiral}
             <description>Progressive development and movement.</description>
           </term>
-          <term pictureURL="files/data/gallery/headstones/triskele.png">Triskele, triple spiral or triskelion
+          <term pictureURL="files/data/gallery/headstones/triskele.png">{Triskele_triple_spiral_or_triskelion}
             <description>The triskele, or triple spiral, a symbol closely related to the triquetra, is a tripartite symbol composed of three interlocked spirals.  The spiral is an ancient Celtic symbol related to the sun, afterlife and reincarnation, often found on Neolithic "tombs", such as Newgrange, where it is supposed by some to be a symbol of pregnancy (the sun describes a spiral in its movements every three months; a triple spiral represents nine months), an idea reinforced by the womb like nature of the structure. The symbol also suggests reincarnation- it is drawn in one continuous line, suggesting a continuous movement of time.  Triskeles are one of the most common elements of Celtic art; they are found in a variety of styles in both ancient and modern Celtic art, especially in relation to depictions of the Mother Goddess. They also evoke the Celtic concept of the domains of material existence- earth, water, and sky, and their interrelations.</description>
           </term>
         </term>
-        <term>Letters<description></description>
-        <term pictureURL="files/data/gallery/headstones/alphaOmega.png">Alpha and Omega
+        <term>{Letters}<description></description>
+        <term pictureURL="files/data/gallery/headstones/alphaOmega.png">{Alpha_and_Omega}
           <description>The first and last letters of the Greek alphabet; symbolic of God, the beginning and the end.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/chrisma.png">Chrisma or labarum
+        <term pictureURL="files/data/gallery/headstones/chrisma.png">{Chrisma_or_labarum}
           <description>A cross like shape formed by a combination of two Greek letters, chi (X) and rho (P) corresponding to CH and R of the word, Christ, hence a symbol for Jesus Christ. This symbol is also known as the Monogram of Christ, Constantine's Cross, the Chrismon, the Christogram and the Chi- Rho. Since the Roman emperor Constantine I used this symbol on his shield, overcame his enemy in battle, and consequently converted to Christianity, the labarum has been a symbol of Christianity.  In pre- Christian Greece it signified a good omen . It also represented the Chaldean sky god. Today the letters may be reversed as PX to represent "pax" or "peace".</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/ihs.png">I. H. S
+        <term pictureURL="files/data/gallery/headstones/ihs.png">{I_H_S}
           <description>Acronym with several meanings.  Maybe represented as a monogram (see picture to left), or as a sequence of letters, 1.  The "I" stands for Ihsus or Ihcuc, the name of Jesus in Greek, with the S and C being variant forms in the Greek alphabet.  When these are found on tombstones it stresses the identity of the individual with Jesus Christ.  Originally a Roman Catholic, particularly Jesuit, symbol.2.  The letters have also been interpreted (with conscious intention to enrich the meaning) as "Jesus Hominum Salvator", or"Jesus Saviour of Mankind", and "In Hac Salus", "In This (Cross) Salvation" (OED).3.  "In hoc signo".  On the eve of battle, Constantine, had a vision of a banner bearing the phrase, "In hoc signo vinces", meaning "In this sign you will conquer".  Constantine won the battle and converted to Christianity. As it is used on both Protestant and Catholic gravestones, this symbol illustrates the variant meanings that can be ascribed to the one motif depending on denomination. (Mytum 2003, 140).</description>
         </term>
-        <term pictureURL="">I.N.R.I
+        <term pictureURL="">{I_N_R_I}
           <description>Acronym for Latin phrase, "Jesus of Nazareth King of the Jews" John 19:19</description>
         </term>
-        <term pictureURL="">I.O.O.F
+        <term pictureURL="">{I_O_O_F}
           <description>Independent Order of Odd Fellows</description>
         </term>
       </term>
-      <term>Objects<description></description>
-        <term pictureURL="">Altar
+      <term>{Objects}<description></description>
+        <term pictureURL="">{Altar}
           <description>Sacrifice, worship, thanksgiving and remembrance</description>
         </term>
-        <term pictureURL="">Anchor
+        <term pictureURL="">{Anchor}
           <description>Early Christians used the anchor as a disguised cross, and as a marker to guide the way to secret meeting places. A Christian symbol of hope, it is found as funerary symbolism in the art of the catacombs. Often set amongst rocks. It can also be an occupational symbol in sea-faring areas or the attribute of Saint Nicholas, patron saint of seamen, symbolized hope and steadfastness. An anchor with a broken chain stands for the cessation of life.</description>
         </term>
-        <term pictureURL="">Arch
+        <term pictureURL="">{Arch}
           <description>Victory of life; or triumph over death.</description>
         </term>
-        <term pictureURL="">Arror, or Archer
+        <term pictureURL="">{Arror_or_Archer}
           <description>Denotes mortality.</description>
         </term>
-        <term pictureURL="">Angel
+        <term pictureURL="">{Angel}
           <description>The agent of God, often pointing towards heaven; guardians of the dead, symbolizing spirituality. Angels are shown in all types of poses with different symbolism.</description>
         </term>
-        <term pictureURL="">Angel blowing a trumpet or trumpets
+        <term pictureURL="">{Angel_blowing_a_trumpet_or_trumpets}
           <description>Represents the day of judgement, and "Call to the Resurrection".</description>
         </term>
-        <term pictureURL="">Angel carrying the departed soul
+        <term pictureURL="">{Angel_carrying_the_departed_soul}
           <description>The "messengers of god" are often shown escorting the deceased to heaven.</description>
         </term>
-        <term pictureURL="">Angel flying
+        <term pictureURL="">{Angel_flying}
           <description>Symbolises rebirth.</description>
         </term>
-        <term pictureURL="">Angel weeping
+        <term pictureURL="">{Angel_weeping}
           <description>Symbolises grief, or mourning for an untimely death.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/anthemion.png">Anthemion/Anthemia
+        <term pictureURL="files/data/gallery/headstones/anthemion.png">{Anthemion_Anthemia}
           <description>A classical ornament featuring honeysuckle or palmettes with foliage below; used singly on antefixes (ornamental blocks concealing tile-ends at the edges of a roof), or as a running ornament on friezes.  Greek: "anthemion" - a flower.  One type of ancient Greek palmette resembles honeysuckle flowers, another is more like a palm leaf. Both were used in bands of anthemion ornament.</description>
         </term>
-        <term pictureURL="">Banner
+        <term pictureURL="">{Banner}
           <description>Victory, triumph.</description>
         </term>
-        <term pictureURL="">Bed
+        <term pictureURL="">{Bed}
           <description>At rest.</description>
         </term>
-        <term pictureURL="">Bells
+        <term pictureURL="">{Bells}
           <description>Call to worship.</description>
         </term>
-        <term pictureURL="">Bell, Deid
+        <term pictureURL="">{Bell_Deid}
           <description>This was rung to give notice of funerals, and at the funeral itself; a small handbell, it was a favorite emblem north of the Tay, Scotland.</description>
         </term>
-        <term pictureURL="">Bible
+        <term pictureURL="">{Bible}
           <description>Connotes a religious lay person or a cleric.</description>
         </term>
-        <term pictureURL="">Black and white tiles
+        <term pictureURL="">{Black_and_white_tiles}
           <description>Checkered pattern or similar, represents good and evil.</description>
         </term>
-        <term pictureURL="">Book
+        <term pictureURL="">{Book}
           <description>Faith, learning to read and write, a scholar.  A prayer, knowledge or memory.  It may represent the Book of Life and is often shown as a bible.  A popular form is the book as a double page spread, particularly in married couple burials.</description>
         </term>
-        <term pictureURL="">Branch
+        <term pictureURL="">{Branch}
           <description>Severed mortality.</description>
         </term>
-        <term pictureURL="">Bridge
+        <term pictureURL="">{Bridge}
           <description>Since antiquity, bridges have symbolized linking; between the earthly and heavenly realms, between the physical and the spiritual, or between life and death. In modern psychoanalytic terms, bridges symbolize the transition from one state of being to another and the opportunity for change. The bridge's near side represents the past, its opposite side the future, and water flowing underneath, the chaos of the unconscious mind.</description>
         </term>
-        <term pictureURL="">Chains
+        <term pictureURL="">{Chains}
           <description>Medieval thinkers sometimes held that a golden chain bound the soul to the body.  Broken links on a headstone can mean the severance and subsequent release of the spirit from the body.  Chains are also the insignia of the International Order of Odd Fellows, so called because of their dedication to giving the poor decent burials.  This latter association can be clinched by the observation of the letters IOOF or FLT (Friendship, Love, Truth) either inside or near the chain.</description>
         </term>
-        <term pictureURL="">Chain, broken
+        <term pictureURL="">{Chain_broken}
           <description>Death breaking the links wiht a family member.</description>
         </term>
-        <term pictureURL="">Cherubs
+        <term pictureURL="">{Cherubs}
           <description>The graves of children.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/cherubsHead.png">Cherub's Head, with or without wings
+        <term pictureURL="files/data/gallery/headstones/cherubsHead.png">{Cherubs_Head_with_or_without_wings}
           <description>The soul.</description>
         </term>
-        <term pictureURL="">Circle
+        <term pictureURL="">{Circle}
           <description>Eternity or Earth</description>
         </term>
-        <term pictureURL="">Circle, broken
+        <term pictureURL="">{Circle_broken}
           <description>Life has ended, or the family circle is broken.</description>
         </term>
-        <term pictureURL="">Circle, with wings
+        <term pictureURL="">{Circle_with_wings}
           <description>Immortality</description>
         </term>
-        <term pictureURL="">Clouds
+        <term pictureURL="">{Clouds}
           <description>Atmospheric veil concealing God from his worshipers.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/column.png">Column
+        <term pictureURL="files/data/gallery/headstones/column.png">{Column}
           <description>Mortality.  A draped or broken column represents the break in earthly to heavenly life.  The drapery also symbolizes mourning (see below).</description>
         </term>
-        <term pictureURL="">Cross and Anchor
+        <term pictureURL="">{Cross_and_Anchor}
           <description>Another early Christian symbol referring to Christ as "hope we have as an anchor of the soul, both sincere and steadfast" (Hebrews 6:19).</description>
         </term>
-        <term pictureURL="">Crown on a cross
+        <term pictureURL="">{Crown_on_a_cross}
           <description>Sovereignty of the Lord</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/curtains.png">Draperies/Curtains
+        <term pictureURL="files/data/gallery/headstones/curtains.png">{Draperies_Curtains}
           <description>In the days when the body lay in state in the parlor, it was the custom to cover everything in black. Draperies, with their fancy frills and tassels, are more elaborate than a simple shroud. They allow the expression of mourning to linger long after the body has been taken out the front door and the accoutrements have been stowed for the next death in the family.  Curtains can also set the stage.  Parted, they reveal a telling excerpt. What is important in such displays is the main actor or central object of the stone.</description>
         </term>
-        <term pictureURL="">Garlands
+        <term pictureURL="">{Garlands}
           <description>Victory in death</description>
         </term>
-        <term pictureURL="">Heart with anchor and cross
+        <term pictureURL="">{Heart_with_anchor_and_cross}
           <description>Faith, hope and charity.</description>
         </term>
-        <term pictureURL="">Keys
+        <term pictureURL="">{Keys}
           <description>Keys stand for spiritual knowledge. If held in the hands of an angel or saint, they represent the means to enter heaven.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/interlacedCelticKnot.png">Interlaced Celtic knot
-          <description>Resurrection and life everlasting.</description>
+        <term pictureURL="files/data/gallery/headstones/interlacedCelticKnot.png">{Interlaced_Celtic_knot}
+          <description>{Ladder}</description>
         </term>
-        <term pictureURL="">Ladder
+        <term pictureURL="">{Ladder}
           <description>Passion, Jacob, aspiration.</description>
         </term>
-        <term pictureURL="">Lamp
+        <term pictureURL="">{Lamp}
           <description>Knowledge, love of learning, immortality of the Spirit.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/masonicCompass.png">Masonic Compass and Set-square
+        <term pictureURL="files/data/gallery/headstones/masonicCompass.png">{Masonic_Compass_and_Set_square}
           <description>Freemasons combine religious and construction and architectural forms in their symbols.  Viewing God as the architect and builder of the universe, Freemasonry intends to build the temple of humanity through self-improvement with stone-masonry work.  The compass, used in geometric calculations, symbolizes creation and the spirit.  The set-square draws perfect right angles, so represents uprightness and lawfulness.  The compass and the square measure things, so they symbolize judgment. They also represent geometry, and the union of the sky (the compass's circle) and the earth (the square).  The letter "G" in this symbol represents God, geometry and geomancy. </description>
         </term>
-        <term pictureURL="">Rope
+        <term pictureURL="">{Rope}
           <description>Eternity, Binding and Connection.  In Egyptian hieroglyphics, a knotted cord signifies a man's name, a symbol of an individual's existence.  In Vedic teaching, the silver cord expresses the sacred, inner path which binds the outer consciousness (intellect) with spiritual essence.</description>
         </term>
-        <term pictureURL="">Scroll
+        <term pictureURL="">{Scroll}
           <description>Symbol of life and time. Both ends rolled up indicate a life that is unfolding like a scroll of uncertain length, with the past and future hidden. If held by a hand, this represents life being recorded by angels. Can also suggest honor and commemoration.</description>
         </term>
-        <term pictureURL="">Shell
+        <term pictureURL="">{Shell}
           <description>The use of shell in burials is pre-Christian in practice and predates even Egyptian burial practices.  Shell is symbolic of fertility, resurrection and pilgrimage.  Shells, coins and small stones are the traditional objects left at grave sites.  There are several meanings given to this act.  It may be a symbolic referral to the ancient custom of burying the dead under a cairn of rocks to protect the body from scavenging animals, or a reminder that the individual is not forgotten.</description>
         </term>
-        <term pictureURL="">Skull
+        <term pictureURL="">{Skull}
           <description>Death; sin; with crossbones – mortality.</description>
         </term>
-        <term pictureURL="">Star
+        <term pictureURL="">{Star}
           <description>Stars stand for the spirit, piercing the darkness in triumph against the overwhelming odds of oblivion.  Five pointed stars represent the spirit rising to heaven.</description>
         </term>
-        <term pictureURL="">Steps
+        <term pictureURL="">{Steps}
           <description>A common symbol around the world, steps generally mean ascension, stages or levels.  The number of steps brings the meaning of numbers into the interpretation as does the symbolism of any objects that surround or are a part of the steps.  In Romanesque art, steps represent the relationship between worlds.  In many religions steps, or a ladder, are seen as the path to god.  For alchemists of the Middle Ages, steps were associated with the transmutation process.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/urn.png">Urn
+        <term pictureURL="files/data/gallery/headstones/urn.png">{Urn}
           <description>Greek symbol of mourning, the body as a vessel of the soul, originating as a repository for the ashes of the dead in ancient times - a popular symbol of mourning. Most represent an ossuary. In several examples an Angel is looking inside it as if to inspect the contents. A flame is sometimes shown coming from the Urn.  They are often draped with a cloth or festooned with a wreath or garland.  This fashion of persisted well into the 1850's at least.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/urnDraped.png">Urn, draped
+        <term pictureURL="files/data/gallery/headstones/urnDraped.png">{Urn_draped}
           <description>Connotes death, often of an older person.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/wingedSkull.png">Winged skull
+        <term pictureURL="files/data/gallery/headstones/wingedSkull.png">{Winged_skull}
           <description>Flight of the soul from mortal man.</description>
         </term>
-        <term pictureURL="">Woman with or without Bible pointing upward
+        <term pictureURL="">{Woman_with_or_without_Bible_pointing_upward}
           <description>Faith.</description>
         </term>
         </term>
-        <term>Flowers, Trees, plants<description>Flowers convey love, grief, happiness and other emotions. These symbolic connections of flowers with emotion are cross-cultural and their origins are unknown. During the 1800s, the use of floral symbolism became so popular that almost every flower known had a symbolic gesture attached to it. The following are some symbolic references to common plants and flowers.</description>
+        <term>{Flowers_Trees_plants}<description>Flowers convey love, grief, happiness and other emotions. These symbolic connections of flowers with emotion are cross-cultural and their origins are unknown. During the 1800s, the use of floral symbolism became so popular that almost every flower known had a symbolic gesture attached to it. The following are some symbolic references to common plants and flowers.</description>
 
-        <term pictureURL="files/data/gallery/headstones/acanthus.png">Acanthus
+        <term pictureURL="files/data/gallery/headstones/acanthus.png">{Acanthus}
           <description>Heavenly garden.  One of the oldest cemetery motifs, acanthus is associated with the rocky ground where most ancient Greek cemeteries were placed.  It is the most common motif found on memorials.  In architecture the acanthus leaf is used to decorate the capital of the Corinthian order.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/acorn.png">Acorn
-          <description>As the seed of the oak, the acorn is a symbol of po    ntial. In Norse and Celtic culture, acorns symbolized life, fertility and immortality. Druids ate acorns, believing them to have prophetic qualities, and acorns were sacred to the god Thor whose Tree of Life was the oak. "Acorns and oak leaves form one of the circular 'hex' signs used by the Amish and Mennonite communities of southern Pennsylvania, the various signs believed to bestow favors such as protection or natural abundance".</description>
+        <term pictureURL="files/data/gallery/headstones/acorn.png">{Acorn}
+          <description>As the seed of the oak, the acorn is a symbol of potential. In Norse and Celtic culture, acorns symbolized life, fertility and immortality. Druids ate acorns, believing them to have prophetic qualities, and acorns were sacred to the god Thor whose Tree of Life was the oak. "Acorns and oak leaves form one of the circular 'hex' signs used by the Amish and Mennonite communities of southern Pennsylvania, the various signs believed to bestow favors such as protection or natural abundance".</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/aloe.png">Aloe
+        <term pictureURL="files/data/gallery/headstones/aloe.png">{Aloe}
           <description>Affliction, or grief.</description>
         </term>
-        <term pictureURL="">Apple
+        <term pictureURL="">{Apple}
           <description>Forbidden fruit, fruit of salvation and sweetness in love.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/birch.png">Birch
+        <term pictureURL="files/data/gallery/headstones/birch.png">{Birch}
           <description>The ancient Celts covered their dead with birch branches, perhaps to infuse them with the stuff necessary for a successful afterlife.</description>
         </term>
-        <term pictureURL="">Buds
+        <term pictureURL="">{Buds}
           <description>Renewal of life.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/buttercup.png">Buttercup
+        <term pictureURL="files/data/gallery/headstones/buttercup.png">{Buttercup}
           <description>Cheerfulness.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/callaLily.png">Calla lily
+        <term pictureURL="files/data/gallery/headstones/callaLily.png">{Calla_lily}
           <description>Symbolizes marriage.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/cinquefoil.png">Cinquefoil
+        <term pictureURL="files/data/gallery/headstones/cinquefoil.png">{Cinquefoil}
           <description>A five-lobed circle, symbolizing maternal affection, or a beloved daughter.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/clover.png">Clover or Shamrock
+        <term pictureURL="files/data/gallery/headstones/clover.png">{Clover_or_Shamrock}
           <description>Irish, or for luck in a gambler.  It is one of the oldest Celtic symbols.  The shamrock is a native species of clover in Ireland.  A Catholic legend holds that St. Patrick used its three lobes as a device for teaching the Holy trinity.  In Celtic folklore, the shamrock is a charm against evil, a belief that has carried over in the modern belief in the four leafed clover as a good luck charm.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/convolvulus.png">Convolvulus
+        <term pictureURL="files/data/gallery/headstones/convolvulus.png">{Convolvulus}
           <description>Small flowering creeper similar to a morning glory.  Means extinguished hopes or eternal sleep.</description>
         </term>
         Crocus  files/data/gallery/headstones/crocus.png  Youthful gladness.  
-        <term pictureURL="files/data/gallery/headstones/cyrpress.png">Cypress
+        <term pictureURL="files/data/gallery/headstones/cyrpress.png">{Cypress}
           <description>Designates hope or deep mourning.  The cross of the crucifixion was allegedly constructed in part of Cypress. Once felled, a cypress never grows again.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/daffodil.png">Daffodil
+        <term pictureURL="files/data/gallery/headstones/daffodil.png">{Daffodil}
           <description>Death of youth, desire, art, grace, beauty, deep regard.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/daisy.png">Daisy
+        <term pictureURL="files/data/gallery/headstones/daisy.png">{Daisy}
           <description>The innocence of children, Jesus the Infant, youth, the Son of righteousness, gentleness, purity of thought.</description>
         </term>
-        <term pictureURL="">Dead leaves
+        <term pictureURL="">{Dead_leaves}
           <description>Sadness, melancholy.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/easterLily.png">Easter Lily
+        <term pictureURL="files/data/gallery/headstones/easterLily.png">{Easter_Lily}
           <description>Modern symbol of the resurrection.  Also symbolizes purity and chastity.</description>
         </term>
-        <term pictureURL="">Evergreens
+        <term pictureURL="">{Evergreens}
           <description>Immortality</description>
         </term>
-        <term pictureURL="">Fern
+        <term pictureURL="">{Fern}
           <description>Sincerity, sorrow.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/fleurDeLis.png">Fleur-de-lis
+        <term pictureURL="files/data/gallery/headstones/fleurDeLis.png">{Fleur_de_lis}
           <description>Flame, passion, ardor, mother.</description>
         </term>
-        <term pictureURL="">Flowers, general
+        <term pictureURL="">{Flowers_general}
           <description>Frailty of life.</description>
         </term>
-        <term pictureURL="">Flowers, broken
+        <term pictureURL="">{Flowers_broken}
           <description>Life cut short; mortality.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/forgetMeNot.png">Forget-me-not
+        <term pictureURL="files/data/gallery/headstones/forgetMeNot.png">{Forget_me_not}
           <description>Rememberance.</description>
         </term>
-        <term pictureURL="">Geranium
+        <term pictureURL="">{Geranium}
           <description>Melancholy.</description>
         </term>
-        <term pictureURL="">Grapes
+        <term pictureURL="">{Grapes}
           <description>Represent Christ.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/grapesLeaves.png">Grapes and Leaves
+        <term pictureURL="files/data/gallery/headstones/grapesLeaves.png">{Grapes_and_Leaves}
           <description>Christian faith.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstoens/hawthorne.png">Hawthorn
+        <term pictureURL="files/data/gallery/headstoens/hawthorne.png">{Hawthorn}
           <description>Hope, merriness, springtime.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/holly.png">Holly
+        <term pictureURL="files/data/gallery/headstones/holly.png">{Holly}
           <description>Foresight.  People used to believe that holly bushes protected tombs and other monuments from lightning strikes.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/honeySuckle.png">Honeysuckle
+        <term pictureURL="files/data/gallery/headstones/honeySuckle.png">{Honeysuckle}
           <description>Bonds of love, generosity and devoted affection.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/laurel.png">Laurel, or bay
+        <term pictureURL="files/data/gallery/headstones/laurel.png">{Laurel_or_bay}
           <description>Special achievement, distinction, success, triumph.  I change not in death.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/ivy.png">Ivy
+        <term pictureURL="files/data/gallery/headstones/ivy.png">{Ivy}
           <description>Memory, immortality, friendship, fidelity, faithfulness, undying affection, eternal life.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/lily.png">Lily
+        <term pictureURL="files/data/gallery/headstones/lily.png">{Lily}
           <description>Majesty, innocence, purity, and resurrection. Often associated with the Virgin Mary and resurrection. Often used on women's graves. The use of lilies at funerals symbolizes the restored innocence of the soul at death.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/lilyOfTheValley.png">Lily of the Valley
+        <term pictureURL="files/data/gallery/headstones/lilyOfTheValley.png">{Lily_of_the_Valley}
           <description>Return of happiness, purity, humility.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/marigold.png">Marigold
+        <term pictureURL="files/data/gallery/headstones/marigold.png">{Marigold}
           <description>Grief or despair.</description>
         </term>
-        <term pictureURL="">Mistletoe
+        <term pictureURL="">{Mistletoe}
           <description>Protection, veneration and healing power.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/morningGlory.png">Morning Glory
+        <term pictureURL="files/data/gallery/headstones/morningGlory.png">{Morning_Glory}
           <description>Because morning glory flowers don"t last for long (usually only 24 hours), it symbolizes resurrection, mourning, youth, farewell, the brevity of life, departure, mortality.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/oakTree.png">Oak tree or oak leaf
+        <term pictureURL="files/data/gallery/headstones/oakTree.png">{Oak_tree_or_oak_leaf}
           <description>Hospitality, stability, strength, honor, eternity, endurance, liberty.  It is believed to have been the tree from which Jesus Christ's cross was made.  In smaller pioneer cemeteries, it is common to place children's graves near oak trees.  The oak tree was the tree of life in pre-Christian times. The oak, oak leaves and acorn can stand for power, authority or victory.  Often seen on military tombs.</description>
         </term>
-        <term pictureURL="">Olive
+        <term pictureURL="">{Olive}
           <description>Peace; healing faith.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/palm.png">Palm
+        <term pictureURL="files/data/gallery/headstones/palm.png">{Palm}
           <description>Spiritual victory, success, eternal peace, a symbol of Christ's victory of death as associated with Easter.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/pansy.png">Pansy
+        <term pictureURL="files/data/gallery/headstones/pansy.png">{Pansy}
           <description>Symbolizes remembrance and humility.  Also a symbol of thought (French = 'pensee').</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/passionflower.png">Passion flower
+        <term pictureURL="files/data/gallery/headstones/passionflower.png">{Passion_flower}
           <description>The elements of the passion of Christ: the lacy crown—the crown of thorns; the five stamens—the five wounds; the 10 petals—the 10 faithful Apostles.</description>
         </term>
-        <term pictureURL="">Pine
+        <term pictureURL="">{Pine}
           <description>Fertility, regeneration, fidelity.</description>
         </term>
-        <term pictureURL="">Pineapple
+        <term pictureURL="">{Pineapple}
           <description>Hospitality, good host.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/poinsettia.png">Poinsettia
+        <term pictureURL="files/data/gallery/headstones/poinsettia.png">{Poinsettia}
           <description>A death occurring near Christmas.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/poplar.png">Poplar
+        <term pictureURL="files/data/gallery/headstones/poplar.png">{Poplar}
           <description>Where other cemetery trees promise immortality, the poplar grants us only memories and the sorrows that accompany them.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/poppy.png">Poppy
+        <term pictureURL="files/data/gallery/headstones/poppy.png">{Poppy}
           <description>Peace, rest, sleep, eternal sleep, consolation.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/rose.png">Rose
+        <term pictureURL="files/data/gallery/headstones/rose.png">{Rose}
           <description>Love, beauty, hope, unfailing love, associated with the Virgin Mary, the "rose without thorns".  A red rose symbolizes martyrdom and a white rose symbolizes purity and virginity.  Whether the rose is a bud, flower or somewhere in between indicates how old the person was at the time of death.</description>
         </term>
-        <term pictureURL="">Rose, bud
+        <term pictureURL="">{Rose_bud}
           <description>Usually refers to a child 12 or under.</description>
         </term>
-        <term pictureURL="">Rose, partial bloom
+        <term pictureURL="">{Rose_partial_bloom}
           <description>Usually refers to a teenager.</description>
         </term>
-        <term pictureURL="">Rose, full bloom
+        <term pictureURL="">{Rose_full_bloom}
           <description>Normally in early/mid twenties.  The deceased died in the prime of life.</description>
         </term>
-        <term pictureURL="">Rose, double set on one twig
+        <term pictureURL="">{Rose_double_set_on_one_twig}
           <description>The death of two people.  Usually a bud with the rose means the loss of a mother with a baby.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/rosemary.png">Rosemary
+        <term pictureURL="files/data/gallery/headstones/rosemary.png">{Rosemary}
           <description>As Ophelia said, "Rosemary, that's for remembrance".  In former days, it was put in coffins and given to mourners as a favor.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/sunflower.png">Sun Flower
+        <term pictureURL="files/data/gallery/headstones/sunflower.png">{Sun_Flower}
           <description>Life fulfilled.  Symbolic of gratitude and affectionate remembrance.  The flower turns towards the sun, indicating brightness.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/thistle.png">Thistle
+        <term pictureURL="files/data/gallery/headstones/thistle.png">{Thistle}
           <description>Earthly sorrow, Christ's crown of thorns, Scotland as country of origin.  A hard life.</description>
         </term>
         Tree  The all-covering love of CHrist. Life, The Tree of Life.
-        <term pictureURL="">Tree Felled
+        <term pictureURL="">{Tree_Felled}
           <description>Mortality.</description>
         </term>
-        <term pictureURL="">Tree/Severed branch
+        <term pictureURL="">{Tree_Severed_branch}
           <description>Mortality.</description>
         </term>
-        <term pictureURL="">Tree Sprouting
+        <term pictureURL="">{Tree_Sprouting}
           <description>Life everlasting.</description>
         </term>
-        <term pictureURL="">Tree Stump with Ivy
+        <term pictureURL="">{Tree_Stump_with_Ivy}
           <description>Head of Family, Immortality.</description>
         </term>
-        <term pictureURL="">Vine
+        <term pictureURL="">{Vine}
           <description>The sacraments, God's blood, God, Christian faith.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/violet.png">Violet
+        <term pictureURL="files/data/gallery/headstones/violet.png">{Violet}
           <description>Faithfulness.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/weepingWillow.png">Weeping Willow
+        <term pictureURL="files/data/gallery/headstones/weepingWillow.png">{Weeping_Willow}
           <description>Nature's lament, a symbol of sorrow and mourning.</description>
         </term>
-        <term pictureURL="">Wheat
+        <term pictureURL="">{Wheat}
           <description>Resurrection, bread and wine (Christian), fertility.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/wreath.png">Wreath of Garland
+        <term pictureURL="files/data/gallery/headstones/wreath.png">{Wreath_of_Garland}
           <description>The use of garlands, wreaths and festoons dates back to ancient Greek times and it was adopted into the Christian religion as a symbol of the victory of the redemption.  The laurel wreath is usually associated with someone who has attained distinction in the arts, literature, athletics or the military.  The ivy wreath is symbolic of conviviality (gaiety or joviality). The wreath and festoon together symbolize memory.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/wreathOfMaidensGarland.png">Wreath of Maiden's Garland
+        <term pictureURL="files/data/gallery/headstones/wreathOfMaidensGarland.png">{Wreath_of_Maidens_Garland}
           <description>A garland of white paper or linen, embellished with streamers and a single white glove, which was carried at the funerals of unmarried women of blameless reputation.  The garlands were hung in the church after the funeral and allowed to decay. Then the pieces would be buried in the graveyard.</description>
         </term>
-        <term pictureURL="files/data/gallery/headstones/yewTree.png">Yew Tree
+        <term pictureURL="files/data/gallery/headstones/yewTree.png">{Yew_Tree}
           <description>Sadness, eternal life.</description>
         </term>
       </term> 
@@ -838,9 +838,9 @@
   <property name="Location" type="freetext">
     <description>Motif Location</description>
     <lookup>
-      <term><description></description></term>
-      <term>On marker<description>Identify all motifs incorporated into the marker/headstone. This includes the shape of the marker and all engraved, painted or applied motifs.</description></term>
-      <term>On fence/other<description>Identify all motifs incorporated into the fence or other fittings/furnishings.</description></term>
+      <term>{0No_Observation}<description></description></term>
+      <term>{aOn_marker}<description>Identify all motifs incorporated into the marker/headstone. This includes the shape of the marker and all engraved, painted or applied motifs.</description></term>
+      <term>{bOn_fence_other}<description>Identify all motifs incorporated into the fence or other fittings/furnishings.</description></term>
     </lookup>
   </property>   
   </ArchaeologicalElement>
@@ -859,8 +859,8 @@
     <property name="Is primary burial" type="enum">
       <description>Is primary burial</description>
       <lookup>
-        <term>Yes<description>Is primary burial</description></term>
-        <term>No<description>Is not primary burial</description></term>
+        <term>{Yes}<description>Is primary burial</description></term>
+        <term>{No}<description>Is not primary burial</description></term>
       </lookup>
     </property>
   </ArchaeologicalElement>
