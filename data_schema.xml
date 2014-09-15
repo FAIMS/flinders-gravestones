@@ -43,16 +43,16 @@
     <property name="Orientation" type="enum">
       <description>Direction person would be facing if they sat up in this grave.</description>
       <lookup>
-        <term>{0No_Observation}<description>No observation was made.</description></term>
-        <term>{0No_Orientation}<description>No orientation</description></term>
-        <term>{aNorth}<description>North</description></term>
-        <term>{bNorth_East}<description>North East</description></term>
-        <term>{cEast}<description>East</description></term>
-        <term>{dSouth_East}<description>South East</description></term>
-        <term>{eSouth}<description>South</description></term>
-        <term>{fSouth_West}<description>South West</description></term>
-        <term>{gWest}<description>West</description></term>
-        <term>{hNorth_West}<description>North West</description></term>
+        <term>{No_Observation}<description>No observation was made.</description></term>
+        <term>{No_Orientation}<description>No orientation</description></term>
+        <term>{North}<description>North</description></term>
+        <term>{North_East}<description>North East</description></term>
+        <term>{East}<description>East</description></term>
+        <term>{South_East}<description>South East</description></term>
+        <term>{South}<description>South</description></term>
+        <term>{South_West}<description>South West</description></term>
+        <term>{West}<description>West</description></term>
+        <term>{North_West}<description>North West</description></term>
       </lookup>
     </property>
     <property name="Number of headstones" type="number">
@@ -93,25 +93,25 @@
     <property name="Denomination" type="enum">
       <description>Religious denomination of this grave.</description>
       <lookup>
-        <term>{0No_Observation}<description>No observation was made.</description></term>
-        <term>{aCatholic}<description>Denomination</description></term>
-        <term>{bAnglican}<description>Denomination</description></term>
-        <term>{cPresbyterian}<description>Denomination</description></term>
-        <term>{dBaptist}<description>Denomination</description></term>
-        <term>{eMethodist}<description>Denomination</description></term>
-        <term>{fUniting}<description>Denomination</description></term>
-        <term>{gJewish}<description>Denomination</description></term>
-        <term>{hUnknown}<description>Denomination</description></term>
-        <term>{zOther}<description>Denomination</description></term>
+        <term>{No_Observation}<description>No observation was made.</description></term>
+        <term>{Catholic}<description>Denomination</description></term>
+        <term>{Anglican}<description>Denomination</description></term>
+        <term>{Presbyterian}<description>Denomination</description></term>
+        <term>{Baptist}<description>Denomination</description></term>
+        <term>{Methodist}<description>Denomination</description></term>
+        <term>{Uniting}<description>Denomination</description></term>
+        <term>{Jewish}<description>Denomination</description></term>
+        <term>{Unknown}<description>Denomination</description></term>
+        <term>{Other}<description>Denomination</description></term>
       </lookup>
     </property>
     <property name="Sources" type="enum">
       <description>Primary (archival) sources consulted for this plot.</description>
       <lookup>
-        <term>{aCemetery_Records}<description>Sources</description></term>
-        <term>{bParish_Register}<description>Sources</description></term>
-        <term>{cBirths_Deaths_Marriages}<description>Sources</description></term>
-        <term>{zOther}<description>Sources</description></term>
+        <term>{Cemetery_Records}<description>Sources</description></term>
+        <term>{Parish_Register}<description>Sources</description></term>
+        <term>{Births_Deaths_Marriages}<description>Sources</description></term>
+        <term>{Other}<description>Sources</description></term>
       </lookup>
     </property>
 
@@ -119,10 +119,10 @@
     <property name="Plot type" type="enum">
       <description>Single (single sized grave), Double (two graves side by side in the one plot, e.g. husband/wife), Group (larger than a double sized plot)</description>
       <lookup>
-        <term>{0No_Observation}<description>No observation was made.</description></term>
-        <term>{aIndividual}<description>Single (single sized grave)</description></term>
-        <term>{bDouble}<description>Double (two graves side by side in the one plot, e.g. husband/wife)</description></term>
-        <term>{cGroup}<description>Group (larger than a double sized plot)</description></term>
+        <term>{No_Observation}<description>No observation was made.</description></term>
+        <term>{Individual}<description>Single (single sized grave)</description></term>
+        <term>{Double}<description>Double (two graves side by side in the one plot, e.g. husband/wife)</description></term>
+        <term>{Group}<description>Group (larger than a double sized plot)</description></term>
       </lookup>
     </property>
     <property name="Number of interments" type="number">
@@ -131,13 +131,13 @@
     <property name="Fence" type="enum">
       <description>Any enclosure around the plot.</description>
       <lookup>
-        <term>{0No_Observation}<description>Nothing was observed.</description></term>
-        <term>{aCast_Iron_Picket}<description> Border of Plot</description></term>
-        <term>{bTimber_Picket}<description> Border of Plot</description></term>
-        <term>{cBrick_Border}<description> Border of Plot</description></term>
-        <term>{dStone_Border}<description> Border of Plot</description></term>
-        <term>{eTile_Border}<description> Border of Plot</description></term>
-        <term>{zOther}<description> Border of Plot</description></term>
+        <term>{No_Observation}<description>Nothing was observed.</description></term>
+        <term>{Cast_Iron_Picket}<description> Border of Plot</description></term>
+        <term>{Timber_Picket}<description> Border of Plot</description></term>
+        <term>{Brick_Border}<description> Border of Plot</description></term>
+        <term>{Stone_Border}<description> Border of Plot</description></term>
+        <term>{Tile_Border}<description> Border of Plot</description></term>
+        <term>{Other}<description> Border of Plot</description></term>
       </lookup>
     </property>
     <property name="Fence height" type="number">
@@ -146,15 +146,15 @@
     <property name="Other items" type="enum">
       <description>Anything else included as part of the plot for decorative or memorial purposes, e.g. flowers, vases, surface coverings, shrubs, statues etc.</description>
       <lookup>
-        <term>{aVase}<description>Other items</description></term>
-        <term>{bGlass_covered_display}<description>Other items</description></term>
-        <term>{cPersonal_Items}<description>Other items</description></term>
-        <term>{dPhotos}<description>Other items</description></term>
-        <term>{eStatues}<description>Other items</description></term>
-        <term>{fTiles}<description>Other items</description></term>
-        <term>{gShells}<description>Other items</description></term>
-        <term>{hPlantings}<description>Other items</description></term>
-        <term>{zOther}<description>Other items</description></term>
+        <term>{Vase}<description>Other items</description></term>
+        <term>{Glass_covered_display}<description>Other items</description></term>
+        <term>{Personal_Items}<description>Other items</description></term>
+        <term>{Photos}<description>Other items</description></term>
+        <term>{Statues}<description>Other items</description></term>
+        <term>{Tiles}<description>Other items</description></term>
+        <term>{Shells}<description>Other items</description></term>
+        <term>{Plantings}<description>Other items</description></term>
+        <term>{Other}<description>Other items</description></term>
       </lookup>
     </property>
   </ArchaeologicalElement>
@@ -165,13 +165,13 @@
     <property name="Form" type="enum" isIdentifier="true">
       <description>The three dimensional shape and size of the marker.</description>
       <lookup>
-        <term>{aTablet_Upright_Slab}<description>Marker form</description></term>
-        <term>{bHorizontal_Slab}<description>Marker form</description></term>
-        <term>{cBlock}<description>Marker form</description></term>
-        <term>{dObelisk_Pillar}<description>Marker form</description></term>
-        <term>{eStatue_Sculpture}<description>Marker form</description></term>
-        <term>{fCross}<description>Marker form</description></term>
-        <term>{gCombination}<description>Marker form</description></term>
+        <term>{Tablet_Upright_Slab}<description>Marker form</description></term>
+        <term>{Horizontal_Slab}<description>Marker form</description></term>
+        <term>{Block}<description>Marker form</description></term>
+        <term>{Obelisk_Pillar}<description>Marker form</description></term>
+        <term>{Statue_Sculpture}<description>Marker form</description></term>
+        <term>{Cross}<description>Marker form</description></term>
+        <term>{Combination}<description>Marker form</description></term>
         <term>{Other}<description>Marker form</description></term>
       </lookup>
     </property>
@@ -199,38 +199,38 @@
     <property name="Marker colour" type="enum">
       <description>Primary colour of the marker.</description>
       <lookup>
-        <term>{aBlack}<description>Colour of headstone</description></term>
-        <term>{bWhite}<description>Colour of headstone</description></term>
-        <term>{cGrey}<description>Colour of headstone</description></term>
-        <term>{dPink}<description>Colour of headstone</description></term>
-        <term>{zOther}<description>Colour of headstone</description></term>
+        <term>{Black}<description>Colour of headstone</description></term>
+        <term>{White}<description>Colour of headstone</description></term>
+        <term>{Grey}<description>Colour of headstone</description></term>
+        <term>{Pink}<description>Colour of headstone</description></term>
+        <term>{Other}<description>Colour of headstone</description></term>
       </lookup>
     </property>
     <property name="Material" type="enum" isIdentifier="true">
       <description>Material of headstone</description>
       <lookup>
-        <term>{aSlate}<description> Material</description></term>
-        <term>{bMarble}<description> Material</description></term>
-        <term>{cGranite}<description> Material</description></term>
-        <term>{dCast_Iron}<description> Material</description></term>
-        <term>{eTimber}<description> Material</description></term>
-        <term>{fTile}<description> Material</description></term>
-        <term>{gSandstone}<description> Material</description></term>
-        <term>{hBrick}<description> Material</description></term>
-        <term>{iConcrete}<description> Material</description></term>
-        <term>{kCement}<description> Material</description></term>
-        <term>{zOther}<description> Material</description></term>
+        <term>{Slate}<description> Material</description></term>
+        <term>{Marble}<description> Material</description></term>
+        <term>{Granite}<description> Material</description></term>
+        <term>{Cast_Iron}<description> Material</description></term>
+        <term>{Timber}<description> Material</description></term>
+        <term>{Tile}<description> Material</description></term>
+        <term>{Sandstone}<description> Material</description></term>
+        <term>{Brick}<description> Material</description></term>
+        <term>{Concrete}<description> Material</description></term>
+        <term>{Cement}<description> Material</description></term>
+        <term>{Other}<description> Material</description></term>
       </lookup>
     </property>
     <property name="Lettering" type="enum">
       <description>How the marker was inscribed.</description>
       <lookup>
-        <term>{0No_Observation}<description>No observation was made.</description></term>
-        <term>{aEngraved}<description>Incised or chiselled into the material of the marker</description></term>
-        <term>{bLead}<description>Individual lead letters attached to the marker</description></term>
-        <term>{cEngraved_and_Painted}<description>Incised into the material with painted letters</description></term>
-        <term>{dPainted_Only}<description>No incision, letters painted directly on to the marker</description></term>
-        <term>{zOther}<description>Other</description></term>
+        <term>{No_Observation}<description>No observation was made.</description></term>
+        <term>{Engraved}<description>Incised or chiselled into the material of the marker</description></term>
+        <term>{Lead}<description>Individual lead letters attached to the marker</description></term>
+        <term>{Engraved_and_Painted}<description>Incised into the material with painted letters</description></term>
+        <term>{Painted_Only}<description>No incision, letters painted directly on to the marker</description></term>
+        <term>{Other}<description>Other</description></term>
       </lookup>
     </property>
     <property name="Mason" type="freetext">
@@ -242,7 +242,7 @@
     <property name="Footstone" type="enum">
       <description>A small marker at the foot of the grave, opposite the headstone.</description>
       <lookup>
-        <term>{0No_Observation}<description>No observation was made.</description></term>
+        <term>{No_Observation}<description>No observation was made.</description></term>
         <term>{Yes}<description>Footstone</description></term>
         <term>{No}<description>Footstone</description></term>
       </lookup>
@@ -255,51 +255,51 @@
     <property name="Style of language" type="enum">
       <description>Style of Language</description>
       <lookup>
-        <term>{aEmotive}<description> Use of emotive words or phrases to describe them or their death. </description></term>
-        <term>{bBiographical}<description> Details about their life, e.g. where they were born, where they lived, etc </description></term>
-        <term>{cFactual}<description> No embellishment, use of simple and direct language. </description></term>
-        <term>{dReligious}<description> e.g. Bible verses, or appeals to God </description></term>
+        <term>{Emotive}<description> Use of emotive words or phrases to describe them or their death. </description></term>
+        <term>{Biographical}<description> Details about their life, e.g. where they were born, where they lived, etc </description></term>
+        <term>{Factual}<description> No embellishment, use of simple and direct language. </description></term>
+        <term>{Religious}<description> e.g. Bible verses, or appeals to God </description></term>
       </lookup>
     </property>
     <property name="Key words" type="enum">
       <description>*Key Wording Introduction: The form of the introductory wording on the marker.
         *Key Wording Death: The type of metaphor used to refer to death.</description>
         <lookup>
-          <term>{aSacred_to_the_memory_of}<description>Key Words</description></term>
-          <term>{bIn_loving_memory_of_In_memory_of}<description>Key Words</description></term>
-          <term>{cBeloved}<description>Key Words</description></term>
-          <term>{dReunion_Reunited}<description>Key Words</description></term>
-          <term>{eResting_Sleeping}<description>Key Words</description></term>
-          <term>{fReligous}<description>Key Words</description></term>
-          <term>{hPersonalised_Inscription}<description>Key Words</description></term>
-          <term>{iPassed_away_Leaving}<description>Key Words</description></term>
-          <term>{jWar_Service}<description>Key Words</description></term>
-          <term>{kNo_Embellishment}<description>Key Words</description></term>
-          <term>{zOther}<description>Key Words</description></term>
+          <term>{Sacred_to_the_memory_of}<description>Key Words</description></term>
+          <term>{In_loving_memory_of_In_memory_of}<description>Key Words</description></term>
+          <term>{Beloved}<description>Key Words</description></term>
+          <term>{Reunion_Reunited}<description>Key Words</description></term>
+          <term>{Resting_Sleeping}<description>Key Words</description></term>
+          <term>{Religous}<description>Key Words</description></term>
+          <term>{Personalised_Inscription}<description>Key Words</description></term>
+          <term>{Passed_away_Leaving}<description>Key Words</description></term>
+          <term>{War_Service}<description>Key Words</description></term>
+          <term>{No_Embellishment}<description>Key Words</description></term>
+          <term>{Other}<description>Key Words</description></term>
         </lookup>
       </property>
       <property name="Tense" type="enum">
         <description>Inscription</description>
         <lookup>
-          <term>{aWritten_in_first_person}<description>First person (as if the deceased is speaking directly to you – “I”, “Me”)</description></term>
-          <term>{bWritten_in_third_person}<description>Third person (the deceased is being spoken about – “He”, “She”)</description></term>
+          <term>{Written_in_first_person}<description>First person (as if the deceased is speaking directly to you – “I”, “Me”)</description></term>
+          <term>{Written_in_third_person}<description>Third person (the deceased is being spoken about – “He”, “She”)</description></term>
         </lookup>
       </property>
       <property name="Author" type="enum">
         <description>The person who wrote/chose the epitaph, based on the language or other clues.</description>
         <lookup>
-          <term>{aWritten_by_Spouse}<description>Written by Spouse</description></term>
-          <term>{bWritten_by_Children}<description>Written by Children</description></term>
-          <term>{cWritten_by_Friend_Other}<description>Written by Friend/Other</description></term>
+          <term>{Written_by_Spouse}<description>Written by Spouse</description></term>
+          <term>{Written_by_Children}<description>Written by Children</description></term>
+          <term>{Written_by_Friend_Other}<description>Written by Friend/Other</description></term>
         </lookup>
       </property>
       <property name="Burials described in relation to" type="enum">
         <description>Burials described in relation to</description>
         <lookup>
-          <term>{aFamily_patriarch}<description>Burials described</description></term>
-          <term>{bOrder_of_death}<description>Burials described</description></term>
-          <term>{cPosition_within_family_unit}<description>Burials described</description></term>
-          <term>{dUnrelated_to_others}<description>Burials described</description></term>
+          <term>{Family_patriarch}<description>Burials described</description></term>
+          <term>{Order_of_death}<description>Burials described</description></term>
+          <term>{Position_within_family_unit}<description>Burials described</description></term>
+          <term>{Unrelated_to_others}<description>Burials described</description></term>
         </lookup>
       </property>
     </ArchaeologicalElement>
@@ -309,7 +309,7 @@
      <property name="Motif" type="enum" isIdentifier="true">
       <description>Motif</description>
       <lookup>
-        <term>{0No_Observation}<description>No observation was made.</description></term>
+        <term>{No_Observation}<description>No observation was made.</description></term>
         <term>{Animals_and_Insects}<description></description>
           <term pictureURL="">{Ants}
             <description>Christian industry.</description>
@@ -840,9 +840,9 @@
   <property name="Location" type="freetext">
     <description>Motif Location</description>
     <lookup>
-      <term>{0No_Observation}<description>No observation was made.</description></term>
-      <term>{aOn_marker}<description>Identify all motifs incorporated into the marker/headstone. This includes the shape of the marker and all engraved, painted or applied motifs.</description></term>
-      <term>{bOn_fence_other}<description>Identify all motifs incorporated into the fence or other fittings/furnishings.</description></term>
+      <term>{No_Observation}<description>No observation was made.</description></term>
+      <term>{On_marker}<description>Identify all motifs incorporated into the marker/headstone. This includes the shape of the marker and all engraved, painted or applied motifs.</description></term>
+      <term>{On_fence_other}<description>Identify all motifs incorporated into the fence or other fittings/furnishings.</description></term>
     </lookup>
   </property>   
   </ArchaeologicalElement>
@@ -861,7 +861,7 @@
     <property name="Is primary burial" type="enum">
       <description>Is primary burial</description>
       <lookup>
-        <term>{0No_Observation}<description>No observation was made.</description></term>
+        <term>{No_Observation}<description>No observation was made.</description></term>
         <term>{Yes}<description>Is primary burial</description></term>
         <term>{No}<description>Is not primary burial</description></term>
       </lookup>

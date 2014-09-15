@@ -63,8 +63,10 @@
               <Plot_type/>
               <Number_of_interments/>
               <Fence/>
+              <Other_Fence_Container/>
               <Fence_height/>
               <Other_items/>
+              <Other_Other_Items_Container/>
               <Update/>
               <newBurial/>
               <BurialList/>
@@ -92,13 +94,16 @@
               <Cause_of_death/>
               <Ministers/>
               <Denomination/>
+              <Other_Denomination_Container/>
               <Sources/>
+              <Other_Sources_Container/>
               <Update/>
             </Historical_info>
           </Plot>
           <Marker>
             <Marker>
               <Form/>
+              <Other_Form_Container/>
               <Shape/>
               <attachShape/>
               <viewAttached/>
@@ -109,8 +114,11 @@
               <Headstone_width/>
               <Headstone_depth/>
               <Marker_colour/>
+              <Other_Marker_Colour_Container/>
               <Material/>
+              <Other_Material_Container/>
               <Lettering/>
+              <Other_Lettering_Container/>
               <Mason/>
               <Town/>
               <Footstone/>
@@ -120,6 +128,7 @@
               <Inscription/>
               <Style_of_language/>
               <Key_words/>
+              <Other_Key_Words_Container/>
               <Tense/>
               <Author/>
               <Burials_described_in_relation_to/>
@@ -200,7 +209,7 @@
       </group>
     </group>
     <group ref="control">
-      <label/>
+      <label>{Control}</label>
       <group ref="cemetery" faims_scrollable="false">
         <label>{Cemetery}</label>
         <trigger ref="newCemetery">
@@ -231,15 +240,12 @@
       <label>{Cemetery}</label>
       <group ref="Cemetery" faims_scrollable="false">
         <label>{Administration}</label>
-        <input ref="Site" faims_attribute_name="Site" faims_attribute_type="freetext" faims_certainty="false" faims_annotation="false" faims_read_only="false">
+        <input ref="Site" faims_attribute_name="Site" faims_attribute_type="freetext" faims_certainty="false" faims_annotation="false" faims_read_only="false" faims_style_class="required">
           <label>{Site_Location}</label>
         </input>
         <input ref="Date_of_recording" faims_attribute_name="Date of recording" faims_certainty="false" faims_annotation="false" faims_attribute_type="freetext" faims_read_only="true">
           <label>{Date_of_recording}</label>
         </input>
-        <!-- <trigger ref="Update">
-          <label>Save {Cemetery}</label>
-        </trigger> -->
         <trigger ref="newPlot">
           <label>New {Plot}</label>
         </trigger>
@@ -264,7 +270,7 @@
         <input ref="Date" faims_attribute_name="Date" faims_certainty="false" faims_annotation="false" faims_attribute_type="freetext" faims_read_only="true">
           <label>{Date_of_recording}</label>
         </input>
-        <input ref="Grave_number" faims_attribute_name="Grave number" faims_certainty="false" faims_annotation="false" faims_attribute_type="freetext" faims_read_only="false">
+        <input ref="Grave_number" faims_attribute_name="Grave number" faims_certainty="false" faims_annotation="false" faims_attribute_type="freetext" faims_read_only="false" faims_style_class="required">
           <label>{Grave_Number}</label>
         </input>
         <input ref="Primary_burial" faims_attribute_type="freetext" faims_certainty="false" faims_annotation="false" faims_read_only="true">
@@ -296,9 +302,6 @@
         <trigger ref="attachPhoto">
           <label>{Take_Picture}</label>
         </trigger>
-        <!-- <trigger ref="Update">
-          <label>Save {Plot}</label>
-        </trigger> -->
       </group>
       <group ref="Plot">
         <label>{Plot}</label>
@@ -319,6 +322,9 @@
             <value>placeholder</value>
           </item>
         </select1>
+        <group ref="Other_Fence_Container">
+          <label/>
+        </group>
         <input ref="Fence_height" faims_attribute_name="Fence height" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Fence_Border_Height}</label>
         </input>
@@ -329,6 +335,9 @@
             <value>placeholder</value>
           </item>
         </select>
+        <group ref="Other_Other_Items_Container">
+          <label/>
+        </group>
         <trigger ref="newBurial">
           <label>Add Additional {Burial}</label>
         </trigger>
@@ -342,9 +351,6 @@
         <trigger ref="showBurial">
           <label>{Show_Selected_Burial}</label>
         </trigger>
-        <!-- <trigger ref="Update">
-          <label>Save {Plot}</label>
-        </trigger> -->
       </group>
       <group ref="Marker">
         <label>{Marker}</label>
@@ -421,6 +427,9 @@
             <value>placeholder</value>
           </item>
         </select>
+        <group ref="Other_Denomination_Container">
+          <label/>
+        </group>
         <select ref="Sources" faims_attribute_name="Sources" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Sources}</label>
           <item>
@@ -428,9 +437,9 @@
             <value>placeholder</value>
           </item>
         </select>
-        <!-- <trigger ref="Update">
-          <label>Save {Plot}</label>
-        </trigger> -->
+        <group ref="Other_Sources_Container">
+          <label/>
+        </group>
       </group>
     </group>
     
@@ -439,13 +448,16 @@
       <label>{Marker}</label>
       <group ref="Marker">
         <label>{Marker}</label>
-        <select ref="Form" faims_attribute_name="Form" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false">
+        <select ref="Form" faims_attribute_name="Form" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false" faims_style_class="required">
           <label>{Marker_Form}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
+        <group ref="Other_Form_Container">
+          <label/>
+        </group>
         <select ref="Shape" type="file" faims_attribute_name="Shape" faims_attribute_type="freetext" faims_certainty="false" faims_annotation="false" faims_read_only="false">
           <label>{Shape}</label>
           <item>
@@ -484,13 +496,19 @@
             <value>placeholder</value>
           </item>
         </select>
-        <select ref="Material" faims_attribute_name="Material" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true">
+        <group ref="Other_Marker_Colour_Container">
+          <label/>
+        </group>
+        <select ref="Material" faims_attribute_name="Material" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_style_class="required">
           <label>{Material}</label>
           <item>
             <label>placeholder</label>
             <value>placeholder</value>
           </item>
         </select>
+        <group ref="Other_Material_Container">
+          <label/>
+        </group>
         <select1 ref="Lettering" faims_attribute_name="Lettering" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Lettering}</label>
           <item>
@@ -498,6 +516,9 @@
             <value>placeholder</value>
           </item>
         </select1>
+        <group ref="Other_Lettering_Container">
+          <label/>
+        </group>
         <input ref="Mason" faims_attribute_name="Mason" faims_attribute_type="freetext" faims_certainty="true" faims_annotation="false" faims_read_only="false">
           <label>{Mason}</label>
         </input>
@@ -511,13 +532,10 @@
             <value>placeholder</value>
           </item>
         </select1>
-        <!-- <trigger ref="Update">
-          <label>Save {Marker}</label>
-        </trigger> -->
       </group>
       <group ref="Inscription">
         <label>{Inscription}</label>
-        <input ref="Inscription" faims_attribute_name="Inscription" faims_attribute_type="freetext" faims_certainty="true" faims_annotation="false" faims_read_only="false">
+        <input ref="Inscription" faims_attribute_name="Inscription" faims_attribute_type="freetext" faims_certainty="true" faims_annotation="false" faims_read_only="false" faims_style_class="required">
           <label>{Inscription}</label>
         </input>
         <select ref="Style_of_language" faims_attribute_name="Style of language" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false">
@@ -534,6 +552,9 @@
             <value>placeholder</value>
           </item>
         </select>
+        <group ref="Other_Key_Words_Container">
+          <label/>
+        </group>
         <select ref="Tense" faims_attribute_name="Tense" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Tense}</label>
           <item>
@@ -555,9 +576,6 @@
             <value>placeholder</value>
           </item>
         </select>
-        <!-- <trigger ref="Update">
-          <label>Save {Marker}</label>
-        </trigger> -->
       </group>
       <group ref="Motif" faims_scrollable="false">
         <label>{Motif}</label>
@@ -579,7 +597,7 @@
       <label>{Motif}</label>
       <group ref="Motif">
         <label>{Motif}</label>
-        <select1 ref="Motif" type="image" faims_attribute_name="Motif" faims_attribute_type="vocab" faims_certainty="false" faims_annotation="true" faims_read_only="false">
+        <select1 ref="Motif" type="image" faims_attribute_name="Motif" faims_attribute_type="vocab" faims_certainty="false" faims_annotation="true" faims_read_only="false" faims_style_class="required">
           <label>{Motif}</label>
           <item>
             <label>placeholder</label>
@@ -611,7 +629,7 @@
       <label>{Burial}</label>
       <group ref="Burial">
         <label>{Burial}</label>
-        <input ref="Name" faims_attribute_name="Name" faims_attribute_type="freetext" faims_certainty="false" faims_annotation="false" faims_read_only="false">
+        <input ref="Name" faims_attribute_name="Name" faims_attribute_type="freetext" faims_certainty="false" faims_annotation="false" faims_read_only="false" faims_style_class="required">
           <label>{Name}</label>
         </input>
         <input ref="Date_of_death" faims_attribute_name="Date of death" faims_attribute_type="freetext" faims_certainty="true" faims_annotation="false"  faims_read_only="false">
@@ -627,9 +645,6 @@
             <value>placeholder</value>
           </item>
         </select1>
-        <!-- <trigger ref="Update">
-          <label>Save {Burial}</label>
-        </trigger> -->
       </group>
     </group>
   </h:body>
