@@ -6,8 +6,9 @@ setSyncEnabled(true);
 setFileSyncEnabled(true);
 
 /*** control ***/
-onEvent("control", "show", "refreshCemeteries()");
-onEvent("control", "show", "refreshPlots()");
+onEvent("control", "show", "cemetery_id = null; plot_id = null;");
+onEvent("control/cemetery", "show", "refreshCemeteries()");
+onEvent("control/plot", "show", "refreshPlots()");
 onEvent("control/cemetery/CemeteryList", "click", "loadCemetery()");
 onEvent("control/cemetery/newCemetery", "click", "newCemetery()");
 onEvent("control/plot/PlotList", "click", "loadPlot()");
@@ -49,12 +50,6 @@ newCemetery(){
     fetchOne("select datetime('now', 'localtime');", new FetchCallback() {
         onFetch(result) {
             setFieldValue("Cemetery/Cemetery/Date_of_recording", result.get(0));
-            keepTabGroupChanges("Cemetery");
-            saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
-                onSave(uuid, newRecord) {
-                    cemetery_id = uuid;
-                }
-            }, true);
         }
     });
 }
@@ -98,7 +93,7 @@ autoSaveCemetery() {
         onSave(uuid, newRecord) {
             cemetery_id = uuid;
         }
-    });
+    }, true);
 }
 
 updateAllCemetery(){
@@ -155,7 +150,7 @@ onEvent("Plot/Marker", "show", "updateAllPlotMarkers()");
 onEvent("Plot/Marker/newMarker", "click", "savePlotNewMarker()");
 onEvent("Plot/Marker/MarkerList", "click", "loadMarker()");
 
-onEvent("Plot/Associated_plots", "show", "updateAssociatedPlots()" );
+onEvent("Plot/Associated_plots", "show", "updateAssociatedPlots();" );
 onEvent("Plot/Associated_plots/AddPlot", "delayclick", "associatePlots()");
 onEvent("Plot/Associated_plots/ShowPlot", "click", "loadAssociatedPlot()");
 onEvent("Plot/Associated_plots/RemovePlot", "delayclick", "removeAssociatedPlot()");
@@ -175,6 +170,8 @@ newPlot(){
     newTabGroup("Plot");
     setFieldValue("Plot/Admin/Site", getFieldValue("Cemetery/Cemetery/Site"));
     setFieldValue("Plot/Admin/Date", getFieldValue("Cemetery/Cemetery/Date_of_recording"));
+    setFieldValue("Plot/Admin/Primary_burial", "N/A");
+    setFieldValue("Plot/Admin/Date_of_death", "N/A");
     keepTabGroupChanges("Plot");
     clearPlotOther();
 }
@@ -234,7 +231,7 @@ savePlotNewMarker() {
 savePlotNewBurial(Boolean primary) {
     if (isNull(getFieldValue("Plot/Admin/Grave_number"))){ 
         showWarning("Validation Error", "Cannot save Plot without Grave Number");
-        showTabGroup("Plot/Admin");
+        showTab("Plot/Admin");
         return;
     }
     saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
@@ -255,6 +252,14 @@ savePlotNewBurial(Boolean primary) {
 activateAutoSavePlot() {
     if (isNull(getFieldValue("Plot/Admin/Grave_number"))) return;
     if(!isNull(plot_id)) return;
+    saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            plot_id = uuid;
+            if(newRecord) {
+                saveEntitiesToRel("CemeteryPlot", cemetery_id, uuid);
+            }
+        }
+    });
     saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
         onSave(uuid, newRecord) {
             plot_id = uuid;
@@ -708,6 +713,14 @@ activateAutoSaveMarker() {
                 saveEntitiesToRel("PlotMarker", marker_id, plot_id);
             }
         }
+    });
+    saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            marker_id = uuid;
+            if(newRecord) {
+                saveEntitiesToRel("PlotMarker", marker_id, plot_id);
+            }
+        }
     }, true);
 }
 
@@ -1056,6 +1069,7 @@ saveAndCloseMotif() {
                 saveEntitiesToRel("MarkerMotif", motif_id, marker_id);
             }
             cancelTabGroup("Motif", false);
+            showTab("Marker/Motif");
         }
     };
     saveMotif(callback);
@@ -1067,7 +1081,7 @@ saveMotif(SaveCallback callback) {
         return;
     }
 
-    saveTabGroup("Motif", motif_id, null, null, callback, true);
+    saveTabGroup("Motif", motif_id, null, null, callback);
 }
 
 deleteMotif(){
@@ -1093,6 +1107,7 @@ loadMotifAttributes() {
 /*** ArchEnt: Burial ***/
 onEvent("Burial", "show", "autoSaveBurial();");
 onFocus("Burial/Burial/Name", null, "activateAutoSaveBurial()");
+onFocus("Burial/Burial/Date_of_death", null, "activateAutoSaveBurial()");
 onEvent("Burial/Burial/Is_primary_burial", "click", "checkPrimaryBurial()");
 
 String burial_id = null;
@@ -1109,8 +1124,9 @@ newBurial(){
 newPrimaryBurial(){
     burial_id = null;
     newTabGroup("Burial");
-    if(!isNull(getFieldValue("Plot/Admin/Primary_burial"))) {
+    if(!isNull(getFieldValue("Plot/Admin/Primary_burial")) && !getFieldValue("Plot/Admin/Primary_burial").equals("N/A")) {
         showToast("You can only have one primary burial.");
+        setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{No}");
     } else {
         setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{Yes}");
     }
@@ -1140,8 +1156,16 @@ loadBurialFrom(entid) {
 }
 
 activateAutoSaveBurial() {
-    if(isNull(getFieldValue("Burial/Burial/Name"))) return;
+    if(isNull(getFieldValue("Burial/Burial/Name")) || isNull(getFieldValue("Burial/Burial/Date_of_death"))) return;
     if(!isNull(burial_id)) return;
+    saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            burial_id = uuid;
+            if(newRecord) {
+                saveEntitiesToRel("PlotBurial", burial_id, plot_id);
+            }
+        }
+    });
     saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
         onSave(uuid, newRecord) {
             burial_id = uuid;
@@ -1190,7 +1214,7 @@ fetchPrimaryBurial(Callable callbackIfTrue, Callable callbackIfFalse) {
     primaryBurialDate =  null;
     if(!isNull(plot_id)) {
         Object primaryBurial;
-        fetchAll("select distinct uuid, freetext, attributename, relationshipid "+
+        fetchAll("select distinct uuid, measure, attributename, relationshipid "+
         "       from latestnondeletedaentvalue join attributekey using (attributeid)  "+
         "       join latestnondeletedaentreln using (uuid) "+
         "      where uuid in (select uuid  "+

@@ -3,5 +3,57 @@
 }
 
 .required-label {
+    margin-left: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top:7%;
+    padding-top:5%;
     color: red;
+}
+
+.read-only {
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top:7%;
+    padding-top:5%;
+    background-color: #EEEEEE;
+}
+
+.all {
+    margin-left: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-top:7%;
+    padding-top:5%;
+    color: #222222;
+}
+
+.faims-blue {
+    background-color: #33b5e5;
+    border-color: #26a0cd;
+    color: white;
+    margin-left:7%;
+    margin-top:5%;
+    margin-bottom:20%;
+    width:77%;
+    border-top-color:rgba(0,0,0,0.2);
+    border-left-color:rgba(0,0,0,0.2);
+    border-bottom-color:rgba(0,0,0,0.8);
+    border-right-color:rgba(0,0,0,0.8);
+    border-width:1%;
+    border-radius:20%;
+}
+
+.faims-danger {
+    background-color: #d9534f;
+    border-color: #be3e3a;
+    color: white;
+}
+
+.faims-success {
+    background-color: #45b845;
+    border-color: #38a538;
+    color: white;
 }
