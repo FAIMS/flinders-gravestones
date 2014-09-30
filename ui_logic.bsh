@@ -5,6 +5,25 @@ String userid;
 setSyncEnabled(true);
 setFileSyncEnabled(true);
 
+addActionBarItem("sync", new ToggleActionButtonCallback() {
+    actionOnLabel() {
+        "Sync enabled";
+    }
+    actionOn() {
+        setSyncEnabled(false);
+    }
+    isActionOff() {
+        isSyncEnabled();
+    }
+    actionOffLabel() {
+        "Sync disabled";
+    }
+    actionOff() {
+        setSyncEnabled(true);
+    }
+});
+
+
 /*** control ***/
 onEvent("control", "show", "cemetery_id = null; plot_id = null;");
 onEvent("control/cemetery", "show", "refreshCemeteries()");
@@ -38,7 +57,8 @@ refreshPlots() {
 }
 
 /*** ArchEnt: Cemetery ***/
-onEvent("Cemetery/Cemetery", "show", "updateAllCemetery();autoSaveCemetery();");
+onEvent("Cemetery", "show", "autoSaveCemetery();addCemeteryNavigation();");
+onEvent("Cemetery/Cemetery", "show", "updateAllCemetery();");
 onEvent("Cemetery/Cemetery/newPlot", "click", "saveCemeteryNewPlot()");
 onEvent("Cemetery/Cemetery/PlotList", "click", "loadPlot()");
 
@@ -60,10 +80,10 @@ loadCemetery() {
 }
 
 loadCemeteryFrom(entid) {
-    cemetery_id = entid;
     if (isNull(entid)) return;
     showTabGroup("Cemetery", entid, new FetchCallback() {
         onFetch(result) {
+            cemetery_id = entid;
             saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
                 onSave(uuid, newRecord) {
                     cemetery_id = uuid;
@@ -87,6 +107,7 @@ saveCemeteryNewPlot() {
     });
 }
 
+// Enable autosaving when returning to an 
 autoSaveCemetery() {
     if(isNull(cemetery_id)) return;
     saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
@@ -128,8 +149,53 @@ updateAllCemetery(){
     }
 }
 
+deleteCemetery(){
+    if (!isNull(cemetery_id)) {
+        showAlert("Confirm Deletion", "Press OK to Delete this Cemetery!", "reallyDeleteCemetery()", "doNotDelete()");
+    } else {
+        cancelTabGroup("Cemetery", true);
+    }
+}
+
+reallyDeleteCemetery() {
+    deleteArchEnt(cemetery_id);
+    cancelTabGroup("Cemetery", false);
+}
+
+addCemeteryNavigation() {
+    removeNavigationButton("save");
+    removeNavigationButton("delete");
+
+    addNavigationButton("save", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Save Cemetery";
+        }
+        actionOn() {
+            if (isNull(getFieldValue("Cemetery/Cemetery/Site"))) { 
+                showWarning("Validation Error", "Cannot save Cemetery without Site");
+                return;
+            }
+
+            saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    cemetery_id = uuid;
+                }
+            });
+        }
+    }, "success");
+
+    addNavigationButton("delete", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Delete Cemetery";
+        }
+        actionOn() {
+            deleteCemetery();
+        }
+    }, "danger");
+}
+
 /*** ArchEnt: Plot ***/
-onEvent("Plot", "show", "autoSavePlot();");
+onEvent("Plot", "show", "autoSavePlot(); addPlotNavigation();");
 
 onEvent("Plot/Admin/attachPhoto", "delayclick", "attachPictureTo(\"Plot/Admin/Photo\")");
 
@@ -146,7 +212,7 @@ onEvent("Plot/Admin", "show", "updatePrimaryBurial()");
 onEvent("Plot/Plot/newBurial", "click", "savePlotNewBurial(false)");
 onEvent("Plot/Plot/showBurial", "click", "loadBurial()");
 
-onEvent("Plot/Marker", "show", "updateAllPlotMarkers()");
+onEvent("Plot/Marker", "show", "updatePlotMarkers()");
 onEvent("Plot/Marker/newMarker", "click", "savePlotNewMarker()");
 onEvent("Plot/Marker/MarkerList", "click", "loadMarker()");
 
@@ -182,21 +248,21 @@ loadPlot() {
 }
 
 loadPlotFrom(entid) {
-    plot_id = entid;
     if (isNull(entid)) return;
     showTabGroup("Plot", entid, new FetchCallback() {
         onFetch(result) {
+            saveTabGroup("Plot", entid, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    plot_id = uuid;
+                }
+            }, true);
+            plot_id = entid;
             updatePrimaryBurial();
             clearPlotOther();
             addOtherFence();
             addOtherItems();
             addOtherDenomination();
             addOtherSources();
-            saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
-                onSave(uuid, newRecord) {
-                    plot_id = uuid;
-                }
-            }, true);
         }
     });
 }
@@ -258,16 +324,15 @@ activateAutoSavePlot() {
             if(newRecord) {
                 saveEntitiesToRel("CemeteryPlot", cemetery_id, uuid);
             }
+            // Turn on autosaving
+            saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    plot_id = uuid;
+                }
+            }, true);
         }
     });
-    saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
-        onSave(uuid, newRecord) {
-            plot_id = uuid;
-            if(newRecord) {
-                saveEntitiesToRel("CemeteryPlot", cemetery_id, uuid);
-            }
-        }
-    }, true);
+    
 }
 
 autoSavePlot() {
@@ -286,6 +351,56 @@ loadPlotAttributes(){
     makeVocab("DropDown", "Plot/Plot/Plot_type", "Plot type");
     makeVocab("DropDown", "Plot/Plot/Fence", "Fence");
     makeVocab("CheckBoxGroup", "Plot/Plot/Other_items", "Other items");
+}
+
+deletePlot(){
+    if (!isNull(plot_id)) {
+        showAlert("Confirm Deletion", "Press OK to Delete this Plot!", "reallyDeletePlot()", "doNotDelete()");
+    } else {
+        cancelTabGroup("Plot", true);
+        if(isNull(cemetery_id)) showTab("control/plot");
+    }
+}
+
+reallyDeletePlot() {
+    deleteArchEnt(plot_id);
+    cancelTabGroup("Plot", false);
+    if(isNull(cemetery_id)) showTab("control/plot");
+}
+
+addPlotNavigation() {
+    removeNavigationButton("save");
+    removeNavigationButton("delete");
+
+    addNavigationButton("save", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Save Plot";
+        }
+        actionOn() {
+            if (isNull(getFieldValue("Plot/Admin/Grave_number"))){ 
+                showWarning("Validation Error", "Cannot save Plot without Grave Number");
+                showTab("Plot/Admin");
+                return;
+            }
+            saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    plot_id = uuid;
+                    if(newRecord) {
+                        saveEntitiesToRel("CemeteryPlot", cemetery_id, plot_id);
+                    }
+                }
+            });  
+        }
+    }, "success");
+
+    addNavigationButton("delete", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Delete Plot";
+        }
+        actionOn() {
+            deletePlot();
+        }
+    }, "danger");
 }
 
 updatePrimaryBurial() {
@@ -335,7 +450,7 @@ updatePlotBurials(){
     }
 }
 
-updateAllPlotMarkers(){
+updatePlotMarkers(){
     if (!isNull(plot_id)) {
         fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
         "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
@@ -367,6 +482,7 @@ updateAllPlotMarkers(){
 }
 
 updateAssociatedPlots(){
+    print(plot_id);
     fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp " +
     "      FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename " +
     "                FROM latestNonDeletedArchentIdentifiers " +
@@ -646,7 +762,7 @@ clearPlotOther() {
 }
 
 /*** ArchEnt: Marker ***/
-onEvent("Marker", "show", "autoSaveMarker();");
+onEvent("Marker", "show", "autoSaveMarker(); addMarkerNavigation();");
 
 onEvent("Marker/Motif", "show", "updateAllMarkerMotifs()");
 onEvent("Marker/Motif/newMotif", "click", "saveMarkerNewMotif()");
@@ -682,10 +798,10 @@ loadMarker() {
 }
 
 loadMarkerFrom(entid) {
-    marker_id = entid;
-    if (isNull(marker_id)) return;
-    showTabGroup("Marker", marker_id, new FetchCallback() {
+    if (isNull(entid)) return;
+    showTabGroup("Marker", entid, new FetchCallback() {
         onFetch(result) {
+            marker_id = entid;
             clearMarkerOther();
             addOtherForm();
             addOtherMarkerColour();
@@ -712,16 +828,14 @@ activateAutoSaveMarker() {
             if(newRecord) {
                 saveEntitiesToRel("PlotMarker", marker_id, plot_id);
             }
+            // Turn on autosaving
+            saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    marker_id = uuid;
+                }
+            }, true);
         }
     });
-    saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
-        onSave(uuid, newRecord) {
-            marker_id = uuid;
-            if(newRecord) {
-                saveEntitiesToRel("PlotMarker", marker_id, plot_id);
-            }
-        }
-    }, true);
 }
 
 autoSaveMarker() {
@@ -763,6 +877,58 @@ loadMarkerAttributes(){
     makeVocab("CheckBoxGroup", "Marker/Inscription/Tense", "Tense");
     makeVocab("CheckBoxGroup", "Marker/Inscription/Author", "Author");
     makeVocab("CheckBoxGroup", "Marker/Inscription/Burials_described_in_relation_to", "Burials described in relation to");
+}
+
+deleteMarker(){
+    if (!isNull(marker_id)) {
+        showAlert("Confirm Deletion", "Press OK to Delete this Marker!", "reallyDeleteMarker()", "doNotDelete()");
+    } else {
+        cancelTabGroup("Marker", true);
+        showTab("Plot/Marker");
+    }
+}
+
+reallyDeleteMarker() {
+    deleteArchEnt(marker_id);
+    cancelTabGroup("Marker", false);
+    showTab("Plot/Marker");
+}
+
+addMarkerNavigation() {
+    removeNavigationButton("save");
+    removeNavigationButton("delete");
+
+    addNavigationButton("save", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Save Marker";
+        }
+        actionOn() {
+            if (isNull(getFieldValue("Marker/Marker/Form")) && 
+                isNull(getFieldValue("Marker/Marker/Material")) && 
+                isNull(getFieldValue("Marker/Inscription/Inscription"))) { 
+                showWarning("Validation Error", "Cannot save Marker without Form, Material or Inscription.");
+                showTab("Marker/Marker");
+                return;
+            }
+            saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    marker_id = uuid;
+                    if(newRecord) {
+                        saveEntitiesToRel("PlotMarker", marker_id, plot_id);
+                    }
+                }
+            });
+        }  
+    }, "success");
+    
+    addNavigationButton("delete", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Delete Marker";
+        }
+        actionOn() {
+            deleteMarker();
+        }
+    }, "danger");
 }
 
 updateAllMarkerMotifs(){
@@ -1018,6 +1184,7 @@ clearMarkerOther() {
 
 
 /** ArchEnt: Motif **/
+onEvent("Moitf", "show", "addMotifNavigation();");
 onEvent("Motif/Motif/Update_and_new", "delayclick", "saveAndNewMotif();");
 onEvent("Motif/Motif/Update_and_close", "delayclick", "saveAndCloseMotif();");
 onEvent("Motif/Motif/Remove", "delayclick", "deleteMotif();");
@@ -1035,10 +1202,10 @@ loadMotif() {
 }
 
 loadMotifFrom(entid) {
-    motif_id = entid;
     if (isNull(entid)) return;
-    showTabGroup("Motif", motif_id, new FetchCallback() {
+    showTabGroup("Motif", entid, new FetchCallback() {
         onFetch(result) {
+            motif_id = entid;
             saveTabGroup("Motif", motif_id, null, null, new SaveCallback() {
                 onSave(uuid, newRecord) {
                     motif_id = uuid;
@@ -1084,6 +1251,11 @@ saveMotif(SaveCallback callback) {
     saveTabGroup("Motif", motif_id, null, null, callback);
 }
 
+loadMotifAttributes() {
+    populateHierarchicalPictureGallery("Motif/Motif/Motif", "Motif");
+    makeVocab("DropDown", "Motif/Motif/Location", "Location");
+}
+
 deleteMotif(){
     if (!isNull(motif_id)) {
         showAlert("Confirm Deletion", "Press OK to Delete this Motif!", "reallyDeleteMotif()", "doNotDelete()");
@@ -1099,13 +1271,43 @@ reallyDeleteMotif() {
     showTab("Marker/Motif");
 }
 
-loadMotifAttributes() {
-    populateHierarchicalPictureGallery("Motif/Motif/Motif", "Motif");
-    makeVocab("DropDown", "Motif/Motif/Location", "Location");
+addMotifNavigation() {
+    removeNavigationButton("save");
+    removeNavigationButton("delete");
+
+    addNavigationButton("save", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Save Motif";
+        }
+        actionOn() {
+            if (isNull(getFieldValue("Motif/Motif/Motif"))){ 
+                showWarning("Validation Error", "Cannot save Motif without a Motif");
+                return;
+            }
+
+            saveTabGroup("Motif", motif_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    motif_id = uuid;
+                    if(newRecord) {
+                        saveEntitiesToRel("MarkerMotif", motif_id, marker_id);
+                    }
+                }
+            });
+        }
+    }, "success");
+
+    addNavigationButton("delete", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Delete Motif";
+        }
+        actionOn() {
+            deleteMotif();
+        }
+    }, "danger");
 }
 
 /*** ArchEnt: Burial ***/
-onEvent("Burial", "show", "autoSaveBurial();");
+onEvent("Burial", "show", "autoSaveBurial(); addBurialNavigation();");
 onFocus("Burial/Burial/Name", null, "activateAutoSaveBurial()");
 onFocus("Burial/Burial/Date_of_death", null, "activateAutoSaveBurial()");
 onEvent("Burial/Burial/Is_primary_burial", "click", "checkPrimaryBurial()");
@@ -1139,13 +1341,13 @@ loadBurial() {
 }
 
 loadBurialFrom(entid) {
-    burial_id = entid;
     if (isNull(entid)) {
         showToast("No Burial selected.");
         return;
     }
     showTabGroup("Burial", entid, new FetchCallback() {
         onFetch(result) {
+            burial_id = entid;
             saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
                 onSave(uuid, newRecord) {
                     burial_id = uuid;
@@ -1164,16 +1366,15 @@ activateAutoSaveBurial() {
             if(newRecord) {
                 saveEntitiesToRel("PlotBurial", burial_id, plot_id);
             }
+            // Turn on autosaving
+            saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    burial_id = uuid;
+                }
+            }, true);
         }
     });
-    saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
-        onSave(uuid, newRecord) {
-            burial_id = uuid;
-            if(newRecord) {
-                saveEntitiesToRel("PlotBurial", burial_id, plot_id);
-            }
-        }
-    }, true);
+    
 }
 
 autoSaveBurial() {
@@ -1188,6 +1389,57 @@ autoSaveBurial() {
 loadBurialAttributes() {
     makeVocab("RadioGroup", "Burial/Burial/Is_primary_burial", "Is primary burial");
 }
+
+deleteBurial(){
+    if (!isNull(burial_id)) {
+        showAlert("Confirm Deletion", "Press OK to Delete this Burial!", "reallyDeleteBurial()", "doNotDelete()");
+    } else {
+        cancelTabGroup("Burial", true);
+        showTab("Plot/Admin");
+    }
+}
+
+reallyDeleteBurial() {
+    deleteArchEnt(burial_id);
+    cancelTabGroup("Burial", false);
+    showTab("Plot/Admin");
+}
+
+addBurialNavigation() {
+    removeNavigationButton("save");
+    removeNavigationButton("delete");
+
+    addNavigationButton("save", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Save Burial";
+        }
+        actionOn() {
+            if(isNull(getFieldValue("Burial/Burial/Name")) || isNull(getFieldValue("Burial/Burial/Date_of_death"))) {
+                showWarning("Validation Error", "Cannot save Burial without a Name or Date of Death");
+                return;
+            }
+
+            saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    burial_id = uuid;
+                    if(newRecord) {
+                        saveEntitiesToRel("PlotBurial", burial_id, plot_id);
+                    }
+                }
+            });
+        }
+    }, "success");
+
+    addNavigationButton("delete", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Delete Burial";
+        }
+        actionOn() {
+            deleteBurial();
+        }
+    }, "danger");
+}
+
 
 checkPrimaryBurial() {
     callbackIfTrue = new Callable() {
@@ -1269,12 +1521,6 @@ saveEntitiesToRel(String type, String entity1, String entity2, Callable callback
         }
     });
 }
-
-/* TODO
- *
- *  THIS WILL BE FIXED AT THE END OF CURRENT SPRINT
- *
- */
 
 makeVocab(String type, String path, String attrib){
     fetchAll("select vocabid, vocabname from vocabulary join attributekey using (attributeid) where attributename = '"+attrib+"' order by vocabcountorder",

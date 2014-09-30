@@ -198,7 +198,7 @@
       <label>{User_List}</label>
       <group ref="usertab" faims_scrollable="false">
         <label>{User_List}</label>
-        <select1 appearance="compact" ref="users" faims_certainty="false" faims_annotation="false">
+        <select1 appearance="compact" ref="users" faims_certainty="false" faims_annotation="false" faims_style_class="user_list">
           <label>{Users}</label>
           <item>
             <label>placeholder</label>
@@ -214,7 +214,7 @@
         <trigger ref="newCemetery" faims_style_class="faims-blue">
           <label>New {Cemetery}</label>
         </trigger>
-        <select1 appearance="compact" ref="CemeteryList" faims_certainty="false" faims_annotation="false" faims_style_class="menu_list">
+        <select1 appearance="compact" ref="CemeteryList" faims_certainty="false" faims_annotation="false" faims_style_class="button_and_list">
           <label>{List_of_Cemeteries}:</label>
           <item>
             <label>placeholder</label>
@@ -239,14 +239,14 @@
       <label>{Cemetery}</label>
       <group ref="Cemetery" faims_scrollable="false">
         <label>{Administration}</label>
-        <input ref="Site" faims_attribute_name="Site" faims_attribute_type="measure" faims_certainty="false" faims_annotation="false" faims_read_only="false" faims_style_class="required">
+        <input ref="Site" faims_attribute_name="Site" faims_attribute_type="measure" faims_certainty="false" faims_annotation="true" faims_read_only="false" faims_style_class="required">
           <label>{Site_Location}</label>
         </input>
-        <input ref="Date_of_recording" faims_attribute_name="Date of recording" faims_certainty="false" faims_annotation="false" faims_attribute_type="measure" faims_read_only="true" faims_style_class="read-only">
+        <input ref="Date_of_recording" faims_attribute_name="Date of recording" faims_certainty="true" faims_annotation="true" faims_attribute_type="measure" faims_read_only="true" faims_style_class="read-only">
           <label>{Date_of_recording}</label>
         </input>
         <trigger ref="newPlot" faims_style_class="faims-blue">
-          <label>Save {Cemetery} and New {Plot}</label>
+          <label>New {Plot}</label>
         </trigger>
         <select1 appearance="compact" ref="PlotList" faims_certainty="false" faims_annotation="false">
           <label>{List_of_Plots}:</label>
@@ -263,13 +263,13 @@
       <label>{Plot}</label>
       <group ref="Admin">
         <label>{Admin}</label>
-        <input ref="Site" faims_attribute_name="Site" faims_certainty="false" faims_annotation="false" faims_attribute_type="measure" faims_read_only="true" faims_style_class="read-only">
+        <input ref="Site" faims_attribute_name="Site" faims_certainty="true" faims_annotation="true" faims_attribute_type="measure" faims_read_only="true" faims_style_class="read-only">
           <label>{Site_Location}</label>
         </input>
-        <input ref="Date" faims_attribute_name="Date" faims_certainty="false" faims_annotation="false" faims_attribute_type="measure" faims_read_only="true" faims_style_class="read-only">
+        <input ref="Date" faims_attribute_name="Date" faims_certainty="true" faims_annotation="true" faims_attribute_type="measure" faims_read_only="true" faims_style_class="read-only">
           <label>{Date_of_recording}</label>
         </input>
-        <input ref="Grave_number" faims_attribute_name="Grave number" faims_certainty="false" faims_annotation="false" faims_attribute_type="measure" faims_read_only="false" faims_style_class="required">
+        <input ref="Grave_number" faims_attribute_name="Grave number" faims_certainty="true" faims_annotation="true" faims_attribute_type="measure" faims_read_only="false" faims_style_class="required">
           <label>{Grave_Number}</label>
         </input>
         <input ref="Primary_burial" faims_attribute_type="measure" faims_certainty="false" faims_annotation="false" faims_read_only="true" faims_style_class="read-only">
@@ -291,7 +291,7 @@
         <input ref="Number_of_headstones" faims_attribute_name="Number of headstones" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Total_number_of_headstones_in_this_plot}</label>
         </input>
-        <select ref="Photo" type="camera" faims_attribute_name="Photo" faims_sync="true" faims_attribute_type="measure" faims_certainty="false" faims_annotation="false" faims_read_only="false">
+        <select ref="Photo" type="camera" faims_attribute_name="Photo" faims_sync="true" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Photos}</label>
           <item>
             <label>placeholder</label>
@@ -340,7 +340,7 @@
         <trigger ref="newBurial" faims_style_class="faims-blue">
           <label>Add Additional {Burial}</label>
         </trigger>
-        <select1 ref="BurialList" faims_certainty="false" faims_annotation="true">
+        <select1 ref="BurialList" faims_certainty="false" faims_annotation="false">
           <label>{List_of_Burials}:</label>
           <item>
             <label>placeholder</label>
@@ -392,31 +392,31 @@
       </group>
       <group ref="Historical_info">
         <label>{Historical_Info}</label>
-        <input ref="Lease_number" faims_attribute_name="Lease number" faims_attribute_type="measure"  faims_certainty="true" faims_annotation="false" faims_read_only="false">
+        <input ref="Lease_number" faims_attribute_name="Lease number" faims_attribute_type="measure"  faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Lease_Number}</label>
         </input>
-        <input ref="Lessee" faims_attribute_name="Lessee" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false" faims_read_only="false">
+        <input ref="Lessee" faims_attribute_name="Lessee" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Lessee}</label>
         </input>
-        <input ref="Date_of_lease" faims_attribute_name="Date of lease" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false" faims_read_only="false">
+        <input ref="Date_of_lease" faims_attribute_name="Date of lease" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Date_of_Lease}</label>
         </input>
         <input ref="Number_of_burials" faims_attribute_name="Number of burials" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Number_of_Burials}</label>
         </input>
-        <input ref="Name" faims_attribute_name="Name" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false" faims_read_only="false">
+        <input ref="Name" faims_attribute_name="Name" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Name}</label>
         </input>
-        <input ref="Date_of_death" faims_attribute_name="Date of death" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false" faims_read_only="false">
+        <input ref="Date_of_death" faims_attribute_name="Date of death" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Date_of_Death}</label>
         </input>
-        <input ref="Age_at_death" faims_attribute_name="Age at death" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false" faims_read_only="false">
+        <input ref="Age_at_death" faims_attribute_name="Age at death" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Age_at_Death}</label>
         </input>
-        <input ref="Cause_of_death" faims_attribute_name="Cause of death" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false" faims_read_only="false">
+        <input ref="Cause_of_death" faims_attribute_name="Cause of death" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Cause_of_Death}</label>
         </input>
-        <input ref="Ministers" faims_attribute_name="Ministers" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false" faims_read_only="false">
+        <input ref="Ministers" faims_attribute_name="Ministers" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Ministers}</label>
         </input>
         <select ref="Denomination" faims_attribute_name="Denomination" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false">
@@ -457,7 +457,7 @@
         <group ref="Other_Form_Container">
           <label/>
         </group>
-        <select ref="Shape" type="file" faims_attribute_name="Shape" faims_attribute_type="measure" faims_certainty="false" faims_annotation="false" faims_read_only="false">
+        <select ref="Shape" type="file" faims_attribute_name="Shape" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Shape}</label>
           <item>
             <label>placeholder</label>
@@ -518,10 +518,10 @@
         <group ref="Other_Lettering_Container">
           <label/>
         </group>
-        <input ref="Mason" faims_attribute_name="Mason" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false" faims_read_only="false">
+        <input ref="Mason" faims_attribute_name="Mason" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false">
           <label>{Mason}</label>
         </input>
-        <input ref="Town" faims_attribute_name="Town" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false"  faims_read_only="false">
+        <input ref="Town" faims_attribute_name="Town" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true"  faims_read_only="false">
           <label>{Town}</label>
         </input>
         <select1 ref="Footstone" appearance="full" faims_attribute_name="Footstone" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false">
@@ -534,7 +534,7 @@
       </group>
       <group ref="Inscription">
         <label>{Inscription}</label>
-        <input ref="Inscription" faims_attribute_name="Inscription" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false" faims_read_only="false" faims_style_class="required">
+        <input ref="Inscription" faims_attribute_name="Inscription" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false" faims_style_class="required">
           <label>{Inscription}</label>
         </input>
         <select ref="Style_of_language" faims_attribute_name="Style of language" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false">
@@ -596,7 +596,7 @@
       <label>{Motif}</label>
       <group ref="Motif">
         <label>{Motif}</label>
-        <select1 ref="Motif" type="image" faims_attribute_name="Motif" faims_attribute_type="vocab" faims_certainty="false" faims_annotation="true" faims_read_only="false" faims_style_class="required">
+        <select1 ref="Motif" type="image" faims_attribute_name="Motif" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false" faims_style_class="required">
           <label>{Motif}</label>
           <item>
             <label>placeholder</label>
@@ -628,13 +628,13 @@
       <label>{Burial}</label>
       <group ref="Burial">
         <label>{Burial}</label>
-        <input ref="Name" faims_attribute_name="Name" faims_attribute_type="measure" faims_certainty="false" faims_annotation="false" faims_read_only="false" faims_style_class="required">
+        <input ref="Name" faims_attribute_name="Name" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true" faims_read_only="false" faims_style_class="required">
           <label>{Name}</label>
         </input>
-        <input ref="Date_of_death" faims_attribute_name="Date of death" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false"  faims_read_only="false" faims_style_class="required">
+        <input ref="Date_of_death" faims_attribute_name="Date of death" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true"  faims_read_only="false" faims_style_class="required">
           <label>{Date_of_Death}</label>
         </input>
-        <input ref="Age_at_death" faims_attribute_name="Age at death" faims_attribute_type="measure" faims_certainty="true" faims_annotation="false"  faims_read_only="false">
+        <input ref="Age_at_death" faims_attribute_name="Age at death" faims_attribute_type="measure" faims_certainty="true" faims_annotation="true"  faims_read_only="false">
           <label>{Age_at_Death}</label>
         </input>
         <select1 appearance="full" ref="Is_primary_burial" faims_attribute_name="Is primary burial" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false">
