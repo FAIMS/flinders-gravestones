@@ -1,4 +1,4 @@
-gravestones
-===========
+gravestones2.0
+==============
 
-For Flinters Gravestones
+For Flinders gravestones module FAIMS 2.0

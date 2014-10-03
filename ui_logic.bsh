@@ -11,6 +11,8 @@ addActionBarItem("sync", new ToggleActionButtonCallback() {
     }
     actionOn() {
         setSyncEnabled(false);
+        setFileSyncEnabled(false);
+        showToast("Sync disabled.");
     }
     isActionOff() {
         isSyncEnabled();
@@ -20,12 +22,14 @@ addActionBarItem("sync", new ToggleActionButtonCallback() {
     }
     actionOff() {
         setSyncEnabled(true);
+        setFileSyncEnabled(true);
+        showToast("Sync enabled.");
     }
 });
 
 
 /*** control ***/
-onEvent("control", "show", "cemetery_id = null; plot_id = null;");
+onEvent("control", "show", "cemetery_id = null; plot_id = null;removeNavigationButtons();");
 onEvent("control/cemetery", "show", "refreshCemeteries()");
 onEvent("control/plot", "show", "refreshPlots()");
 onEvent("control/cemetery/CemeteryList", "click", "loadCemetery()");
@@ -54,6 +58,11 @@ refreshPlots() {
             showWarning("Error fetching Entity List", message);
         }
     });
+}
+
+removeNavigationButtons() {
+    removeNavigationButton("save");
+    removeNavigationButton("delete");
 }
 
 /*** ArchEnt: Cemetery ***/
@@ -1184,7 +1193,7 @@ clearMarkerOther() {
 
 
 /** ArchEnt: Motif **/
-onEvent("Moitf", "show", "addMotifNavigation();");
+onEvent("Motif", "show", "addMotifNavigation();");
 onEvent("Motif/Motif/Update_and_new", "delayclick", "saveAndNewMotif();");
 onEvent("Motif/Motif/Update_and_close", "delayclick", "saveAndCloseMotif();");
 onEvent("Motif/Motif/Remove", "delayclick", "deleteMotif();");

@@ -58,7 +58,7 @@
     <property name="Number of headstones" type="number">
       <description>Number of headstones</description>
     </property>
-    <property type="file" name="Photo">
+    <property type="file" name="Photo" file="true" thumbnail="true">
       <description>Photo</description>
     </property>
 
@@ -175,7 +175,7 @@
         <term>{Other}<description>Marker form</description></term>
       </lookup>
     </property>
-    <property name="Shape" type="file">
+    <property name="Shape" type="file" file="true">
       <description>Select shape within each form group. If the marker is not in this list, add an image.</description>
     </property>
     <property name="Plinth height" type="number">
