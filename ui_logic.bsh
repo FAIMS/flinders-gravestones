@@ -70,12 +70,13 @@ onEvent("Cemetery", "show", "autoSaveCemetery();addCemeteryNavigation();");
 onEvent("Cemetery/Cemetery", "show", "updateAllCemetery();");
 onEvent("Cemetery/Cemetery/newPlot", "click", "saveCemeteryNewPlot()");
 onEvent("Cemetery/Cemetery/PlotList", "click", "loadPlot()");
+onFocus("Cemetery/Cemetery/Site", null, "activateAutoSaveCemetery();");
 
 String cemetery_id = null;
 
-newCemetery(){
-    cememtery_id = null;
+newCemetery() {
     newTabGroup("Cemetery");
+    cememtery_id = null;
     fetchOne("select datetime('now', 'localtime');", new FetchCallback() {
         onFetch(result) {
             setFieldValue("Cemetery/Cemetery/Date_of_recording", result.get(0));
@@ -114,6 +115,23 @@ saveCemeteryNewPlot() {
             newPlot();
         }
     });
+}
+
+activateAutoSaveCemetery() {
+    if (isNull(getFieldValue("Cemetery/Cemetery/Site"))) return;
+    if(!isNull(cemetery_id)) return;
+    saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            cemetery_id = uuid;
+            // Turn on autosaving
+            saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    cemetery_id = uuid;
+                }
+            }, true);
+        }
+    });
+    
 }
 
 // Enable autosaving when returning to an 
@@ -240,9 +258,9 @@ Boolean other_items = false;
 Boolean other_denomination = false;
 Boolean other_sources = false;
 
-newPlot(){
-    plot_id = null;
+newPlot() {
     newTabGroup("Plot");
+    plot_id = null;
     setFieldValue("Plot/Admin/Site", getFieldValue("Cemetery/Cemetery/Site"));
     setFieldValue("Plot/Admin/Date", getFieldValue("Cemetery/Cemetery/Date_of_recording"));
     setFieldValue("Plot/Admin/Primary_burial", "N/A");
@@ -260,11 +278,6 @@ loadPlotFrom(entid) {
     if (isNull(entid)) return;
     showTabGroup("Plot", entid, new FetchCallback() {
         onFetch(result) {
-            saveTabGroup("Plot", entid, null, null, new SaveCallback() {
-                onSave(uuid, newRecord) {
-                    plot_id = uuid;
-                }
-            }, true);
             plot_id = entid;
             updatePrimaryBurial();
             clearPlotOther();
@@ -272,6 +285,12 @@ loadPlotFrom(entid) {
             addOtherItems();
             addOtherDenomination();
             addOtherSources();
+            keepTabGroupChanges("Plot");
+            saveTabGroup("Plot", entid, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    plot_id = uuid;
+                }
+            }, true);
         }
     });
 }
@@ -284,6 +303,20 @@ loadAssociatedPlot(){
     } else {
         loadPlotFrom(plot_id);
     }
+}
+
+savePlot() {
+    if (isNull(getFieldValue("Plot/Admin/Grave_number"))) { 
+        return;
+    }
+    saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            plot_id = uuid;
+            if(newRecord) {
+                saveEntitiesToRel("CemeteryPlot", cemetery_id, plot_id);
+            }
+        }
+    });  
 }
 
 savePlotNewMarker() {
@@ -611,8 +644,8 @@ addOtherFence() {
                 createView("Plot/Plot/Other_Fence", textDef, "Plot/Plot/Other_Fence_Container");
                 refreshTabgroupCSS("Plot");
                 other_fence = true;
-                onFocus("Plot/Plot/Other_Fence", "", "setFieldAnnotation(\"Plot/Plot/Fence\", getFieldValue(\"Plot/Plot/Other_Fence\"))");
                 setFieldValue("Plot/Plot/Other_Fence", getFieldAnnotation("Plot/Plot/Fence"));
+                onFocus("Plot/Plot/Other_Fence", "", "setFieldAnnotation(\"Plot/Plot/Fence\", getFieldValue(\"Plot/Plot/Other_Fence\"));savePlot();");
             }
         }
     };
@@ -642,8 +675,8 @@ addOtherItems() {
                 createView("Plot/Plot/Other_Other_Items", textDef, "Plot/Plot/Other_Other_Items_Container");
                 refreshTabgroupCSS("Plot");
                 other_items = true;
-                onFocus("Plot/Plot/Other_Other_Items", "", "setFieldAnnotation(\"Plot/Plot/Other_items\", getFieldValue(\"Plot/Plot/Other_Other_Items\"))");
                 setFieldValue("Plot/Plot/Other_Other_Items", getFieldAnnotation("Plot/Plot/Other_items"));
+                onFocus("Plot/Plot/Other_Other_Items", "", "setFieldAnnotation(\"Plot/Plot/Other_items\", getFieldValue(\"Plot/Plot/Other_Other_Items\"));savePlot();");
             }
         }
     };
@@ -682,8 +715,8 @@ addOtherDenomination() {
                 createView("Plot/Historical_info/Other_Denomination", textDef, "Plot/Historical_info/Other_Denomination_Container");
                 refreshTabgroupCSS("Plot");
                 other_denomination = true;
-                onFocus("Plot/Historical_info/Other_Denomination", "", "setFieldAnnotation(\"Plot/Historical_info/Denomination\", getFieldValue(\"Plot/Historical_info/Other_Denomination\"))");
                 setFieldValue("Plot/Historical_info/Other_Denomination", getFieldAnnotation("Plot/Historical_info/Denomination"));
+                onFocus("Plot/Historical_info/Other_Denomination", "", "setFieldAnnotation(\"Plot/Historical_info/Denomination\", getFieldValue(\"Plot/Historical_info/Other_Denomination\"));savePlot();");
 
             }            
         }
@@ -724,8 +757,8 @@ addOtherSources() {
                 createView("Plot/Historical_info/Other_Sources", textDef, "Plot/Historical_info/Other_Sources_Container");
                 refreshTabgroupCSS("Plot");
                 other_sources = true;
-                onFocus("Plot/Historical_info/Other_Sources", "", "setFieldAnnotation(\"Plot/Historical_info/Sources\", getFieldValue(\"Plot/Historical_info/Other_Sources\"))");
                 setFieldValue("Plot/Historical_info/Other_Sources", getFieldAnnotation("Plot/Historical_info/Sources"));
+                onFocus("Plot/Historical_info/Other_Sources", "", "setFieldAnnotation(\"Plot/Historical_info/Sources\", getFieldValue(\"Plot/Historical_info/Other_Sources\"));savePlot();");
             }
         }
     };
@@ -795,9 +828,9 @@ Boolean other_material = false;
 Boolean other_lettering = false;
 Boolean other_key_words = false;
 
-newMarker(){
-    marker_id = null;
+newMarker() {
     newTabGroup("Marker");
+    marker_id = null;
     clearMarkerOther();
 }
 
@@ -817,6 +850,7 @@ loadMarkerFrom(entid) {
             addOtherMaterial();
             addOtherLettering();
             addOtherKeyWords();
+            keepTabGroupChanges("Marker");
             saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
                 onSave(uuid, newRecord) {
                     marker_id = uuid;
@@ -849,6 +883,19 @@ activateAutoSaveMarker() {
 
 autoSaveMarker() {
     if(isNull(marker_id)) return;
+    saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            marker_id = uuid;
+        }
+    }, true);
+}
+
+saveMarker() {
+    if (isNull(getFieldValue("Marker/Marker/Form")) && 
+        isNull(getFieldValue("Marker/Marker/Material")) && 
+        isNull(getFieldValue("Marker/Inscription/Inscription"))) {
+        return;
+    }
     saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
         onSave(uuid, newRecord) {
             marker_id = uuid;
@@ -985,8 +1032,8 @@ addOtherForm() {
                 createView("Marker/Marker/Other_Form", textDef, "Marker/Marker/Other_Form_Container");
                 refreshTabgroupCSS("Marker");
                 other_form = true;
-                onFocus("Marker/Marker/Other_Form", "", "setFieldAnnotation(\"Marker/Marker/Form\", getFieldValue(\"Marker/Marker/Other_Form\"))");
                 setFieldValue("Marker/Marker/Other_Form", getFieldAnnotation("Marker/Marker/Form"));
+                onFocus("Marker/Marker/Other_Form", "", "setFieldAnnotation(\"Marker/Marker/Form\", getFieldValue(\"Marker/Marker/Other_Form\"));saveMarker();");
             }
         }
     };
@@ -1026,8 +1073,8 @@ addOtherMarkerColour() {
                 createView("Marker/Marker/Other_Marker_Colour", textDef, "Marker/Marker/Other_Marker_Colour_Container");
                 refreshTabgroupCSS("Marker");
                 other_marker_colour = true;
-                onFocus("Marker/Marker/Other_Marker_Colour", "", "setFieldAnnotation(\"Marker/Marker/Marker_colour\", getFieldValue(\"Marker/Marker/Other_Marker_Colour\"))");
                 setFieldValue("Marker/Marker/Other_Marker_Colour", getFieldAnnotation("Marker/Marker/Marker_colour"));
+                onFocus("Marker/Marker/Other_Marker_Colour", "", "setFieldAnnotation(\"Marker/Marker/Marker_colour\", getFieldValue(\"Marker/Marker/Other_Marker_Colour\"));saveMarker();");
             }
         }
     };
@@ -1067,8 +1114,8 @@ addOtherMaterial() {
                 createView("Marker/Marker/Other_Material", textDef, "Marker/Marker/Other_Material_Container");
                 refreshTabgroupCSS("Marker");
                 other_material = true;
-                onFocus("Marker/Marker/Other_Material", "", "setFieldAnnotation(\"Marker/Marker/Material\", getFieldValue(\"Marker/Marker/Other_Material\"))");
                 setFieldValue("Marker/Marker/Other_Material", getFieldAnnotation("Marker/Marker/Material"));
+                onFocus("Marker/Marker/Other_Material", "", "setFieldAnnotation(\"Marker/Marker/Material\", getFieldValue(\"Marker/Marker/Other_Material\"));saveMarker();");
             }            
         }
     };
@@ -1108,8 +1155,9 @@ addOtherLettering() {
                 createView("Marker/Marker/Other_Lettering", textDef, "Marker/Marker/Other_Lettering_Container");
                 refreshTabgroupCSS("Marker");
                 other_lettering = true;   
-                onFocus("Marker/Marker/Other_Lettering", "", "setFieldAnnotation(\"Marker/Marker/Lettering\", getFieldValue(\"Marker/Marker/Other_Lettering\"))");
                 setFieldValue("Marker/Marker/Other_Lettering", getFieldAnnotation("Marker/Marker/Lettering"));
+                onFocus("Marker/Marker/Other_Lettering", "", "setFieldAnnotation(\"Marker/Marker/Lettering\", getFieldValue(\"Marker/Marker/Other_Lettering\"));saveMarker();");
+                
             }
          
         }
@@ -1142,8 +1190,8 @@ addOtherKeyWords() {
                 createView("Marker/Inscription/Other_Key_Words", textDef, "Marker/Inscription/Other_Key_Words_Container");
                 refreshTabgroupCSS("Marker");
                 other_key_words = true;
-                onFocus("Marker/Inscription/Other_Key_Words", "", "setFieldAnnotation(\"Marker/Inscription/Key_words\", getFieldValue(\"Marker/Inscription/Other_Key_Words\"))");
                 setFieldValue("Marker/Inscription/Other_Key_Words", getFieldAnnotation("Marker/Inscription/Key_words"));
+                onFocus("Marker/Inscription/Other_Key_Words", "", "setFieldAnnotation(\"Marker/Inscription/Key_words\", getFieldValue(\"Marker/Inscription/Other_Key_Words\"));saveMarker();");
             }
         }
     };
@@ -1197,12 +1245,13 @@ onEvent("Motif", "show", "addMotifNavigation();");
 onEvent("Motif/Motif/Update_and_new", "delayclick", "saveAndNewMotif();");
 onEvent("Motif/Motif/Update_and_close", "delayclick", "saveAndCloseMotif();");
 onEvent("Motif/Motif/Remove", "delayclick", "deleteMotif();");
+onEvent("Motif/Motif/Motif", "click", "activateAutoSaveMotif();");
 
 String motif_id = null;
 
 newMotif(){
-    motif_id = null;
     newTabGroup("Motif");
+    motif_id = null;
 }
 
 loadMotif() {
@@ -1223,6 +1272,25 @@ loadMotifFrom(entid) {
         }
     });
 }
+
+activateAutoSaveMotif() {
+    if(!isNull(motif_id)) return;
+    saveTabGroup("Motif", motif_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            motif_id = uuid;
+            if(newRecord) {
+                saveEntitiesToRel("MarkerMotif", motif_id, marker_id);
+            }
+            // Turn on autosaving
+            saveTabGroup("Motif", motif_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    motif_id = uuid;
+                }
+            }, true);
+        }
+    });
+}
+
 
 saveAndNewMotif() {
     callback = new SaveCallback() {
@@ -1256,7 +1324,7 @@ saveMotif(SaveCallback callback) {
         showWarning("Validation Error", "Cannot save Motif without a Motif");
         return;
     }
-
+    print(motif_id);
     saveTabGroup("Motif", motif_id, null, null, callback);
 }
 
@@ -1326,21 +1394,27 @@ String primaryBurialID = null;
 String primaryBurialName = null;
 String primaryBurialDate = null;
 
-newBurial(){
-    burial_id = null;
+newBurial() {
     newTabGroup("Burial");
+    burial_id = null;
     setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{No}");
 }
 
-newPrimaryBurial(){
-    burial_id = null;
+newPrimaryBurial() {
     newTabGroup("Burial");
-    if(!isNull(getFieldValue("Plot/Admin/Primary_burial")) && !getFieldValue("Plot/Admin/Primary_burial").equals("N/A")) {
-        showToast("You can only have one primary burial.");
-        setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{No}");
-    } else {
-        setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{Yes}");
-    }
+    burial_id = null;
+    Callable callbackIfTrue = new Callable() {
+        call() {
+            showToast("You can only have one primary burial.");
+            setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{No}");
+        }
+    };
+    Callable callbackIfFalse = new Callable() {
+        call() {
+            setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{Yes}");
+        }
+    };
+    fetchPrimaryBurial(callbackIfTrue, callbackIfFalse);
     
 }
 
