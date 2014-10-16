@@ -38,6 +38,9 @@
     margin-left: 7%;
 }
 
+.required-picture-gallery-label{
+    color: red;
+}
 
 .input-field{
     margin-left:5%;

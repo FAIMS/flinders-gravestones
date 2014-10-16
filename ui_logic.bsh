@@ -309,12 +309,14 @@ savePlot() {
     if (isNull(getFieldValue("Plot/Admin/Grave_number"))) { 
         return;
     }
+    dialog = showBusy("Saving {Plot}", "Please wait.");
     saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
         onSave(uuid, newRecord) {
             plot_id = uuid;
             if(newRecord) {
                 saveEntitiesToRel("CemeteryPlot", cemetery_id, plot_id);
             }
+            dialog.dismiss();
         }
     });  
 }
@@ -896,11 +898,14 @@ saveMarker() {
         isNull(getFieldValue("Marker/Inscription/Inscription"))) {
         return;
     }
+
+    dialog = showBusy("Saving {Marker}", "Please wait.");
     saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
         onSave(uuid, newRecord) {
             marker_id = uuid;
+            dialog.dismiss();
         }
-    }, true);
+    });
 }
 
 saveMarkerNewMotif() {

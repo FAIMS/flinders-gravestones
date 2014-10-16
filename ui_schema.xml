@@ -596,7 +596,7 @@
       <label>{Motif}</label>
       <group ref="Motif">
         <label>{Motif}</label>
-        <select1 ref="Motif" type="image" faims_attribute_name="Motif" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false" faims_style_class="required">
+        <select1 ref="Motif" type="image" faims_attribute_name="Motif" faims_attribute_type="vocab" faims_certainty="true" faims_annotation="true" faims_read_only="false" faims_style_class="required-picture-gallery">
           <label>{Motif}</label>
           <item>
             <label>placeholder</label>
