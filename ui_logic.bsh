@@ -168,11 +168,7 @@ updateAllCemetery(){
         });
         
     } else {
-        fetchAll("select '', '';", new FetchCallback() {
-            onFetch(result) {
-                populateList("Cemetery/Cemetery/PlotList", result);
-            }
-        });
+        populateList("Cemetery/Cemetery/PlotList", new ArrayList());
     }
 }
 
@@ -486,11 +482,7 @@ updatePlotBurials(){
             }
         });
     } else {
-        fetchAll("select '', '';", new FetchCallback() {
-            onFetch(result) {
-                populateDropDown("Plot/Plot/BurialList",  result);
-            }
-        });
+        populateDropDown("Plot/Plot/BurialList",  new ArrayList());
     }
 }
 
@@ -517,16 +509,11 @@ updatePlotMarkers(){
             }
         });
     } else {
-        fetchAll("select '', '';", new FetchCallback() {
-            onFetch(result) {
-                populateList("Plot/Marker/MarkerList", result);
-            }
-        });
+        populateList("Plot/Marker/MarkerList", new ArrayList());
     }
 }
 
 updateAssociatedPlots(){
-    print(plot_id);
     fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp " +
     "      FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename " +
     "                FROM latestNonDeletedArchentIdentifiers " +
@@ -572,11 +559,7 @@ updateAssociatedPlots(){
         });
         
     } else {
-        fetchAll("select '', '';", new FetchCallback() {
-            onFetch(result) {
-                populateDropDown("Plot/Associated_plots/Associated_plots",  result);
-            }
-        });
+        populateDropDown("Plot/Associated_plots/Associated_plots",  new ArrayList());
     }
 }
 
@@ -1015,11 +998,7 @@ updateAllMarkerMotifs(){
             }
         });
     } else {
-        fetchAll("select '', '';", new FetchCallback() {
-            onFetch(result) {
-                populateList("Marker/Motif/MotifList", result);
-            }
-        });
+        populateList("Marker/Motif/MotifList", new ArrayList());
     }
 }
 
