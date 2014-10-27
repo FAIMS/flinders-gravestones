@@ -1294,10 +1294,16 @@ saveAndCloseMotif() {
         onSave(uuid, newRecord) {
             motif_id = uuid;
             if(newRecord) {
-                saveEntitiesToRel("MarkerMotif", motif_id, marker_id);
+                saveEntitiesToRel("MarkerMotif", motif_id, marker_id, new Callable() {
+                    call() {
+                        cancelTabGroup("Motif", false);
+                        showTab("Marker/Motif");
+                    }
+                });
+            } else {
+                cancelTabGroup("Motif", false);
+                showTab("Marker/Motif");    
             }
-            cancelTabGroup("Motif", false);
-            showTab("Marker/Motif");
         }
     };
     saveMotif(callback);
