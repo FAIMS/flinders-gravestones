@@ -6,59 +6,46 @@
     height: 80%;
 }
 .user_list-label{
-    margin-left:5%;
-}
+    }
 
 .button_and_list{
     height: 70%;
 }
 .button_and_list-label{
-    margin-left:5%;    
-    margin-top:7%;
+        margin-top:7%;
 }
 
 .list{    
-    margin-left:5%;
-    width:80%;
-    
+            
 }
 
 .list-label{
-    margin-left:5%;
-    margin-top:7%;
+        margin-top:7%;
 }
 
 .required-label {
-    margin-left: 5%;
-    color: red;
+        color: red;
 }
 
 .required{
-    width:87%;
-    margin-left: 7%;
-}
+        }
 
 .required-picture-gallery-label{
     color: red;
 }
 
 .input-field{
-    margin-left:5%;
-    
+        
 }
 .input-field-label{
     margin-top:7%;
-    margin-left:5%;
-}
+    }
 
 .read-only {
-    margin-left: 8%;
-    width:85%;
-    background-color: #EEEEEE;
+            background-color: #EEEEEE;
 }
 .read-only-label{
-    margin-left:5%;
-}
+    }
 
 
 #Cemetery/Cemetery/PlotList{
@@ -69,9 +56,8 @@
 }
 
 .all {
-    margin-left: 5%;
-    padding-left: 2%;
-    padding-right: 2%;
+        
+    
     margin-top:7%;
     padding-top:5%;
     color: #222222;
@@ -81,12 +67,9 @@
     background-color: #33b5e5;
     border-color: #26a0cd;
     color: white;
-    margin-left:7%;
-    margin-top:5%;
+        margin-top:5%;
     margin-bottom:20%;
-    width:77%;
-    border-width:1%;
-    border-radius:10%;
+        border-    border-radius:10%;
     
 }
 
