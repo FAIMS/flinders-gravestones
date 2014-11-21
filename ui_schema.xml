@@ -138,6 +138,9 @@
               <newMotif/>
               <MotifList/>
             </Motif>
+            <hidden>
+              <timestamp/>
+            </hidden>
           </Marker>
           <Motif>
             <Motif>
@@ -147,6 +150,9 @@
               <Update_and_close/>
               <Remove/>
             </Motif>
+            <hidden>
+              <timestamp/>
+            </hidden>
           </Motif>
           <Burial>
             <Burial>
@@ -156,6 +162,9 @@
               <Is_primary_burial/>
               <Update/>
             </Burial>
+            <hidden>
+              <timestamp/>
+            </hidden>
           </Burial>
         </faims>
       </instance>
@@ -589,6 +598,12 @@
           </item>
         </select1>
       </group>
+      <group ref="hidden" faims_hidden="true">
+        <label/>
+        <input ref="timestamp" faims_attribute_name="Timestamp" faims_attribute_type="measure" faims_certainty="false" faims_annotation="false" faims_read_only="true">
+          <label>timestamp</label>
+        </input>
+      </group>
     </group>
 
     <!--MOTIF-->
@@ -620,6 +635,12 @@
           <label>Delete {Motif}</label>
         </trigger>
       </group>
+      <group ref="hidden" faims_hidden="true">
+        <label/>
+        <input ref="timestamp" faims_attribute_name="Timestamp" faims_attribute_type="measure" faims_certainty="false" faims_annotation="false" faims_read_only="true">
+          <label>timestamp</label>
+        </input>
+      </group>
     </group>
 
 
@@ -644,6 +665,12 @@
             <value>placeholder</value>
           </item>
         </select1>
+      </group>
+      <group ref="hidden" faims_hidden="true">
+        <label/>
+        <input ref="timestamp" faims_attribute_name="Timestamp" faims_attribute_type="measure" faims_certainty="false" faims_annotation="false" faims_read_only="true">
+          <label>timestamp</label>
+        </input>
       </group>
     </group>
   </h:body>

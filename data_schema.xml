@@ -302,6 +302,9 @@
           <term>{Unrelated_to_others}<description>Burials described</description></term>
         </lookup>
       </property>
+      <property name="Timestamp" type="timestamp">
+        <description>Timestamp</description>
+      </property>
     </ArchaeologicalElement>
 
     <!-- ARCHENT:MOTIF -->
@@ -844,7 +847,10 @@
       <term>{On_marker}<description>Identify all motifs incorporated into the marker/headstone. This includes the shape of the marker and all engraved, painted or applied motifs.</description></term>
       <term>{On_fence_other}<description>Identify all motifs incorporated into the fence or other fittings/furnishings.</description></term>
     </lookup>
-  </property>   
+  </property>
+  <property name="Timestamp" type="timestamp">
+    <description>Timestamp</description>
+  </property>
   </ArchaeologicalElement>
 
   <!-- ARCHENT: BURIAL -->
@@ -865,6 +871,9 @@
         <term>{Yes}<description>Is primary burial</description></term>
         <term>{No}<description>Is not primary burial</description></term>
       </lookup>
+    </property>
+    <property name="Timestamp" type="timestamp">
+      <description>Timestamp</description>
     </property>
   </ArchaeologicalElement>
 </dataSchema>
