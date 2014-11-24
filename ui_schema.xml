@@ -39,7 +39,6 @@
             <Cemetery>
               <Site/>
               <Date_of_recording/>
-              <Update/>
               <newPlot/>
               <PlotList/>
             </Cemetery>
@@ -57,7 +56,6 @@
               <Number_of_headstones/>
               <Photo/>
               <attachPhoto/>
-              <Update/>
             </Admin>
             <Plot>
               <Plot_type/>
@@ -67,7 +65,6 @@
               <Fence_height/>
               <Other_items/>
               <Other_Other_Items_Container/>
-              <Update/>
               <newBurial/>
               <BurialList/>
               <showBurial/>
@@ -97,7 +94,6 @@
               <Other_Denomination_Container/>
               <Sources/>
               <Other_Sources_Container/>
-              <Update/>
             </Historical_info>
           </Plot>
           <Marker>
@@ -122,7 +118,6 @@
               <Mason/>
               <Town/>
               <Footstone/>
-              <Update/>
             </Marker>
             <Inscription>
               <Inscription/>
@@ -132,7 +127,6 @@
               <Tense/>
               <Author/>
               <Burials_described_in_relation_to/>
-              <Update/>
             </Inscription>
             <Motif>
               <newMotif/>
@@ -146,9 +140,6 @@
             <Motif>
               <Motif/>
               <Location/>
-              <Update_and_new/>
-              <Update_and_close/>
-              <Remove/>
             </Motif>
             <hidden>
               <timestamp/>
@@ -160,7 +151,6 @@
               <Date_of_death/>
               <Age_at_death/>
               <Is_primary_burial/>
-              <Update/>
             </Burial>
             <hidden>
               <timestamp/>
@@ -625,15 +615,6 @@
             <value>placeholder</value>
           </item>
         </select1>
-        <trigger ref="Update_and_new" faims_style_class="faims-success">
-          <label>Save and New {Motif}</label>
-        </trigger>
-        <trigger ref="Update_and_close" faims_style_class="faims-success">
-          <label>Save and Close {Motif}</label>
-        </trigger>
-        <trigger ref="Remove" faims_style_class="faims-danger">
-          <label>Delete {Motif}</label>
-        </trigger>
       </group>
       <group ref="hidden" faims_hidden="true">
         <label/>
