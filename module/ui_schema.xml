@@ -143,14 +143,22 @@
           <logic/>
         </faims>
       </instance>
+      <bind type="decimal" nodeset="/faims/Plot/Administration/Grave_Number"/>
       <bind type="decimal" nodeset="/faims/Plot/Administration/Total_number_of_Headstones_in_This_Plot"/>
       <bind type="decimal" nodeset="/faims/Plot/Plot/Total_number_of_Interments_in_This_Plot"/>
+      <bind type="decimal" nodeset="/faims/Plot/Plot/Fence_Border_Height"/>
+      <bind type="decimal" nodeset="/faims/Plot/Historical_Info/Lease_Number"/>
+      <bind type="date" nodeset="/faims/Plot/Historical_Info/Date_of_Lease"/>
+      <bind type="decimal" nodeset="/faims/Plot/Historical_Info/Number_of_Burials"/>
+      <bind type="date" nodeset="/faims/Plot/Historical_Info/Plot_Date_of_Death"/>
       <bind type="decimal" nodeset="/faims/Marker/Administration/Plinth_Height"/>
       <bind type="decimal" nodeset="/faims/Marker/Administration/Plinth_Depth"/>
       <bind type="decimal" nodeset="/faims/Marker/Administration/Pedestal_Height"/>
       <bind type="decimal" nodeset="/faims/Marker/Administration/Headstone_monument_Depth"/>
       <bind type="decimal" nodeset="/faims/Marker/Administration/Headstone_monument_Height"/>
       <bind type="decimal" nodeset="/faims/Marker/Administration/Headstone_monument_Width"/>
+      <bind type="date" nodeset="/faims/Burial/Burial/Burial_Date_of_Death"/>
+      <bind type="decimal" nodeset="/faims/Burial/Burial/Age_at_Death"/>
     </model>
   </h:head>
   <h:body>
@@ -554,7 +562,7 @@
         <input faims_attribute_type="measure" ref="Age_at_Death" faims_attribute_name="Age at Death">
           <label>{Age_at_Death}</label>
         </input>
-        <select1 faims_attribute_type="vocab" ref="Is_Primary_Burial" faims_attribute_name="Is Primary Burial">
+        <select1 appearance="full" faims_attribute_type="vocab" ref="Is_Primary_Burial" faims_attribute_name="Is Primary Burial">
           <label>{Is_Primary_Burial}</label>
           <item>
             <label>Options not loaded</label>

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module suppressWarnings="true">
 
+<!--TODO: Tense's options are grammatical person. At:
+       Cemetery-Plot-Marker/Inscription/Tense
+-->
+
 <!--cemetery - [plot - grave markers - burial]
                                      - motif
 -->
@@ -45,7 +49,7 @@
     <timestamp>
       Date of Recording
     </timestamp>
-    <Grave_Number f="id"/>
+    <Grave_Number b="decimal" f="id"/>
     <Orientation>
       <opts>
         <opt>No Observation<desc>No observation was made.</desc></opt>
@@ -84,7 +88,7 @@
         <opt>Other<desc> Border of Plot</desc></opt>
       </opts>
     </Fence_Border>
-    <Fence_Border_Height>
+    <Fence_Border_Height b="decimal">
       Fence/Border Height
     </Fence_Border_Height>
     <Other_Items>
@@ -102,14 +106,14 @@
     </Other_Items>
   </Plot>
   <Historical_Info>
-    <Lease_Number/>
+    <Lease_Number b="decimal"/>
     <Lessee/>
-    <Date_of_Lease/>
-    <Number_of_Burials/>
+    <Date_of_Lease b="date"/>
+    <Number_of_Burials b="decimal"/>
     <Plot_Name>
       Name
     </Plot_Name>
-    <Plot_Date_of_Death>
+    <Plot_Date_of_Death b="date">
       Date of Death
     </Plot_Date_of_Death>
     <Age_of_Death/>
@@ -140,7 +144,7 @@
   </Historical_Info>
   <Marker f="noscroll">
     <Add_Marker               t="button" lc="Marker"/>
-    <List_of_Existing_Markers l="list"   ec="Marker"/>
+    <List_of_Existing_Markers t="list"   ec="Marker"/>
   </Marker>
 </Plot>
 
@@ -265,18 +269,18 @@
       <opts>
         <opt>Family patriarch<desc>Burials described</desc></opt>
         <opt>Order of death<desc>Burials described</desc></opt>
-        <opt>Position within family unit (e.g mother,son, wife)<desc>Burials described</desc></opt>
+        <opt>Position within family unit (e.g mother, son, wife)<desc>Burials described</desc></opt>
         <opt>Unrelated to others<desc>Burials described</desc></opt>
       </opts>
     </Burials_Described_in_Relation_to>
   </Inscription>
   <Burial f="noscroll">
     <Add_Burial               t="button" lc="Burial"/>
-    <List_of_Existing_Burials l="list"   ec="Burial"/>
+    <List_of_Existing_Burials t="list"   ec="Burial"/>
   </Burial>
   <Motif f="noscroll">
     <Add_Motif               t="button" lc="Motif"/>
-    <List_of_Existing_Motifs l="list"   ec="Motif"/>
+    <List_of_Existing_Motifs t="list"   ec="Motif"/>
   </Motif>
 </Marker>
 
@@ -285,11 +289,11 @@
     <Burial_Name f="id">
       Name
     </Burial_Name>
-    <Burial_Date_of_Death>
+    <Burial_Date_of_Death b="date">
       Date of Death
     </Burial_Date_of_Death>
-    <Age_at_Death/>
-    <Is_Primary_Burial>
+    <Age_at_Death b="decimal"/>
+    <Is_Primary_Burial t="radio">
       <opts>
         <opt>No Observation<desc>No observation was made.</desc></opt>
         <opt>Yes<desc>Is primary burial</desc></opt>
