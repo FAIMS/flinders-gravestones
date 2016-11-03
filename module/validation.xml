@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ValidationSchema>
+  <ArchaeologicalElement name="Cemetery"/>
+  <ArchaeologicalElement name="Plot"/>
+  <ArchaeologicalElement name="Marker"/>
+  <ArchaeologicalElement name="Burial"/>
+  <ArchaeologicalElement name="Motif"/>
+</ValidationSchema>

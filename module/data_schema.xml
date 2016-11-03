@@ -1,0 +1,729 @@
+<?xml version="1.0"?>
+<dataSchema>
+  <RelationshipElement name="Cemetery - Plot" type="hierarchical">
+    <description>A 1-to-n relationship between the parent and its children, respectively.</description>
+    <parent>Parent Of</parent>
+    <child>Child Of</child>
+  </RelationshipElement>
+  <RelationshipElement name="Plot - Marker" type="hierarchical">
+    <description>A 1-to-n relationship between the parent and its children, respectively.</description>
+    <parent>Parent Of</parent>
+    <child>Child Of</child>
+  </RelationshipElement>
+  <RelationshipElement name="Marker - Burial" type="hierarchical">
+    <description>A 1-to-n relationship between the parent and its children, respectively.</description>
+    <parent>Parent Of</parent>
+    <child>Child Of</child>
+  </RelationshipElement>
+  <RelationshipElement name="Marker - Motif" type="hierarchical">
+    <description>A 1-to-n relationship between the parent and its children, respectively.</description>
+    <parent>Parent Of</parent>
+    <child>Child Of</child>
+  </RelationshipElement>
+  <ArchaeologicalElement name="Cemetery">
+    <description/>
+    <property name="Cemetery Site Location" isIdentifier="true" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Cemetery timestamp" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+  </ArchaeologicalElement>
+  <ArchaeologicalElement name="Plot">
+    <description/>
+    <property name="Plot Site Location" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Plot timestamp" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Grave Number" isIdentifier="true" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Orientation" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{No_Observation}
+<description>No observation was made.</description></term>
+        <term>{No_Orientation}
+<description>No orientation</description></term>
+        <term>{North}
+<description>North</description></term>
+        <term>{North_East}
+<description>North East</description></term>
+        <term>{East}
+<description>East</description></term>
+        <term>{South_East}
+<description>South East</description></term>
+        <term>{South}
+<description>South</description></term>
+        <term>{South_West}
+<description>South West</description></term>
+        <term>{West}
+<description>West</description></term>
+        <term>{North_West}
+<description>North West</description></term>
+      </lookup>
+    </property>
+    <property name="Total number of Headstones in This Plot" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Photos" type="file" file="true" thumbnail="true">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Plot Type" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{No_Observation}
+<description>No observation was made.</description></term>
+        <term>{Individual__Single_}
+<description>Single (single sized grave)</description></term>
+        <term>{Double__2_People_}
+<description>Double (two graves side by side in the one plot, e.g. husband/wife)</description></term>
+        <term>{Group___2_}
+<description>Group (larger than a double sized plot)</description></term>
+      </lookup>
+    </property>
+    <property name="Total number of Interments in This Plot" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Fence Border" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{No_Observation}
+<description>Nothing was observed.</description></term>
+        <term>{Cast_Iron_Picket}
+<description> Border of Plot</description></term>
+        <term>{Timber_Picket}
+<description> Border of Plot</description></term>
+        <term>{Brick_Border}
+<description> Border of Plot</description></term>
+        <term>{Stone_Border}
+<description> Border of Plot</description></term>
+        <term>{Tile_Border}
+<description> Border of Plot</description></term>
+        <term>{Other}
+<description> Border of Plot</description></term>
+      </lookup>
+    </property>
+    <property name="Fence Border Height" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Other Items" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Vase}
+<description>Other items</description></term>
+        <term>{Glass_covered_display}
+<description>Other items</description></term>
+        <term>{Personal_Items}
+<description>Other items</description></term>
+        <term>{Photos}
+<description>Other items</description></term>
+        <term>{Statues}
+<description>Other items</description></term>
+        <term>{Tiles}
+<description>Other items</description></term>
+        <term>{Shells}
+<description>Other items</description></term>
+        <term>{Plantings}
+<description>Other items</description></term>
+        <term>{Other}
+<description>Other items</description></term>
+      </lookup>
+    </property>
+    <property name="Lease Number" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Lessee" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Date of Lease" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Number of Burials" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Plot Name" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Plot Date of Death" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Age of Death" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Cause of Death" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Ministers" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Denomination" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{No_Observation}
+<description>No observation was made.</description></term>
+        <term>{Catholic}
+<description>Denomination</description></term>
+        <term>{Anglican}
+<description>Denomination</description></term>
+        <term>{Presbyterian}
+<description>Denomination</description></term>
+        <term>{Baptist}
+<description>Denomination</description></term>
+        <term>{Methodist}
+<description>Denomination</description></term>
+        <term>{Uniting}
+<description>Denomination</description></term>
+        <term>{Jewish}
+<description>Denomination</description></term>
+        <term>{Unknown}
+<description>Denomination</description></term>
+        <term>{Other}
+<description>Denomination</description></term>
+      </lookup>
+    </property>
+    <property name="Sources" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Cemetery_Records}
+<description>Sources</description></term>
+        <term>{Parish_Register}
+<description>Sources</description></term>
+        <term>{Births_Deaths_Marriages}
+<description>Sources</description></term>
+        <term>{Other}
+<description>Sources</description></term>
+      </lookup>
+    </property>
+  </ArchaeologicalElement>
+  <ArchaeologicalElement name="Marker">
+    <description/>
+    <property name="Form" isIdentifier="true" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Tablet__Upright_Slab_}
+<description>Marker form</description></term>
+        <term>{Horizontal_Slab}
+<description>Marker form</description></term>
+        <term>{Block}
+<description>Marker form</description></term>
+        <term>{Obelisk_Pillar}
+<description>Marker form</description></term>
+        <term>{Statue_Sculpture}
+<description>Marker form</description></term>
+        <term>{Cross}
+<description>Marker form</description></term>
+        <term>{Combination}
+<description>Marker form</description></term>
+        <term>{Other}
+<description>Marker form</description></term>
+      </lookup>
+    </property>
+    <property name="Attach Shape File" type="file" file="true" thumbnail="true">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Plinth Height" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Plinth Depth" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Pedestal Height" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Headstone monument Depth" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Headstone monument Height" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Headstone monument Width" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Marker Colour" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Black}
+<description>Colour of headstone</description></term>
+        <term>{White}
+<description>Colour of headstone</description></term>
+        <term>{Grey}
+<description>Colour of headstone</description></term>
+        <term>{Pink}
+<description>Colour of headstone</description></term>
+        <term>{Other}
+<description>Colour of headstone</description></term>
+      </lookup>
+    </property>
+    <property name="Material" isIdentifier="true" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Slate}
+<description> Material</description></term>
+        <term>{Marble}
+<description> Material</description></term>
+        <term>{Granite}
+<description> Material</description></term>
+        <term>{Cast_Iron}
+<description> Material</description></term>
+        <term>{Timber}
+<description> Material</description></term>
+        <term>{Tile}
+<description> Material</description></term>
+        <term>{Sandstone}
+<description> Material</description></term>
+        <term>{Brick}
+<description> Material</description></term>
+        <term>{Concrete}
+<description> Material</description></term>
+        <term>{Cement}
+<description> Material</description></term>
+        <term>{Other}
+<description> Material</description></term>
+      </lookup>
+    </property>
+    <property name="Lettering" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{No_Observation}
+<description>No observation was made.</description></term>
+        <term>{Engraved}
+<description>Incised or chiselled into the material of the marker</description></term>
+        <term>{Lead}
+<description>Individual lead letters attached to the marker</description></term>
+        <term>{Engraved_and_Painted}
+<description>Incised into the material with painted letters</description></term>
+        <term>{Painted_Only}
+<description>No incision, letters painted directly on to the marker</description></term>
+        <term>{Other}
+<description>Other</description></term>
+      </lookup>
+    </property>
+    <property name="Mason" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Town" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Footstone" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{No_Observation}
+<description>No observation was made.</description></term>
+        <term>{Yes}
+<description>Footstone</description></term>
+        <term>{No}
+<description>Footstone</description></term>
+      </lookup>
+    </property>
+    <property name="Inscription" isIdentifier="true" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Style of Languages" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Emotive}
+<description> Use of emotive words or phrases to describe them or their death. </description></term>
+        <term>{Biographical}
+<description> Details about their life, e.g. where they were born, where they lived, etc </description></term>
+        <term>{Factual}
+<description> No embellishment, use of simple and direct language. </description></term>
+        <term>{Religious}
+<description> e.g. Bible verses, or appeals to God </description></term>
+      </lookup>
+    </property>
+    <property name="Key Wording" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Sacred_to_the_memory_of}
+<description>Key Words</description></term>
+        <term>{In_loving_memory_of_In_memory_of}
+<description>Key Words</description></term>
+        <term>{Beloved}
+<description>Key Words</description></term>
+        <term>{Re_union_Re_united}
+<description>Key Words</description></term>
+        <term>{Resting_Sleeping}
+<description>Key Words</description></term>
+        <term>{Religous}
+<description>Key Words</description></term>
+        <term>{Personalised_Inscription}
+<description>Key Words</description></term>
+        <term>{Passed_away_Leaving}
+<description>Key Words</description></term>
+        <term>{War_Service}
+<description>Key Words</description></term>
+        <term>{No_Embellishment}
+<description>Key Words</description></term>
+        <term>{Other}
+<description>Key Words</description></term>
+      </lookup>
+    </property>
+    <property name="Tense" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Written_in_first_person___I____Me__}
+<description>First person (as if the deceased is speaking directly to you – “I”, “Me”)</description></term>
+        <term>{Written_in_third_person___He____She__}
+<description>Third person (the deceased is being spoken about – “He”, “She”)</description></term>
+      </lookup>
+    </property>
+    <property name="Author" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Written_by_Spouse}
+<description>Written by Spouse</description></term>
+        <term>{Written_by_Children}
+<description>Written by Children</description></term>
+        <term>{Written_by_Friend_Other}
+<description>Written by Friend/Other</description></term>
+      </lookup>
+    </property>
+    <property name="Burials Described in Relation to" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Family_patriarch}
+<description>Burials described</description></term>
+        <term>{Order_of_death}
+<description>Burials described</description></term>
+        <term>{Position_within_family_unit__e_g_mother_son__wife_}
+<description>Burials described</description></term>
+        <term>{Unrelated_to_others}
+<description>Burials described</description></term>
+      </lookup>
+    </property>
+  </ArchaeologicalElement>
+  <ArchaeologicalElement name="Burial">
+    <description/>
+    <property name="Burial Name" isIdentifier="true" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Burial Date of Death" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Age at Death" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Is Primary Burial" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{No_Observation}
+<description>No observation was made.</description></term>
+        <term>{Yes}
+<description>Is primary burial</description></term>
+        <term>{No}
+<description>Is not primary burial</description></term>
+      </lookup>
+    </property>
+    <property name="Burial timestamp" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+  </ArchaeologicalElement>
+  <ArchaeologicalElement name="Motif">
+    <description/>
+    <property name="Motif" isIdentifier="true" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{No_Observation}
+<description>No observation was made.</description></term>
+        <term>{Animals_and_Insects}
+<description/><term>{Ants}
+<description>Christian industry.</description></term><term>{Bees}
+<description>Resurrection; risen Christ.</description></term><term>{Bird_s_in_flight}
+<description>Symbolic of the "winged soul." The representation of the soul by a bird goes back to ancient Egypt. Some older burial art features only wings to convey the symbol of divine mission. Often denote the graves of children, eternal life.</description></term><term>{Butterfly}
+<description>The soul. Although quite rare, it is occasionally seen on graves (most often of children). It is symbolic of the resurrection of Christ. The meaning is derived from the three stages of the life of the butterfly—the caterpillar, the chrysalis, and the butterfly. The three stages are symbols of life, death and resurrection. Short-life.</description></term><term>{Cocoon_or_Chrysalis}
+<description>The soul. Although quite rare, it is occasionally seen on graves (most often of children). It is symbolic of the resurrection of Christ. The meaning is derived from the three stages of the life of the butterfly—the caterpillar, the chrysalis, and the butterfly. The three stages are symbols of life, death and resurrection. Short-life.</description></term><term>{Dog}
+<description>Dogs often appear at the feet of medieval women, signifying the loyalty and inferior place of each in the chivalric order. Modern dogs only imply that the master was worth loving.</description></term><term>{Dolphin}
+<description>Portrays the idea of resurrection.</description></term><term>{Dove}
+<description>An important symbolic animal in Christianity representing the Holy Spirit. The white dove is referred to in the story of baptism of Christ. "And John bore record, saying, I saw the Spirit descending from heaven like a dove, and it abode upon him" (Bible, John 1:32).  The descending dove is a very common motif on grave memorials.  Seven doves are representative of the seven spirits of God or the Holy Spirit in its sevenfold gifts of grace. Purity, devotion, Divine Spirit. People of the Jewish faith believe the dove to symbolize peace.</description></term><term>{Dove_and_Olive_Branch}
+<description>Peace, hope or promise. This symbol stems from Judeo-Christian culture and the biblical story of Noah and the great flood.  When the dove returned to the ark with an olive branch from the Mount of Olives in its beak, it was a sign of God's forgiveness.  It is now a common secular symbol.</description></term><term>{Dragon}
+<description>Dramatically different interpretation between Eastern and Western cultures. In the Orient, the dragon protects humans from evil spirits and represents joy, health and fertility. But in Western cultures, the dragon possesses the negative traits of the snake, destruction, danger, depravity, and loss of innocence. In Jewish tradition, mythical danger, depravity, and loss of innocence. In Jewish tradition, mythical beasts like the dragon are messianic creatures. Also, a dragon being defeated by St. George depicts triumph over sin.</description></term><term>{Eagle}
+<description>Suggests courage and possibly a military career, symbol for Saint John.</description></term><term>{Egg}
+<description>Regeneration. An "egg and dart" motif was a common design in classical architecture and used on the edges of tombstones or as a frieze, symbolising resurrection after death.  The egg symbolised life and birth while the dart (arrow) depicted death. </description></term><term>{Fish}
+<description>Indictes faith.</description></term><term>{Horse}
+<description>Courage or generosity. An attribute of St. George, St. Martin, St. Maurice and St. Victor, all of whom are represented in Christian art on horseback. It was in honor of the crusaders.</description></term><term>{Lamb}
+<description>This is the most common animal symbol found on a child's grave. The lamb appears throughout the ages with great regularity in Christian art and because it is a symbol of Christ: "Behold the Lamb of God, which taketh away the sin of the world!" (John 1:29).  The use of the lamb in religious art pre-dates Christianity and appears to have been used first by the Egyptians. It signifies purity and innocence. Christ in his sacrificial role and personifies: innocence, meekness, gentleness and humility.</description></term><term>{Lion}
+<description>The power of God and guards the tomb against evil spirits. Like other guardians, the lion's watch is as eternal as the stone of which it is depicted. The lion also recalls the courage and determination of the souls which they guard; they manifest the spirit of the departed. Resurrection.</description></term><term>{Lion__Winged}
+<description>St. Mark the Evangelist</description></term><term>{Peacock}
+<description>The incorruptibility of flesh, a symbol of immortality (even St. Augustine believed the peacock's flesh to have "antiseptic qualities" and that it didn't corrupt), the peacock became a symbol of Christ and the Resurrection. Its image embellished everything from the Catacombs to everyday objects, like lamps, especially in early Romanesque and Byzantine churches. (The peacock, for obvious reasons, was also used as a symbol for pride, too).</description></term><term>{Rooster}
+<description>Awakening to resurrection. Vigilance.</description></term><term>{Swallow}
+<description>Indicates a child or motherhood.</description></term></term>
+        <term>{Body_Parts}
+<description/><term>{Arms_outstretched}
+<description>Plea for mercy.</description></term><term pictureURL="files/data/files/data/gallery/headstones/deathsHead.png">{Death_s_Head}
+<description>Death or a reminder that death comes to everyone. A heart in the mouth of a death's head means the soul emerging triumphant from death.</description></term><term>{Eye_of_God}
+<description>The all-knowing and ever-present God. During the Renaissance period in Europe, it was common to illustrate the Eye of God surrounded by a triangle (the Holy Trinity). The eye within the triangle, surrounded by a circle and radiating rays of light is used to symbolize the holiness of the true God.</description></term><term>{Hands_General}
+<description>The use of hands in some form is very common on grave memorials. Symbol of leaving.</description></term><term>{Hands__clasped}
+<description>At first glance, these hands all seem to be in the same fashion but a number of interesting characteristics stand out.  First, most of the hands illustrate the right hand in a grasp with fingers overlapping the other hand, while the left hand is open. This could be the depiction of a man holding a woman's hand and indicate marriage or a close bond between individuals, unity and affection even after death.  Clasped hands are also symbolic of a farewell or last good-bye.  Look at the cuff to distinguish between a man's or woman's hand (women would have a frilly cuff).  The person who died first holds the other's hand, guiding the spouse to heaven.  Clasped hands could be joined by a ribbon.</description></term><term>{Hand_of_God_plucking_a_link_of_a_chain}
+<description>God bringin a soul unto himself</description></term><term>{Hands__holding_a_chain_with_a_broken_link}
+<description>Symbolises the death of a family member.</description></term><term>{Hands__holding_a_heart}
+<description>Symbolic of charity and is common on 19th century memorials. It is typically seen on memorials of members of the Independent Order of Odd fellows. Charity.</description></term><term>{Hands__holding_an_open_book}
+<description>The embodiment of faith</description></term><term>{Hand__pointing_downward}
+<description>Morality or suddent death</description></term><term>{Hand__pointing_upward}
+<description>The reward of the righteous, confirmation of life after death. Heavenly reward, ascension to heaven.</description></term><term>{Hands__praying}
+<description>Connote devotion</description></term><term>{Heart__General}
+<description>Love, mortality, love of God, courage and intelligence.</description></term><term>{Heart__Bleeding}
+<description>Christs suffering for our sins.</description></term><term>{Heart__Encircled_with_thorns}
+<description>The suffering of Christ.</description></term><term>{Heart__Flaming}
+<description>Extreme religious fervor.</description></term><term>{Heart__Sacred}
+<description>Usually found in Catholic cemeteries, this heart refers to the suffering of CHrist for our sins.</description></term><term>{Skull_with_a_wreath}
+<description>Victory of death over life.</description></term></term>
+        <term>{Geometric_Symbols}
+<description/><term>{Circle}
+<description>The circle is pre-Christian and its original symbolic meaning has been adopted by Christianity. It is universally known as the symbol of eternity and never ending existence. Extremely common on grave sites, its usual representation is a cross surrounded by circle. Two circles, one above the other, represent earth and sky.  Three interconnected circles represent the Holy Trinity.</description></term><term>{Cross__general}
+<description>Christ"s redemption of humanity from sin.  Faith and belief in God.</description></term><term>{Latin_cross}
+<description>Cross with a vertical axis that it longer than the horizontal.  One of the oldest symbols of Christianity and the most commonly used form, it is also the simplest in design. </description></term><term pictureURL="files/data/files/data/gallery/headstones/greekCross.png">{Greek_Cross}
+<description>Cross with four arms that are all equal in length.  One of the earliest Christian symbols, possibly linked to older pagan representations of the four elements—earth, air, fire and water. </description></term><term pictureURL="files/data/files/data/gallery/headstones/celticCross.png">{Celtic_Cross}
+<description>Cross with … The circle around the crosspiece symbolizes eternity.  It's origin can be traced to the Celtic cultures of the British Isles.  There is a legend of how St. Patrick when preaching to some soon to be converted heathens was shown a sacred standing stone that was marked with a circle that was symbolic of the moon goddess.  Patrick made the mark of a Latin cross through the circle and blessed the stone making the first Celtic Cross.</description></term><term pictureURL="files/data/files/data/gallery/headstones/easternCross.png">{Eastern_Cross}
+<description>Used in Orthodox (Russian/Greek) Christian religions, it has the addition of an upper horizontal shoulder representing the inscription over the head of Jesus, and a lower slanting shoulder representing the footrest of the crucified Jesus.</description></term><term pictureURL="files/data/files/data/gallery/headstones/botoneeCross.png">{Botonee_Cross}
+<description>Composed of either four arms of equal length (Trinity Cross), or a Latin Cross (Botonee Cross) with modified trefoil (three-lobed) ends, that represent the trinity.  According to the Vatican, the structure is said to be the union of the Cross of Christ with the sign of ancient druids.  The "budded" ends are also used to represent youth.</description></term><term pictureURL="files/data/files/data/gallery/headstones/cavalryCross.png">{Calvary_Cross}
+<description>A Latin cross standing on three steps or blocks, it signifies faith, hope and love. Love is sometimes replaced by charity.</description></term><term pictureURL="files/data/files/data/gallery/headstones/fleureeCross.png">{Fleuree_Cross_Gothic_Cross}
+<description>This flowered cross symbolizes the adult Christian by its more opened and flared out ends.</description></term><term pictureURL="files/data/files/data/gallery/headstones/prebyterianCross.png">{Presbyterian_Cross}
+<description>Similar to a bottonee cross, with a circle around the crosspiece.</description></term><term pictureURL="files/data/files/data/gallery/headstones/standrewsCross.png">{St_Andrew_s__Scottish__Cross}
+<description>A diagonal cross symbolizing the martyrdom of St Andrew, the Patron Saint of Scotland.</description></term><term>{Star}
+<description>A five-pointed star - Is symbolic of the life of Christ and may also represent the five wounds of Christ.</description></term><term pictureURL="files/data/files/data/gallery/headstones/trefoil.png">{Trefoil}
+<description>In Christianity, the equilateral triangle is the symbol of the Trinity. Other geometric shapes representing the Holy Trinity are the trefoil, the triquetra, the circle within the triangle, the triangle in circle and the triquetra and circle. To the ancient Egyptians, the triangle was an emblem of Godhead; to the Pythagoreans, it symbolized wisdom. Another use of the triangle is in the symbol of the eye (eye of God) surrounded by a triangle.</description></term><term>{Spiral}
+<description>Progressive development and movement.</description></term><term pictureURL="files/data/files/data/gallery/headstones/triskele.png">{Triskele__triple_spiral_or_triskelion}
+<description>The triskele, or triple spiral, a symbol closely related to the triquetra, is a tripartite symbol composed of three interlocked spirals.  The spiral is an ancient Celtic symbol related to the sun, afterlife and reincarnation, often found on Neolithic "tombs", such as Newgrange, where it is supposed by some to be a symbol of pregnancy (the sun describes a spiral in its movements every three months; a triple spiral represents nine months), an idea reinforced by the womb like nature of the structure. The symbol also suggests reincarnation- it is drawn in one continuous line, suggesting a continuous movement of time.  Triskeles are one of the most common elements of Celtic art; they are found in a variety of styles in both ancient and modern Celtic art, especially in relation to depictions of the Mother Goddess. They also evoke the Celtic concept of the domains of material existence- earth, water, and sky, and their interrelations.</description></term></term>
+        <term>{Letters}
+<description/><term pictureURL="files/data/files/data/gallery/headstones/alphaOmega.png">{Alpha_and_Omega}
+<description>The first and last letters of the Greek alphabet; symbolic of God, the beginning and the end.</description></term><term pictureURL="files/data/files/data/gallery/headstones/chrisma.png">{Chrisma_or_labarum}
+<description>A cross like shape formed by a combination of two Greek letters, chi (X) and rho (P) corresponding to CH and R of the word, Christ, hence a symbol for Jesus Christ. This symbol is also known as the Monogram of Christ, Constantine's Cross, the Chrismon, the Christogram and the Chi- Rho. Since the Roman emperor Constantine I used this symbol on his shield, overcame his enemy in battle, and consequently converted to Christianity, the labarum has been a symbol of Christianity.  In pre- Christian Greece it signified a good omen . It also represented the Chaldean sky god. Today the letters may be reversed as PX to represent "pax" or "peace".</description></term><term pictureURL="files/data/files/data/gallery/headstones/ihs.png">{I__H__S}
+<description>Acronym with several meanings.  Maybe represented as a monogram (see picture to left), or as a sequence of letters, 1.  The "I" stands for Ihsus or Ihcuc, the name of Jesus in Greek, with the S and C being variant forms in the Greek alphabet.  When these are found on tombstones it stresses the identity of the individual with Jesus Christ.  Originally a Roman Catholic, particularly Jesuit, symbol.2.  The letters have also been interpreted (with conscious intention to enrich the meaning) as "Jesus Hominum Salvator", or"Jesus Saviour of Mankind", and "In Hac Salus", "In This (Cross) Salvation" (OED).3.  "In hoc signo".  On the eve of battle, Constantine, had a vision of a banner bearing the phrase, "In hoc signo vinces", meaning "In this sign you will conquer".  Constantine won the battle and converted to Christianity. As it is used on both Protestant and Catholic gravestones, this symbol illustrates the variant meanings that can be ascribed to the one motif depending on denomination. (Mytum 2003, 140).</description></term><term>{I_N_R_I}
+<description>Acronym for Latin phrase, "Jesus of Nazareth King of the Jews" John 19:19</description></term><term>{I_O_O_F}
+<description>Independent Order of Odd Fellows</description></term></term>
+        <term>{Objects}
+<description/><term>{Altar}
+<description>Sacrifice, worship, thanksgiving and remembrance</description></term><term>{Anchor}
+<description>Early Christians used the anchor as a disguised cross, and as a marker to guide the way to secret meeting places. A Christian symbol of hope, it is found as funerary symbolism in the art of the catacombs. Often set amongst rocks. It can also be an occupational symbol in sea-faring areas or the attribute of Saint Nicholas, patron saint of seamen, symbolized hope and steadfastness. An anchor with a broken chain stands for the cessation of life.</description></term><term>{Arch}
+<description>Victory of life; or triumph over death.</description></term><term>{Arror__or_Archer}
+<description>Denotes mortality.</description></term><term>{Angel}
+<description>The agent of God, often pointing towards heaven; guardians of the dead, symbolizing spirituality. Angels are shown in all types of poses with different symbolism.</description></term><term>{Angel_blowing_a_trumpet_or_trumpets}
+<description>Represents the day of judgement, and "Call to the Resurrection".</description></term><term>{Angel_carrying_the_departed_soul}
+<description>The "messengers of god" are often shown escorting the deceased to heaven.</description></term><term>{Angel_flying}
+<description>Symbolises rebirth.</description></term><term>{Angel_weeping}
+<description>Symbolises grief, or mourning for an untimely death.</description></term><term pictureURL="files/data/files/data/gallery/headstones/anthemion.png">{Anthemion_Anthemia}
+<description>A classical ornament featuring honeysuckle or palmettes with foliage below; used singly on antefixes (ornamental blocks concealing tile-ends at the edges of a roof), or as a running ornament on friezes.  Greek: "anthemion" - a flower.  One type of ancient Greek palmette resembles honeysuckle flowers, another is more like a palm leaf. Both were used in bands of anthemion ornament.</description></term><term>{Banner}
+<description>Victory, triumph.</description></term><term>{Bed}
+<description>At rest.</description></term><term>{Bells}
+<description>Call to worship.</description></term><term>{Bell__Deid}
+<description>This was rung to give notice of funerals, and at the funeral itself; a small handbell, it was a favorite emblem north of the Tay, Scotland.</description></term><term>{Bible}
+<description>Connotes a religious lay person or a cleric.</description></term><term>{Black_and_white_tiles}
+<description>Checkered pattern or similar, represents good and evil.</description></term><term>{Book}
+<description>Faith, learning to read and write, a scholar.  A prayer, knowledge or memory.  It may represent the Book of Life and is often shown as a bible.  A popular form is the book as a double page spread, particularly in married couple burials.</description></term><term>{Branch}
+<description>Severed mortality.</description></term><term>{Bridge}
+<description>Since antiquity, bridges have symbolized linking; between the earthly and heavenly realms, between the physical and the spiritual, or between life and death. In modern psychoanalytic terms, bridges symbolize the transition from one state of being to another and the opportunity for change. The bridge's near side represents the past, its opposite side the future, and water flowing underneath, the chaos of the unconscious mind.</description></term><term>{Chains}
+<description>Medieval thinkers sometimes held that a golden chain bound the soul to the body.  Broken links on a headstone can mean the severance and subsequent release of the spirit from the body.  Chains are also the insignia of the International Order of Odd Fellows, so called because of their dedication to giving the poor decent burials.  This latter association can be clinched by the observation of the letters IOOF or FLT (Friendship, Love, Truth) either inside or near the chain.</description></term><term>{Chain__broken}
+<description>Death breaking the links wiht a family member.</description></term><term>{Cherubs}
+<description>The graves of children.</description></term><term pictureURL="files/data/files/data/gallery/headstones/cherubsHead.png">{Cherub_s_Head__with_or_without_wings}
+<description>The soul.</description></term><term>{Circle}
+<description>Eternity or Earth</description></term><term>{Circle__broken}
+<description>Life has ended, or the family circle is broken.</description></term><term>{Circle__with_wings}
+<description>Immortality</description></term><term>{Clouds}
+<description>Atmospheric veil concealing God from his worshipers.</description></term><term pictureURL="files/data/files/data/gallery/headstones/column.png">{Column}
+<description>Mortality.  A draped or broken column represents the break in earthly to heavenly life.  The drapery also symbolizes mourning (see below).</description></term><term>{Cross_and_Anchor}
+<description>Another early Christian symbol referring to Christ as "hope we have as an anchor of the soul, both sincere and steadfast" (Hebrews 6:19).</description></term><term>{Crown_on_a_cross}
+<description>Sovereignty of the Lord</description></term><term pictureURL="files/data/files/data/gallery/headstones/curtains.png">{Draperies_Curtains}
+<description>In the days when the body lay in state in the parlor, it was the custom to cover everything in black. Draperies, with their fancy frills and tassels, are more elaborate than a simple shroud. They allow the expression of mourning to linger long after the body has been taken out the front door and the accoutrements have been stowed for the next death in the family.  Curtains can also set the stage.  Parted, they reveal a telling excerpt. What is important in such displays is the main actor or central object of the stone.</description></term><term>{Garlands}
+<description>Victory in death</description></term><term>{Heart_with_anchor_and_cross}
+<description>Faith, hope and charity.</description></term><term>{Keys}
+<description>Keys stand for spiritual knowledge. If held in the hands of an angel or saint, they represent the means to enter heaven.</description></term><term pictureURL="files/data/files/data/gallery/headstones/interlacedCelticKnot.png">{Interlaced_Celtic_knot}
+<description>Ladder</description></term><term>{Ladder}
+<description>Passion, Jacob, aspiration.</description></term><term>{Lamp}
+<description>Knowledge, love of learning, immortality of the Spirit.</description></term><term pictureURL="files/data/files/data/gallery/headstones/masonicCompass.png">{Masonic_Compass_and_Set_square}
+<description>Freemasons combine religious and construction and architectural forms in their symbols.  Viewing God as the architect and builder of the universe, Freemasonry intends to build the temple of humanity through self-improvement with stone-masonry work.  The compass, used in geometric calculations, symbolizes creation and the spirit.  The set-square draws perfect right angles, so represents uprightness and lawfulness.  The compass and the square measure things, so they symbolize judgment. They also represent geometry, and the union of the sky (the compass's circle) and the earth (the square).  The letter "G" in this symbol represents God, geometry and geomancy. </description></term><term>{Rope}
+<description>Eternity, Binding and Connection.  In Egyptian hieroglyphics, a knotted cord signifies a man's name, a symbol of an individual's existence.  In Vedic teaching, the silver cord expresses the sacred, inner path which binds the outer consciousness (intellect) with spiritual essence.</description></term><term>{Scroll}
+<description>Symbol of life and time. Both ends rolled up indicate a life that is unfolding like a scroll of uncertain length, with the past and future hidden. If held by a hand, this represents life being recorded by angels. Can also suggest honor and commemoration.</description></term><term>{Shell}
+<description>The use of shell in burials is pre-Christian in practice and predates even Egyptian burial practices.  Shell is symbolic of fertility, resurrection and pilgrimage.  Shells, coins and small stones are the traditional objects left at grave sites.  There are several meanings given to this act.  It may be a symbolic referral to the ancient custom of burying the dead under a cairn of rocks to protect the body from scavenging animals, or a reminder that the individual is not forgotten.</description></term><term>{Skull}
+<description>Death; sin; with crossbones – mortality.</description></term><term>{Star}
+<description>Stars stand for the spirit, piercing the darkness in triumph against the overwhelming odds of oblivion.  Five pointed stars represent the spirit rising to heaven.</description></term><term>{Steps}
+<description>A common symbol around the world, steps generally mean ascension, stages or levels.  The number of steps brings the meaning of numbers into the interpretation as does the symbolism of any objects that surround or are a part of the steps.  In Romanesque art, steps represent the relationship between worlds.  In many religions steps, or a ladder, are seen as the path to god.  For alchemists of the Middle Ages, steps were associated with the transmutation process.</description></term><term pictureURL="files/data/files/data/gallery/headstones/urn.png">{Urn}
+<description>Greek symbol of mourning, the body as a vessel of the soul, originating as a repository for the ashes of the dead in ancient times - a popular symbol of mourning. Most represent an ossuary. In several examples an Angel is looking inside it as if to inspect the contents. A flame is sometimes shown coming from the Urn.  They are often draped with a cloth or festooned with a wreath or garland.  This fashion of persisted well into the 1850's at least.</description></term><term pictureURL="files/data/files/data/gallery/headstones/urnDraped.png">{Urn__draped}
+<description>Connotes death, often of an older person.</description></term><term pictureURL="files/data/files/data/gallery/headstones/wingedSkull.png">{Winged_skull}
+<description>Flight of the soul from mortal man.</description></term><term>{Woman_with_or_without_Bible_pointing_upward}
+<description>Faith.</description></term></term>
+        <term>{Flowers__Trees__plants}
+<description>Flowers convey love, grief, happiness and other emotions. These symbolic connections of flowers with emotion are cross-cultural and their origins are unknown. During the 1800s, the use of floral symbolism became so popular that almost every flower known had a symbolic gesture attached to it. The following are some symbolic references to common plants and flowers.</description><term pictureURL="files/data/files/data/gallery/headstones/acanthus.png">{Acanthus}
+<description>Heavenly garden.  One of the oldest cemetery motifs, acanthus is associated with the rocky ground where most ancient Greek cemeteries were placed.  It is the most common motif found on memorials.  In architecture the acanthus leaf is used to decorate the capital of the Corinthian order.</description></term><term pictureURL="files/data/files/data/gallery/headstones/acorn.png">{Acorn}
+<description>As the seed of the oak, the acorn is a symbol of potential. In Norse and Celtic culture, acorns symbolized life, fertility and immortality. Druids ate acorns, believing them to have prophetic qualities, and acorns were sacred to the god Thor whose Tree of Life was the oak. "Acorns and oak leaves form one of the circular 'hex' signs used by the Amish and Mennonite communities of southern Pennsylvania, the various signs believed to bestow favors such as protection or natural abundance".</description></term><term pictureURL="files/data/files/data/gallery/headstones/aloe.png">{Aloe}
+<description>Affliction, or grief.</description></term><term>{Apple}
+<description>Forbidden fruit, fruit of salvation and sweetness in love.</description></term><term pictureURL="files/data/files/data/gallery/headstones/birch.png">{Birch}
+<description>The ancient Celts covered their dead with birch branches, perhaps to infuse them with the stuff necessary for a successful afterlife.</description></term><term>{Buds}
+<description>Renewal of life.</description></term><term pictureURL="files/data/files/data/gallery/headstones/buttercup.png">{Buttercup}
+<description>Cheerfulness.</description></term><term pictureURL="files/data/files/data/gallery/headstones/callaLily.png">{Calla_lily}
+<description>Symbolizes marriage.</description></term><term pictureURL="files/data/files/data/gallery/headstones/cinquefoil.png">{Cinquefoil}
+<description>A five-lobed circle, symbolizing maternal affection, or a beloved daughter.</description></term><term pictureURL="files/data/files/data/gallery/headstones/clover.png">{Clover_or_Shamrock}
+<description>Irish, or for luck in a gambler.  It is one of the oldest Celtic symbols.  The shamrock is a native species of clover in Ireland.  A Catholic legend holds that St. Patrick used its three lobes as a device for teaching the Holy trinity.  In Celtic folklore, the shamrock is a charm against evil, a belief that has carried over in the modern belief in the four leafed clover as a good luck charm.</description></term><term pictureURL="files/data/files/data/gallery/headstones/convolvulus.png">{Convolvulus}
+<description>Small flowering creeper similar to a morning glory.  Means extinguished hopes or eternal sleep.</description></term><term pictureURL="files/data/files/data/gallery/headstones/cyrpress.png">{Cypress}
+<description>Designates hope or deep mourning.  The cross of the crucifixion was allegedly constructed in part of Cypress. Once felled, a cypress never grows again.</description></term><term pictureURL="files/data/files/data/gallery/headstones/daffodil.png">{Daffodil}
+<description>Death of youth, desire, art, grace, beauty, deep regard.</description></term><term pictureURL="files/data/files/data/gallery/headstones/daisy.png">{Daisy}
+<description>The innocence of children, Jesus the Infant, youth, the Son of righteousness, gentleness, purity of thought.</description></term><term>{Dead_leaves}
+<description>Sadness, melancholy.</description></term><term pictureURL="files/data/files/data/gallery/headstones/easterLily.png">{Easter_Lily}
+<description>Modern symbol of the resurrection.  Also symbolizes purity and chastity.</description></term><term>{Evergreens}
+<description>Immortality</description></term><term>{Fern}
+<description>Sincerity, sorrow.</description></term><term pictureURL="files/data/files/data/gallery/headstones/fleurDeLis.png">{Fleur_de_lis}
+<description>Flame, passion, ardor, mother.</description></term><term>{Flowers__general}
+<description>Frailty of life.</description></term><term>{Flowers__broken}
+<description>Life cut short; mortality.</description></term><term pictureURL="files/data/files/data/gallery/headstones/forgetMeNot.png">{Forget_me_not}
+<description>Rememberance.</description></term><term>{Geranium}
+<description>Melancholy.</description></term><term>{Grapes}
+<description>Represent Christ.</description></term><term pictureURL="files/data/files/data/gallery/headstones/grapesLeaves.png">{Grapes_and_Leaves}
+<description>Christian faith.</description></term><term pictureURL="files/data/files/data/gallery/headstoens/hawthorne.png">{Hawthorn}
+<description>Hope, merriness, springtime.</description></term><term pictureURL="files/data/files/data/gallery/headstones/holly.png">{Holly}
+<description>Foresight.  People used to believe that holly bushes protected tombs and other monuments from lightning strikes.</description></term><term pictureURL="files/data/files/data/gallery/headstones/honeySuckle.png">{Honeysuckle}
+<description>Bonds of love, generosity and devoted affection.</description></term><term pictureURL="files/data/files/data/gallery/headstones/laurel.png">{Laurel__or_bay}
+<description>Special achievement, distinction, success, triumph.  I change not in death.</description></term><term pictureURL="files/data/files/data/gallery/headstones/ivy.png">{Ivy}
+<description>Memory, immortality, friendship, fidelity, faithfulness, undying affection, eternal life.</description></term><term pictureURL="files/data/files/data/gallery/headstones/lily.png">{Lily}
+<description>Majesty, innocence, purity, and resurrection. Often associated with the Virgin Mary and resurrection. Often used on women's graves. The use of lilies at funerals symbolizes the restored innocence of the soul at death.</description></term><term pictureURL="files/data/files/data/gallery/headstones/lilyOfTheValley.png">{Lily_of_the_Valley}
+<description>Return of happiness, purity, humility.</description></term><term pictureURL="files/data/files/data/gallery/headstones/marigold.png">{Marigold}
+<description>Grief or despair.</description></term><term>{Mistletoe}
+<description>Protection, veneration and healing power.</description></term><term pictureURL="files/data/files/data/gallery/headstones/morningGlory.png">{Morning_Glory}
+<description>Because morning glory flowers don"t last for long (usually only 24 hours), it symbolizes resurrection, mourning, youth, farewell, the brevity of life, departure, mortality.</description></term><term pictureURL="files/data/files/data/gallery/headstones/oakTree.png">{Oak_tree_or_oak_leaf}
+<description>Hospitality, stability, strength, honor, eternity, endurance, liberty.  It is believed to have been the tree from which Jesus Christ's cross was made.  In smaller pioneer cemeteries, it is common to place children's graves near oak trees.  The oak tree was the tree of life in pre-Christian times. The oak, oak leaves and acorn can stand for power, authority or victory.  Often seen on military tombs.</description></term><term>{Olive}
+<description>Peace; healing faith.</description></term><term pictureURL="files/data/files/data/gallery/headstones/palm.png">{Palm}
+<description>Spiritual victory, success, eternal peace, a symbol of Christ's victory of death as associated with Easter.</description></term><term pictureURL="files/data/files/data/gallery/headstones/pansy.png">{Pansy}
+<description>Symbolizes remembrance and humility.  Also a symbol of thought (French = 'pensee').</description></term><term pictureURL="files/data/files/data/gallery/headstones/passionflower.png">{Passion_flower}
+<description>The elements of the passion of Christ: the lacy crown—the crown of thorns; the five stamens—the five wounds; the 10 petals—the 10 faithful Apostles.</description></term><term>{Pine}
+<description>Fertility, regeneration, fidelity.</description></term><term>{Pineapple}
+<description>Hospitality, good host.</description></term><term pictureURL="files/data/files/data/gallery/headstones/poinsettia.png">{Poinsettia}
+<description>A death occurring near Christmas.</description></term><term pictureURL="files/data/files/data/gallery/headstones/poplar.png">{Poplar}
+<description>Where other cemetery trees promise immortality, the poplar grants us only memories and the sorrows that accompany them.</description></term><term pictureURL="files/data/files/data/gallery/headstones/poppy.png">{Poppy}
+<description>Peace, rest, sleep, eternal sleep, consolation.</description></term><term pictureURL="files/data/files/data/gallery/headstones/rose.png">{Rose}
+<description>Love, beauty, hope, unfailing love, associated with the Virgin Mary, the "rose without thorns".  A red rose symbolizes martyrdom and a white rose symbolizes purity and virginity.  Whether the rose is a bud, flower or somewhere in between indicates how old the person was at the time of death.</description></term><term>{Rose__bud}
+<description>Usually refers to a child 12 or under.</description></term><term>{Rose__partial_bloom}
+<description>Usually refers to a teenager.</description></term><term>{Rose__full_bloom}
+<description>Normally in early/mid twenties.  The deceased died in the prime of life.</description></term><term>{Rose__double_set_on_one_twig}
+<description>The death of two people.  Usually a bud with the rose means the loss of a mother with a baby.</description></term><term pictureURL="files/data/files/data/gallery/headstones/rosemary.png">{Rosemary}
+<description>As Ophelia said, "Rosemary, that's for remembrance".  In former days, it was put in coffins and given to mourners as a favor.</description></term><term pictureURL="files/data/files/data/gallery/headstones/sunflower.png">{Sun_Flower}
+<description>Life fulfilled.  Symbolic of gratitude and affectionate remembrance.  The flower turns towards the sun, indicating brightness.</description></term><term pictureURL="files/data/files/data/gallery/headstones/thistle.png">{Thistle}
+<description>Earthly sorrow, Christ's crown of thorns, Scotland as country of origin.  A hard life.</description></term><term>{Tree_Felled}
+<description>Mortality.</description></term><term>{Tree_Severed_branch}
+<description>Mortality.</description></term><term>{Tree_Sprouting}
+<description>Life everlasting.</description></term><term>{Tree_Stump_with_Ivy}
+<description>Head of Family, Immortality.</description></term><term>{Vine}
+<description>The sacraments, God's blood, God, Christian faith.</description></term><term pictureURL="files/data/files/data/gallery/headstones/violet.png">{Violet}
+<description>Faithfulness.</description></term><term pictureURL="files/data/files/data/gallery/headstones/weepingWillow.png">{Weeping_Willow}
+<description>Nature's lament, a symbol of sorrow and mourning.</description></term><term>{Wheat}
+<description>Resurrection, bread and wine (Christian), fertility.</description></term><term pictureURL="files/data/files/data/gallery/headstones/wreath.png">{Wreath_of_Garland}
+<description>The use of garlands, wreaths and festoons dates back to ancient Greek times and it was adopted into the Christian religion as a symbol of the victory of the redemption.  The laurel wreath is usually associated with someone who has attained distinction in the arts, literature, athletics or the military.  The ivy wreath is symbolic of conviviality (gaiety or joviality). The wreath and festoon together symbolize memory.</description></term><term pictureURL="files/data/files/data/gallery/headstones/wreathOfMaidensGarland.png">{Wreath_of_Maiden_s_Garland}
+<description>A garland of white paper or linen, embellished with streamers and a single white glove, which was carried at the funerals of unmarried women of blameless reputation.  The garlands were hung in the church after the funeral and allowed to decay. Then the pieces would be buried in the graveyard.</description></term><term pictureURL="files/data/files/data/gallery/headstones/yewTree.png">{Yew_Tree}
+<description>Sadness, eternal life.</description></term></term>
+      </lookup>
+    </property>
+    <property name="Location" type="vocab">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{No_Observation}
+<description>No observation was made.</description></term>
+        <term>{On_Marker}
+<description>Identify all motifs incorporated into the marker/headstone. This includes the shape of the marker and all engraved, painted or applied motifs.</description></term>
+        <term>{On_Fence_Other}
+<description>Identify all motifs incorporated into the fence or other fittings/furnishings.</description></term>
+      </lookup>
+    </property>
+  </ArchaeologicalElement>
+</dataSchema>
