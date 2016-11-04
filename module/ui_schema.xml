@@ -56,7 +56,7 @@
             <Administration>
               <Plot_Site_Location/>
               <timestamp/>
-              <Grave_Number/>
+              <Plot_ID/>
               <Orientation/>
               <Total_number_of_Headstones_in_This_Plot/>
               <Photos/>
@@ -143,7 +143,7 @@
           <logic/>
         </faims>
       </instance>
-      <bind type="decimal" nodeset="/faims/Plot/Administration/Grave_Number"/>
+      <bind type="decimal" nodeset="/faims/Plot/Administration/Plot_ID"/>
       <bind type="decimal" nodeset="/faims/Plot/Administration/Total_number_of_Headstones_in_This_Plot"/>
       <bind type="decimal" nodeset="/faims/Plot/Plot/Total_number_of_Interments_in_This_Plot"/>
       <bind type="decimal" nodeset="/faims/Plot/Plot/Fence_Border_Height"/>
@@ -292,8 +292,8 @@
         <input ref="timestamp" faims_attribute_name="Plot timestamp" faims_attribute_type="measure" faims_read_only="true" faims_annotation="false" faims_certainty="false">
           <label>{Date_of_Recording}</label>
         </input>
-        <input faims_attribute_type="measure" ref="Grave_Number" faims_attribute_name="Grave Number">
-          <label>{Grave_Number}</label>
+        <input faims_attribute_type="measure" ref="Plot_ID" faims_attribute_name="Plot ID">
+          <label>{Plot_ID}</label>
         </input>
         <select1 faims_attribute_type="vocab" ref="Orientation" faims_attribute_name="Orientation">
           <label>{Orientation}</label>

@@ -2437,6 +2437,13 @@ addOnEvent("Marker/Motif/List_of_Existing_Motifs", "click", "loadEntity()");
 /*                             HANDWRITTEN LOGIC                              */
 /******************************************************************************/
 
+/******************************** DEMO NOTICE *********************************/
+showWarning(
+    "This is a Demo Module",
+    "This module is intended for demonstration only. It should not be used to" +
+    " collect field data."
+);
+
 /******************************** INHERITANCE *********************************/
   inheritFieldValue(
       "Cemetery/Administration/Cemetery_Site_Location",

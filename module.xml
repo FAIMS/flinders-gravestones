@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module suppressWarnings="true">
 
-<!--TODO: Tense's options are grammatical person. At:
-       Cemetery-Plot-Marker/Inscription/Tense
--->
+<!--Please include in the static data something like "This module was produced by FAIMS team with the assistance of Heather Burke of Flinders University and ARC LIEF funding. Please contact enquiries@fedarch.org if you would like edits or customisation."-->
 
 <!--cemetery - [plot - grave markers - burial]
                                      - motif
@@ -49,7 +47,7 @@
     <timestamp>
       Date of Recording
     </timestamp>
-    <Grave_Number b="decimal" f="id"/>
+    <Plot_ID b="decimal" f="id"/>
     <Orientation>
       <opts>
         <opt>No Observation<desc>No observation was made.</desc></opt>
@@ -377,7 +375,7 @@
           <opt>Arms outstretched
             <desc>Plea for mercy.</desc>
           </opt>
-          <opt p="files/data/gallery/headstones/deathsHead.png">Death's Head
+          <opt p="gallery/headstones/deathsHead.png">Death's Head
             <desc>Death or a reminder that death comes to everyone. A heart in the mouth of a death's head means the soul emerging triumphant from death.</desc>
           </opt>
           <opt>Eye of God
@@ -439,51 +437,51 @@
           <opt>Latin cross
             <desc>Cross with a vertical axis that it longer than the horizontal.  One of the oldest symbols of Christianity and the most commonly used form, it is also the simplest in design. </desc>
           </opt>
-          <opt p="files/data/gallery/headstones/greekCross.png">Greek Cross
+          <opt p="gallery/headstones/greekCross.png">Greek Cross
             <desc>Cross with four arms that are all equal in length.  One of the earliest Christian symbols, possibly linked to older pagan representations of the four elements—earth, air, fire and water. </desc>
           </opt>
-          <opt p="files/data/gallery/headstones/celticCross.png">Celtic Cross
+          <opt p="gallery/headstones/celticCross.png">Celtic Cross
             <desc>Cross with … The circle around the crosspiece symbolizes eternity.  It's origin can be traced to the Celtic cultures of the British Isles.  There is a legend of how St. Patrick when preaching to some soon to be converted heathens was shown a sacred standing stone that was marked with a circle that was symbolic of the moon goddess.  Patrick made the mark of a Latin cross through the circle and blessed the stone making the first Celtic Cross.</desc>
           </opt>
-          <opt p="files/data/gallery/headstones/easternCross.png">Eastern Cross
+          <opt p="gallery/headstones/easternCross.png">Eastern Cross
             <desc>Used in Orthodox (Russian/Greek) Christian religions, it has the addition of an upper horizontal shoulder representing the inscription over the head of Jesus, and a lower slanting shoulder representing the footrest of the crucified Jesus.</desc>
           </opt>
-          <opt p="files/data/gallery/headstones/botoneeCross.png">Botonee Cross
+          <opt p="gallery/headstones/botoneeCross.png">Botonee Cross
             <desc>Composed of either four arms of equal length (Trinity Cross), or a Latin Cross (Botonee Cross) with modified trefoil (three-lobed) ends, that represent the trinity.  According to the Vatican, the structure is said to be the union of the Cross of Christ with the sign of ancient druids.  The "budded" ends are also used to represent youth.</desc>
           </opt>
-          <opt p="files/data/gallery/headstones/cavalryCross.png">Calvary Cross
+          <opt p="gallery/headstones/cavalryCross.png">Calvary Cross
             <desc>A Latin cross standing on three steps or blocks, it signifies faith, hope and love. Love is sometimes replaced by charity.</desc>
           </opt>
-          <opt p="files/data/gallery/headstones/fleureeCross.png">Fleuree Cross/Gothic Cross
+          <opt p="gallery/headstones/fleureeCross.png">Fleuree Cross/Gothic Cross
             <desc>This flowered cross symbolizes the adult Christian by its more opened and flared out ends.</desc>
           </opt>
-          <opt p="files/data/gallery/headstones/prebyterianCross.png">Presbyterian Cross
+          <opt p="gallery/headstones/prebyterianCross.png">Presbyterian Cross
             <desc>Similar to a bottonee cross, with a circle around the crosspiece.</desc>
           </opt>
-          <opt p="files/data/gallery/headstones/standrewsCross.png">St Andrew's (Scottish) Cross
+          <opt p="gallery/headstones/standrewsCross.png">St Andrew's (Scottish) Cross
             <desc>A diagonal cross symbolizing the martyrdom of St Andrew, the Patron Saint of Scotland.</desc>
           </opt>
           <opt>Star
             <desc>A five-pointed star - Is symbolic of the life of Christ and may also represent the five wounds of Christ.</desc>
           </opt>
-          <opt p="files/data/gallery/headstones/trefoil.png">Trefoil
+          <opt p="gallery/headstones/trefoil.png">Trefoil
             <desc>In Christianity, the equilateral triangle is the symbol of the Trinity. Other geometric shapes representing the Holy Trinity are the trefoil, the triquetra, the circle within the triangle, the triangle in circle and the triquetra and circle. To the ancient Egyptians, the triangle was an emblem of Godhead; to the Pythagoreans, it symbolized wisdom. Another use of the triangle is in the symbol of the eye (eye of God) surrounded by a triangle.</desc>
           </opt>
           <opt>Spiral
             <desc>Progressive development and movement.</desc>
           </opt>
-          <opt p="files/data/gallery/headstones/triskele.png">Triskele, triple spiral or triskelion
+          <opt p="gallery/headstones/triskele.png">Triskele, triple spiral or triskelion
             <desc>The triskele, or triple spiral, a symbol closely related to the triquetra, is a tripartite symbol composed of three interlocked spirals.  The spiral is an ancient Celtic symbol related to the sun, afterlife and reincarnation, often found on Neolithic "tombs", such as Newgrange, where it is supposed by some to be a symbol of pregnancy (the sun describes a spiral in its movements every three months; a triple spiral represents nine months), an idea reinforced by the womb like nature of the structure. The symbol also suggests reincarnation- it is drawn in one continuous line, suggesting a continuous movement of time.  Triskeles are one of the most common elements of Celtic art; they are found in a variety of styles in both ancient and modern Celtic art, especially in relation to depictions of the Mother Goddess. They also evoke the Celtic concept of the domains of material existence- earth, water, and sky, and their interrelations.</desc>
           </opt>
         </opt>
         <opt>Letters<desc></desc>
-        <opt p="files/data/gallery/headstones/alphaOmega.png">Alpha and Omega
+        <opt p="gallery/headstones/alphaOmega.png">Alpha and Omega
           <desc>The first and last letters of the Greek alphabet; symbolic of God, the beginning and the end.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/chrisma.png">Chrisma or labarum
+        <opt p="gallery/headstones/chrisma.png">Chrisma or labarum
           <desc>A cross like shape formed by a combination of two Greek letters, chi (X) and rho (P) corresponding to CH and R of the word, Christ, hence a symbol for Jesus Christ. This symbol is also known as the Monogram of Christ, Constantine's Cross, the Chrismon, the Christogram and the Chi- Rho. Since the Roman emperor Constantine I used this symbol on his shield, overcame his enemy in battle, and consequently converted to Christianity, the labarum has been a symbol of Christianity.  In pre- Christian Greece it signified a good omen . It also represented the Chaldean sky god. Today the letters may be reversed as PX to represent "pax" or "peace".</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/ihs.png">I. H. S
+        <opt p="gallery/headstones/ihs.png">I. H. S
           <desc>Acronym with several meanings.  Maybe represented as a monogram (see picture to left), or as a sequence of letters, 1.  The "I" stands for Ihsus or Ihcuc, the name of Jesus in Greek, with the S and C being variant forms in the Greek alphabet.  When these are found on tombstones it stresses the identity of the individual with Jesus Christ.  Originally a Roman Catholic, particularly Jesuit, symbol.2.  The letters have also been interpreted (with conscious intention to enrich the meaning) as "Jesus Hominum Salvator", or"Jesus Saviour of Mankind", and "In Hac Salus", "In This (Cross) Salvation" (OED).3.  "In hoc signo".  On the eve of battle, Constantine, had a vision of a banner bearing the phrase, "In hoc signo vinces", meaning "In this sign you will conquer".  Constantine won the battle and converted to Christianity. As it is used on both Protestant and Catholic gravestones, this symbol illustrates the variant meanings that can be ascribed to the one motif depending on denomination. (Mytum 2003, 140).</desc>
         </opt>
         <opt>I.N.R.I
@@ -521,7 +519,7 @@
         <opt>Angel weeping
           <desc>Symbolises grief, or mourning for an untimely death.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/anthemion.png">Anthemion/Anthemia
+        <opt p="gallery/headstones/anthemion.png">Anthemion/Anthemia
           <desc>A classical ornament featuring honeysuckle or palmettes with foliage below; used singly on antefixes (ornamental blocks concealing tile-ends at the edges of a roof), or as a running ornament on friezes.  Greek: "anthemion" - a flower.  One type of ancient Greek palmette resembles honeysuckle flowers, another is more like a palm leaf. Both were used in bands of anthemion ornament.</desc>
         </opt>
         <opt>Banner
@@ -560,7 +558,7 @@
         <opt>Cherubs
           <desc>The graves of children.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/cherubsHead.png">Cherub's Head, with or without wings
+        <opt p="gallery/headstones/cherubsHead.png">Cherub's Head, with or without wings
           <desc>The soul.</desc>
         </opt>
         <opt>Circle
@@ -575,7 +573,7 @@
         <opt>Clouds
           <desc>Atmospheric veil concealing God from his worshipers.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/column.png">Column
+        <opt p="gallery/headstones/column.png">Column
           <desc>Mortality.  A draped or broken column represents the break in earthly to heavenly life.  The drapery also symbolizes mourning (see below).</desc>
         </opt>
         <opt>Cross and Anchor
@@ -584,7 +582,7 @@
         <opt>Crown on a cross
           <desc>Sovereignty of the Lord</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/curtains.png">Draperies/Curtains
+        <opt p="gallery/headstones/curtains.png">Draperies/Curtains
           <desc>In the days when the body lay in state in the parlor, it was the custom to cover everything in black. Draperies, with their fancy frills and tassels, are more elaborate than a simple shroud. They allow the expression of mourning to linger long after the body has been taken out the front door and the accoutrements have been stowed for the next death in the family.  Curtains can also set the stage.  Parted, they reveal a telling excerpt. What is important in such displays is the main actor or central object of the stone.</desc>
         </opt>
         <opt>Garlands
@@ -596,7 +594,7 @@
         <opt>Keys
           <desc>Keys stand for spiritual knowledge. If held in the hands of an angel or saint, they represent the means to enter heaven.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/interlacedCelticKnot.png">Interlaced Celtic knot
+        <opt p="gallery/headstones/interlacedCelticKnot.png">Interlaced Celtic knot
           <desc>Ladder</desc>
         </opt>
         <opt>Ladder
@@ -605,7 +603,7 @@
         <opt>Lamp
           <desc>Knowledge, love of learning, immortality of the Spirit.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/masonicCompass.png">Masonic Compass and Set-square
+        <opt p="gallery/headstones/masonicCompass.png">Masonic Compass and Set-square
           <desc>Freemasons combine religious and construction and architectural forms in their symbols.  Viewing God as the architect and builder of the universe, Freemasonry intends to build the temple of humanity through self-improvement with stone-masonry work.  The compass, used in geometric calculations, symbolizes creation and the spirit.  The set-square draws perfect right angles, so represents uprightness and lawfulness.  The compass and the square measure things, so they symbolize judgment. They also represent geometry, and the union of the sky (the compass's circle) and the earth (the square).  The letter "G" in this symbol represents God, geometry and geomancy. </desc>
         </opt>
         <opt>Rope
@@ -626,13 +624,13 @@
         <opt>Steps
           <desc>A common symbol around the world, steps generally mean ascension, stages or levels.  The number of steps brings the meaning of numbers into the interpretation as does the symbolism of any objects that surround or are a part of the steps.  In Romanesque art, steps represent the relationship between worlds.  In many religions steps, or a ladder, are seen as the path to god.  For alchemists of the Middle Ages, steps were associated with the transmutation process.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/urn.png">Urn
+        <opt p="gallery/headstones/urn.png">Urn
           <desc>Greek symbol of mourning, the body as a vessel of the soul, originating as a repository for the ashes of the dead in ancient times - a popular symbol of mourning. Most represent an ossuary. In several examples an Angel is looking inside it as if to inspect the contents. A flame is sometimes shown coming from the Urn.  They are often draped with a cloth or festooned with a wreath or garland.  This fashion of persisted well into the 1850's at least.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/urnDraped.png">Urn, draped
+        <opt p="gallery/headstones/urnDraped.png">Urn, draped
           <desc>Connotes death, often of an older person.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/wingedSkull.png">Winged skull
+        <opt p="gallery/headstones/wingedSkull.png">Winged skull
           <desc>Flight of the soul from mortal man.</desc>
         </opt>
         <opt>Woman with or without Bible pointing upward
@@ -641,53 +639,53 @@
         </opt>
         <opt>Flowers, Trees, plants<desc>Flowers convey love, grief, happiness and other emotions. These symbolic connections of flowers with emotion are cross-cultural and their origins are unknown. During the 1800s, the use of floral symbolism became so popular that almost every flower known had a symbolic gesture attached to it. The following are some symbolic references to common plants and flowers.</desc>
 
-        <opt p="files/data/gallery/headstones/acanthus.png">Acanthus
+        <opt p="gallery/headstones/acanthus.png">Acanthus
           <desc>Heavenly garden.  One of the oldest cemetery motifs, acanthus is associated with the rocky ground where most ancient Greek cemeteries were placed.  It is the most common motif found on memorials.  In architecture the acanthus leaf is used to decorate the capital of the Corinthian order.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/acorn.png">Acorn
+        <opt p="gallery/headstones/acorn.png">Acorn
           <desc>As the seed of the oak, the acorn is a symbol of potential. In Norse and Celtic culture, acorns symbolized life, fertility and immortality. Druids ate acorns, believing them to have prophetic qualities, and acorns were sacred to the god Thor whose Tree of Life was the oak. "Acorns and oak leaves form one of the circular 'hex' signs used by the Amish and Mennonite communities of southern Pennsylvania, the various signs believed to bestow favors such as protection or natural abundance".</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/aloe.png">Aloe
+        <opt p="gallery/headstones/aloe.png">Aloe
           <desc>Affliction, or grief.</desc>
         </opt>
         <opt>Apple
           <desc>Forbidden fruit, fruit of salvation and sweetness in love.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/birch.png">Birch
+        <opt p="gallery/headstones/birch.png">Birch
           <desc>The ancient Celts covered their dead with birch branches, perhaps to infuse them with the stuff necessary for a successful afterlife.</desc>
         </opt>
         <opt>Buds
           <desc>Renewal of life.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/buttercup.png">Buttercup
+        <opt p="gallery/headstones/buttercup.png">Buttercup
           <desc>Cheerfulness.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/callaLily.png">Calla lily
+        <opt p="gallery/headstones/callaLily.png">Calla lily
           <desc>Symbolizes marriage.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/cinquefoil.png">Cinquefoil
+        <opt p="gallery/headstones/cinquefoil.png">Cinquefoil
           <desc>A five-lobed circle, symbolizing maternal affection, or a beloved daughter.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/clover.png">Clover or Shamrock
+        <opt p="gallery/headstones/clover.png">Clover or Shamrock
           <desc>Irish, or for luck in a gambler.  It is one of the oldest Celtic symbols.  The shamrock is a native species of clover in Ireland.  A Catholic legend holds that St. Patrick used its three lobes as a device for teaching the Holy trinity.  In Celtic folklore, the shamrock is a charm against evil, a belief that has carried over in the modern belief in the four leafed clover as a good luck charm.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/convolvulus.png">Convolvulus
+        <opt p="gallery/headstones/convolvulus.png">Convolvulus
           <desc>Small flowering creeper similar to a morning glory.  Means extinguished hopes or eternal sleep.</desc>
         </opt>
-        Crocus  files/data/gallery/headstones/crocus.png  Youthful gladness.  
-        <opt p="files/data/gallery/headstones/cyrpress.png">Cypress
+        Crocus  gallery/headstones/crocus.png  Youthful gladness.  
+        <opt p="gallery/headstones/cyrpress.png">Cypress
           <desc>Designates hope or deep mourning.  The cross of the crucifixion was allegedly constructed in part of Cypress. Once felled, a cypress never grows again.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/daffodil.png">Daffodil
+        <opt p="gallery/headstones/daffodil.png">Daffodil
           <desc>Death of youth, desire, art, grace, beauty, deep regard.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/daisy.png">Daisy
+        <opt p="gallery/headstones/daisy.png">Daisy
           <desc>The innocence of children, Jesus the Infant, youth, the Son of righteousness, gentleness, purity of thought.</desc>
         </opt>
         <opt>Dead leaves
           <desc>Sadness, melancholy.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/easterLily.png">Easter Lily
+        <opt p="gallery/headstones/easterLily.png">Easter Lily
           <desc>Modern symbol of the resurrection.  Also symbolizes purity and chastity.</desc>
         </opt>
         <opt>Evergreens
@@ -696,7 +694,7 @@
         <opt>Fern
           <desc>Sincerity, sorrow.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/fleurDeLis.png">Fleur-de-lis
+        <opt p="gallery/headstones/fleurDeLis.png">Fleur-de-lis
           <desc>Flame, passion, ardor, mother.</desc>
         </opt>
         <opt>Flowers, general
@@ -705,7 +703,7 @@
         <opt>Flowers, broken
           <desc>Life cut short; mortality.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/forgetMeNot.png">Forget-me-not
+        <opt p="gallery/headstones/forgetMeNot.png">Forget-me-not
           <desc>Rememberance.</desc>
         </opt>
         <opt>Geranium
@@ -714,52 +712,52 @@
         <opt>Grapes
           <desc>Represent Christ.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/grapesLeaves.png">Grapes and Leaves
+        <opt p="gallery/headstones/grapesLeaves.png">Grapes and Leaves
           <desc>Christian faith.</desc>
         </opt>
-        <opt p="files/data/gallery/headstoens/hawthorne.png">Hawthorn
+        <opt p="gallery/headstoens/hawthorne.png">Hawthorn
           <desc>Hope, merriness, springtime.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/holly.png">Holly
+        <opt p="gallery/headstones/holly.png">Holly
           <desc>Foresight.  People used to believe that holly bushes protected tombs and other monuments from lightning strikes.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/honeySuckle.png">Honeysuckle
+        <opt p="gallery/headstones/honeySuckle.png">Honeysuckle
           <desc>Bonds of love, generosity and devoted affection.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/laurel.png">Laurel, or bay
+        <opt p="gallery/headstones/laurel.png">Laurel, or bay
           <desc>Special achievement, distinction, success, triumph.  I change not in death.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/ivy.png">Ivy
+        <opt p="gallery/headstones/ivy.png">Ivy
           <desc>Memory, immortality, friendship, fidelity, faithfulness, undying affection, eternal life.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/lily.png">Lily
+        <opt p="gallery/headstones/lily.png">Lily
           <desc>Majesty, innocence, purity, and resurrection. Often associated with the Virgin Mary and resurrection. Often used on women's graves. The use of lilies at funerals symbolizes the restored innocence of the soul at death.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/lilyOfTheValley.png">Lily of the Valley
+        <opt p="gallery/headstones/lilyOfTheValley.png">Lily of the Valley
           <desc>Return of happiness, purity, humility.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/marigold.png">Marigold
+        <opt p="gallery/headstones/marigold.png">Marigold
           <desc>Grief or despair.</desc>
         </opt>
         <opt>Mistletoe
           <desc>Protection, veneration and healing power.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/morningGlory.png">Morning Glory
+        <opt p="gallery/headstones/morningGlory.png">Morning Glory
           <desc>Because morning glory flowers don"t last for long (usually only 24 hours), it symbolizes resurrection, mourning, youth, farewell, the brevity of life, departure, mortality.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/oakTree.png">Oak tree or oak leaf
+        <opt p="gallery/headstones/oakTree.png">Oak tree or oak leaf
           <desc>Hospitality, stability, strength, honor, eternity, endurance, liberty.  It is believed to have been the tree from which Jesus Christ's cross was made.  In smaller pioneer cemeteries, it is common to place children's graves near oak trees.  The oak tree was the tree of life in pre-Christian times. The oak, oak leaves and acorn can stand for power, authority or victory.  Often seen on military tombs.</desc>
         </opt>
         <opt>Olive
           <desc>Peace; healing faith.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/palm.png">Palm
+        <opt p="gallery/headstones/palm.png">Palm
           <desc>Spiritual victory, success, eternal peace, a symbol of Christ's victory of death as associated with Easter.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/pansy.png">Pansy
+        <opt p="gallery/headstones/pansy.png">Pansy
           <desc>Symbolizes remembrance and humility.  Also a symbol of thought (French = 'pensee').</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/passionflower.png">Passion flower
+        <opt p="gallery/headstones/passionflower.png">Passion flower
           <desc>The elements of the passion of Christ: the lacy crown—the crown of thorns; the five stamens—the five wounds; the 10 petals—the 10 faithful Apostles.</desc>
         </opt>
         <opt>Pine
@@ -768,16 +766,16 @@
         <opt>Pineapple
           <desc>Hospitality, good host.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/poinsettia.png">Poinsettia
+        <opt p="gallery/headstones/poinsettia.png">Poinsettia
           <desc>A death occurring near Christmas.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/poplar.png">Poplar
+        <opt p="gallery/headstones/poplar.png">Poplar
           <desc>Where other cemetery trees promise immortality, the poplar grants us only memories and the sorrows that accompany them.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/poppy.png">Poppy
+        <opt p="gallery/headstones/poppy.png">Poppy
           <desc>Peace, rest, sleep, eternal sleep, consolation.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/rose.png">Rose
+        <opt p="gallery/headstones/rose.png">Rose
           <desc>Love, beauty, hope, unfailing love, associated with the Virgin Mary, the "rose without thorns".  A red rose symbolizes martyrdom and a white rose symbolizes purity and virginity.  Whether the rose is a bud, flower or somewhere in between indicates how old the person was at the time of death.</desc>
         </opt>
         <opt>Rose, bud
@@ -792,13 +790,13 @@
         <opt>Rose, double set on one twig
           <desc>The death of two people.  Usually a bud with the rose means the loss of a mother with a baby.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/rosemary.png">Rosemary
+        <opt p="gallery/headstones/rosemary.png">Rosemary
           <desc>As Ophelia said, "Rosemary, that's for remembrance".  In former days, it was put in coffins and given to mourners as a favor.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/sunflower.png">Sun Flower
+        <opt p="gallery/headstones/sunflower.png">Sun Flower
           <desc>Life fulfilled.  Symbolic of gratitude and affectionate remembrance.  The flower turns towards the sun, indicating brightness.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/thistle.png">Thistle
+        <opt p="gallery/headstones/thistle.png">Thistle
           <desc>Earthly sorrow, Christ's crown of thorns, Scotland as country of origin.  A hard life.</desc>
         </opt>
         Tree  The all-covering love of CHrist. Life, The Tree of Life.
@@ -817,22 +815,22 @@
         <opt>Vine
           <desc>The sacraments, God's blood, God, Christian faith.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/violet.png">Violet
+        <opt p="gallery/headstones/violet.png">Violet
           <desc>Faithfulness.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/weepingWillow.png">Weeping Willow
+        <opt p="gallery/headstones/weepingWillow.png">Weeping Willow
           <desc>Nature's lament, a symbol of sorrow and mourning.</desc>
         </opt>
         <opt>Wheat
           <desc>Resurrection, bread and wine (Christian), fertility.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/wreath.png">Wreath of Garland
+        <opt p="gallery/headstones/wreath.png">Wreath of Garland
           <desc>The use of garlands, wreaths and festoons dates back to ancient Greek times and it was adopted into the Christian religion as a symbol of the victory of the redemption.  The laurel wreath is usually associated with someone who has attained distinction in the arts, literature, athletics or the military.  The ivy wreath is symbolic of conviviality (gaiety or joviality). The wreath and festoon together symbolize memory.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/wreathOfMaidensGarland.png">Wreath of Maiden's Garland
+        <opt p="gallery/headstones/wreathOfMaidensGarland.png">Wreath of Maiden's Garland
           <desc>A garland of white paper or linen, embellished with streamers and a single white glove, which was carried at the funerals of unmarried women of blameless reputation.  The garlands were hung in the church after the funeral and allowed to decay. Then the pieces would be buried in the graveyard.</desc>
         </opt>
-        <opt p="files/data/gallery/headstones/yewTree.png">Yew Tree
+        <opt p="gallery/headstones/yewTree.png">Yew Tree
           <desc>Sadness, eternal life.</desc>
         </opt>
       </opt> 
@@ -849,6 +847,13 @@
 </Motif>
 
 <logic><![CDATA[
+/******************************** DEMO NOTICE *********************************/
+showWarning(
+    "This is a Demo Module",
+    "This module is intended for demonstration only. It should not be used to" +
+    " collect field data."
+);
+
 /******************************** INHERITANCE *********************************/
   inheritFieldValue(
       "Cemetery/Administration/Cemetery_Site_Location",
