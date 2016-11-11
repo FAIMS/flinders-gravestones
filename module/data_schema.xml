@@ -24,7 +24,7 @@
     <description/>
     <property name="Cemetery Site Location" isIdentifier="true" type="measure">
       <description/>
-      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <formatString><![CDATA[Site/Location: $2]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
     </property>
     <property name="Cemetery timestamp" type="measure">
@@ -35,17 +35,22 @@
   </ArchaeologicalElement>
   <ArchaeologicalElement name="Plot">
     <description/>
-    <property name="Plot Site Location" type="measure">
+    <property name="Plot Plot ID" isIdentifier="true" type="measure">
       <description/>
-      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <formatString><![CDATA[Plot ID: $2 - ]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Plot Site Location" isIdentifier="true" type="measure">
+      <description/>
+      <formatString><![CDATA[Site/Location: $2 - ]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
+    <property name="Number of Burials" isIdentifier="true" type="measure">
+      <description/>
+      <formatString><![CDATA[Number of Burials: $2]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
     </property>
     <property name="Plot timestamp" type="measure">
-      <description/>
-      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
-      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
-    </property>
-    <property name="Plot ID" isIdentifier="true" type="measure">
       <description/>
       <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
@@ -173,11 +178,6 @@
       <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
     </property>
-    <property name="Number of Burials" type="measure">
-      <description/>
-      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
-      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
-    </property>
     <property name="Plot Name" type="measure">
       <description/>
       <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
@@ -250,7 +250,7 @@
     <description/>
     <property name="Form" isIdentifier="true" type="vocab">
       <description/>
-      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <formatString><![CDATA[Form: $1 - ]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
       <lookup>
         <term>{Tablet__Upright_Slab_}
@@ -270,6 +270,40 @@
         <term>{Other}
 <description>Marker form</description></term>
       </lookup>
+    </property>
+    <property name="Material" isIdentifier="true" type="vocab">
+      <description/>
+      <formatString><![CDATA[Material: $1 - ]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+      <lookup>
+        <term>{Slate}
+<description> Material</description></term>
+        <term>{Marble}
+<description> Material</description></term>
+        <term>{Granite}
+<description> Material</description></term>
+        <term>{Cast_Iron}
+<description> Material</description></term>
+        <term>{Timber}
+<description> Material</description></term>
+        <term>{Tile}
+<description> Material</description></term>
+        <term>{Sandstone}
+<description> Material</description></term>
+        <term>{Brick}
+<description> Material</description></term>
+        <term>{Concrete}
+<description> Material</description></term>
+        <term>{Cement}
+<description> Material</description></term>
+        <term>{Other}
+<description> Material</description></term>
+      </lookup>
+    </property>
+    <property name="Inscription" isIdentifier="true" type="measure">
+      <description/>
+      <formatString><![CDATA[Inscription: $2]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
     </property>
     <property name="Attach Shape File" type="file" file="true" thumbnail="true">
       <description/>
@@ -323,35 +357,6 @@
 <description>Colour of headstone</description></term>
       </lookup>
     </property>
-    <property name="Material" isIdentifier="true" type="vocab">
-      <description/>
-      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
-      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
-      <lookup>
-        <term>{Slate}
-<description> Material</description></term>
-        <term>{Marble}
-<description> Material</description></term>
-        <term>{Granite}
-<description> Material</description></term>
-        <term>{Cast_Iron}
-<description> Material</description></term>
-        <term>{Timber}
-<description> Material</description></term>
-        <term>{Tile}
-<description> Material</description></term>
-        <term>{Sandstone}
-<description> Material</description></term>
-        <term>{Brick}
-<description> Material</description></term>
-        <term>{Concrete}
-<description> Material</description></term>
-        <term>{Cement}
-<description> Material</description></term>
-        <term>{Other}
-<description> Material</description></term>
-      </lookup>
-    </property>
     <property name="Lettering" type="vocab">
       <description/>
       <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
@@ -393,11 +398,6 @@
         <term>{No}
 <description>Footstone</description></term>
       </lookup>
-    </property>
-    <property name="Inscription" isIdentifier="true" type="measure">
-      <description/>
-      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
-      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
     </property>
     <property name="Style of Languages" type="vocab">
       <description/>
@@ -482,12 +482,22 @@
 <description>Burials described</description></term>
       </lookup>
     </property>
+    <property name="Marker Plot ID" type="measure">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
   </ArchaeologicalElement>
   <ArchaeologicalElement name="Burial">
     <description/>
+    <property name="Burial Plot ID" isIdentifier="true" type="measure">
+      <description/>
+      <formatString><![CDATA[Plot ID: $2 - ]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
+    </property>
     <property name="Burial Name" isIdentifier="true" type="measure">
       <description/>
-      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <formatString><![CDATA[Burial Name: $2]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
     </property>
     <property name="Burial Date of Death" type="measure">
@@ -523,7 +533,7 @@
     <description/>
     <property name="Motif" isIdentifier="true" type="vocab">
       <description/>
-      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <formatString><![CDATA[Motif: $2]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
       <lookup>
         <term>{No_Observation}
