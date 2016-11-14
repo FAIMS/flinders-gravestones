@@ -10,12 +10,12 @@
     <parent>Parent Of</parent>
     <child>Child Of</child>
   </RelationshipElement>
-  <RelationshipElement name="Marker - Burial" type="hierarchical">
+  <RelationshipElement name="Marker - Motif" type="hierarchical">
     <description>A 1-to-n relationship between the parent and its children, respectively.</description>
     <parent>Parent Of</parent>
     <child>Child Of</child>
   </RelationshipElement>
-  <RelationshipElement name="Marker - Motif" type="hierarchical">
+  <RelationshipElement name="Marker - Burial" type="hierarchical">
     <description>A 1-to-n relationship between the parent and its children, respectively.</description>
     <parent>Parent Of</parent>
     <child>Child Of</child>
@@ -87,7 +87,7 @@
       <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
     </property>
-    <property name="Photos" type="file" file="true" thumbnail="true">
+    <property name="Plot Photograph" type="file" file="true" thumbnail="true">
       <description/>
       <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
@@ -305,7 +305,7 @@
       <formatString><![CDATA[Inscription: $2]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
     </property>
-    <property name="Attach Shape File" type="file" file="true" thumbnail="true">
+    <property name="Marker Photograph" type="file" file="true" thumbnail="true">
       <description/>
       <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
@@ -533,7 +533,7 @@
     <description/>
     <property name="Motif" isIdentifier="true" type="vocab">
       <description/>
-      <formatString><![CDATA[Motif: $2]]></formatString>
+      <formatString><![CDATA[Motif: $1]]></formatString>
       <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
       <lookup>
         <term>{No_Observation}
@@ -729,11 +729,16 @@
       <lookup>
         <term>{No_Observation}
 <description>No observation was made.</description></term>
-        <term>{On_Marker}
-<description>Identify all motifs incorporated into the marker/headstone. This includes the shape of the marker and all engraved, painted or applied motifs.</description></term>
-        <term>{On_Fence_Other}
-<description>Identify all motifs incorporated into the fence or other fittings/furnishings.</description></term>
+        <term>{Front_of_Marker}
+<description/></term>
+        <term>{Back_of_Marker}
+<description/></term>
       </lookup>
+    </property>
+    <property name="Motif Photograph" type="file" file="true" thumbnail="true">
+      <description/>
+      <formatString><![CDATA[{{if $1 then $1}}{{if and($1, $2) then " " }}{{if $2 then $2}}{{if $3 then " ($3)"}}{{if between($4,0,0.49) then "??" elsif lessThan($4,1) then "?" }}]]></formatString>
+      <appendCharacterString><![CDATA[ - ]]></appendCharacterString>
     </property>
   </ArchaeologicalElement>
 </dataSchema>

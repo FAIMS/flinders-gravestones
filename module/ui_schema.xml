@@ -24,10 +24,10 @@
             </Login>
           </Login>
           <Control>
-            <Control>
+            <Cemeteries>
               <New_Cemetery/>
               <List_of_Existing_Cemeteries/>
-            </Control>
+            </Cemeteries>
             <Plots>
               <Plots/>
             </Plots>
@@ -53,22 +53,24 @@
             </Administration>
           </Cemetery>
           <Plot>
-            <Administration>
+            <Plot>
               <Plot_Site_Location/>
               <timestamp/>
               <Plot_Plot_ID/>
               <Orientation/>
               <Total_number_of_Headstones_in_This_Plot/>
-              <Photos/>
-              <Button_Photos/>
-            </Administration>
-            <Plot>
+              <Plot_Photograph/>
+              <Button_Plot_Photograph/>
               <Plot_Type/>
               <Total_number_of_Interments_in_This_Plot/>
               <Fence_Border/>
               <Fence_Border_Height/>
               <Other_Items/>
             </Plot>
+            <Marker>
+              <Add_Marker/>
+              <List_of_Existing_Markers/>
+            </Marker>
             <Historical_Info>
               <Lease_Number/>
               <Lessee/>
@@ -82,17 +84,12 @@
               <Denomination/>
               <Sources/>
             </Historical_Info>
-            <Marker>
-              <Add_Marker/>
-              <List_of_Existing_Markers/>
-            </Marker>
           </Plot>
           <Marker>
-            <Administration>
+            <Marker>
               <Form/>
-              <Attach_Shape_File/>
-              <Button_Attach_Shape_File/>
-              <View_Attached_Files/>
+              <Marker_Photograph/>
+              <Button_Marker_Photograph/>
               <Plinth_Height/>
               <Plinth_Depth/>
               <Pedestal_Height/>
@@ -105,7 +102,7 @@
               <Mason/>
               <Town/>
               <Footstone/>
-            </Administration>
+            </Marker>
             <Inscription>
               <Inscription/>
               <Style_of_Languages/>
@@ -114,14 +111,14 @@
               <Author/>
               <Burials_Described_in_Relation_to/>
             </Inscription>
-            <Burial>
-              <Add_Burial/>
-              <List_of_Existing_Burials/>
-            </Burial>
             <Motif>
               <Add_Motif/>
               <List_of_Existing_Motifs/>
             </Motif>
+            <Burial>
+              <Add_Burial/>
+              <List_of_Existing_Burials/>
+            </Burial>
             <Vars>
               <Marker_Plot_ID/>
             </Vars>
@@ -142,25 +139,27 @@
             <Motif>
               <Motif/>
               <Location/>
+              <Motif_Photograph/>
+              <Button_Motif_Photograph/>
             </Motif>
           </Motif>
           <logic/>
         </faims>
       </instance>
-      <bind type="decimal" nodeset="/faims/Plot/Administration/Plot_Plot_ID"/>
-      <bind type="decimal" nodeset="/faims/Plot/Administration/Total_number_of_Headstones_in_This_Plot"/>
+      <bind type="decimal" nodeset="/faims/Plot/Plot/Plot_Plot_ID"/>
+      <bind type="decimal" nodeset="/faims/Plot/Plot/Total_number_of_Headstones_in_This_Plot"/>
       <bind type="decimal" nodeset="/faims/Plot/Plot/Total_number_of_Interments_in_This_Plot"/>
       <bind type="decimal" nodeset="/faims/Plot/Plot/Fence_Border_Height"/>
       <bind type="decimal" nodeset="/faims/Plot/Historical_Info/Lease_Number"/>
       <bind type="date" nodeset="/faims/Plot/Historical_Info/Date_of_Lease"/>
       <bind type="decimal" nodeset="/faims/Plot/Historical_Info/Number_of_Burials"/>
       <bind type="date" nodeset="/faims/Plot/Historical_Info/Plot_Date_of_Death"/>
-      <bind type="decimal" nodeset="/faims/Marker/Administration/Plinth_Height"/>
-      <bind type="decimal" nodeset="/faims/Marker/Administration/Plinth_Depth"/>
-      <bind type="decimal" nodeset="/faims/Marker/Administration/Pedestal_Height"/>
-      <bind type="decimal" nodeset="/faims/Marker/Administration/Headstone_monument_Depth"/>
-      <bind type="decimal" nodeset="/faims/Marker/Administration/Headstone_monument_Height"/>
-      <bind type="decimal" nodeset="/faims/Marker/Administration/Headstone_monument_Width"/>
+      <bind type="decimal" nodeset="/faims/Marker/Marker/Plinth_Height"/>
+      <bind type="decimal" nodeset="/faims/Marker/Marker/Plinth_Depth"/>
+      <bind type="decimal" nodeset="/faims/Marker/Marker/Pedestal_Height"/>
+      <bind type="decimal" nodeset="/faims/Marker/Marker/Headstone_monument_Depth"/>
+      <bind type="decimal" nodeset="/faims/Marker/Marker/Headstone_monument_Height"/>
+      <bind type="decimal" nodeset="/faims/Marker/Marker/Headstone_monument_Width"/>
       <bind type="date" nodeset="/faims/Burial/Burial/Burial_Date_of_Death"/>
       <bind type="decimal" nodeset="/faims/Burial/Burial/Age_at_Death"/>
     </model>
@@ -208,8 +207,8 @@
     </group>
     <group ref="Control">
       <label>{Control}</label>
-      <group ref="Control" faims_scrollable="false">
-        <label>{Control}</label>
+      <group ref="Cemeteries" faims_scrollable="false">
+        <label>{Cemeteries}</label>
         <trigger ref="New_Cemetery">
           <label>{New_Cemetery}</label>
         </trigger>
@@ -288,9 +287,9 @@
     </group>
     <group ref="Plot" faims_archent_type="Plot">
       <label>{Plot}</label>
-      <group ref="Administration">
-        <label>{Administration}</label>
-        <input faims_attribute_type="measure" ref="Plot_Site_Location" faims_attribute_name="Plot Site Location">
+      <group ref="Plot">
+        <label>{Plot}</label>
+        <input faims_attribute_type="measure" ref="Plot_Site_Location" faims_attribute_name="Plot Site Location" faims_read_only="true">
           <label>{Site_Location}</label>
         </input>
         <input ref="timestamp" faims_attribute_name="Plot timestamp" faims_attribute_type="measure" faims_read_only="true" faims_annotation="false" faims_certainty="false">
@@ -309,19 +308,16 @@
         <input faims_attribute_type="measure" ref="Total_number_of_Headstones_in_This_Plot" faims_attribute_name="Total number of Headstones in This Plot">
           <label>{Total_number_of_Headstones_in_This_Plot}</label>
         </input>
-        <select type="camera" faims_attribute_type="measure" faims_sync="true" ref="Photos" faims_attribute_name="Photos">
-          <label>{Photos}</label>
+        <select type="camera" faims_attribute_type="measure" faims_sync="true" ref="Plot_Photograph" faims_attribute_name="Plot Photograph">
+          <label>{Plot_Photograph}</label>
           <item>
             <label>Options not loaded</label>
             <value>0</value>
           </item>
         </select>
-        <trigger ref="Button_Photos">
-          <label>{Button_Photos}</label>
+        <trigger ref="Button_Plot_Photograph">
+          <label>{Button_Plot_Photograph}</label>
         </trigger>
-      </group>
-      <group ref="Plot">
-        <label>{Plot}</label>
         <select1 faims_attribute_type="vocab" ref="Plot_Type" faims_attribute_name="Plot Type">
           <label>{Plot_Type}</label>
           <item>
@@ -342,8 +338,21 @@
         <input faims_attribute_type="measure" ref="Fence_Border_Height" faims_attribute_name="Fence Border Height">
           <label>{Fence_Border_Height}</label>
         </input>
-        <select1 faims_attribute_type="vocab" ref="Other_Items" faims_attribute_name="Other Items">
+        <select faims_attribute_type="vocab" ref="Other_Items" faims_attribute_name="Other Items">
           <label>{Other_Items}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>0</value>
+          </item>
+        </select>
+      </group>
+      <group ref="Marker" faims_scrollable="false">
+        <label>{Marker}</label>
+        <trigger ref="Add_Marker">
+          <label>{Add_Marker}</label>
+        </trigger>
+        <select1 appearance="compact" ref="List_of_Existing_Markers" faims_annotation="false" faims_certainty="false">
+          <label>{List_of_Existing_Markers}</label>
           <item>
             <label>Options not loaded</label>
             <value>0</value>
@@ -394,43 +403,27 @@
           </item>
         </select>
       </group>
-      <group ref="Marker" faims_scrollable="false">
-        <label>{Marker}</label>
-        <trigger ref="Add_Marker">
-          <label>{Add_Marker}</label>
-        </trigger>
-        <select1 appearance="compact" ref="List_of_Existing_Markers" faims_annotation="false" faims_certainty="false">
-          <label>{List_of_Existing_Markers}</label>
-          <item>
-            <label>Options not loaded</label>
-            <value>0</value>
-          </item>
-        </select1>
-      </group>
     </group>
     <group ref="Marker" faims_archent_type="Marker">
       <label>{Marker}</label>
-      <group ref="Administration">
-        <label>{Administration}</label>
-        <select faims_attribute_type="vocab" ref="Form" faims_attribute_name="Form">
+      <group ref="Marker">
+        <label>{Marker}</label>
+        <select1 faims_attribute_type="vocab" ref="Form" faims_attribute_name="Form">
           <label>{Form}</label>
           <item>
             <label>Options not loaded</label>
             <value>0</value>
           </item>
-        </select>
-        <select type="file" faims_attribute_type="measure" faims_sync="true" ref="Attach_Shape_File" faims_attribute_name="Attach Shape File">
-          <label>{Attach_Shape_File}</label>
+        </select1>
+        <select type="camera" faims_attribute_type="measure" faims_sync="true" ref="Marker_Photograph" faims_attribute_name="Marker Photograph">
+          <label>{Marker_Photograph}</label>
           <item>
             <label>Options not loaded</label>
             <value>0</value>
           </item>
         </select>
-        <trigger ref="Button_Attach_Shape_File">
-          <label>{Button_Attach_Shape_File}</label>
-        </trigger>
-        <trigger ref="View_Attached_Files">
-          <label>{View_Attached_Files}</label>
+        <trigger ref="Button_Marker_Photograph">
+          <label>{Button_Marker_Photograph}</label>
         </trigger>
         <input faims_attribute_type="measure" ref="Plinth_Height" faims_attribute_name="Plinth Height">
           <label>{Plinth_Height__cm_}</label>
@@ -526,19 +519,6 @@
           </item>
         </select>
       </group>
-      <group ref="Burial" faims_scrollable="false">
-        <label>{Burial}</label>
-        <trigger ref="Add_Burial">
-          <label>{Add_Burial}</label>
-        </trigger>
-        <select1 appearance="compact" ref="List_of_Existing_Burials" faims_annotation="false" faims_certainty="false">
-          <label>{List_of_Existing_Burials}</label>
-          <item>
-            <label>Options not loaded</label>
-            <value>0</value>
-          </item>
-        </select1>
-      </group>
       <group ref="Motif" faims_scrollable="false">
         <label>{Motif}</label>
         <trigger ref="Add_Motif">
@@ -546,6 +526,19 @@
         </trigger>
         <select1 appearance="compact" ref="List_of_Existing_Motifs" faims_annotation="false" faims_certainty="false">
           <label>{List_of_Existing_Motifs}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>0</value>
+          </item>
+        </select1>
+      </group>
+      <group ref="Burial" faims_scrollable="false">
+        <label>{Burial}</label>
+        <trigger ref="Add_Burial">
+          <label>{Add_Burial}</label>
+        </trigger>
+        <select1 appearance="compact" ref="List_of_Existing_Burials" faims_annotation="false" faims_certainty="false">
+          <label>{List_of_Existing_Burials}</label>
           <item>
             <label>Options not loaded</label>
             <value>0</value>
@@ -608,6 +601,16 @@
             <value>0</value>
           </item>
         </select1>
+        <select type="camera" faims_attribute_type="measure" faims_sync="true" ref="Motif_Photograph" faims_attribute_name="Motif Photograph">
+          <label>{Motif_Photograph}</label>
+          <item>
+            <label>Options not loaded</label>
+            <value>0</value>
+          </item>
+        </select>
+        <trigger ref="Button_Motif_Photograph">
+          <label>{Button_Motif_Photograph}</label>
+        </trigger>
       </group>
     </group>
   </h:body>

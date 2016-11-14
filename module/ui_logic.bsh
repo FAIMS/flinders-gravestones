@@ -544,13 +544,13 @@ String getDropdownItemValue() {
 
 addOnEvent("Login/Login/User", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Login/Login/User\")");
 addOnEvent("Cemetery/Administration/List_of_Existing_Plots", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Cemetery/Administration/List_of_Existing_Plots\")");
-addOnEvent("Plot/Administration/Orientation", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Plot/Administration/Orientation\")");
+addOnEvent("Plot/Plot/Orientation", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Plot/Plot/Orientation\")");
 addOnEvent("Plot/Plot/Plot_Type", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Plot/Plot/Plot_Type\")");
-addOnEvent("Plot/Plot/Other_Items", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Plot/Plot/Other_Items\")");
-addOnEvent("Marker/Administration/Marker_Colour", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Administration/Marker_Colour\")");
-addOnEvent("Marker/Administration/Material", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Administration/Material\")");
-addOnEvent("Marker/Administration/Lettering", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Administration/Lettering\")");
-addOnEvent("Marker/Administration/Footstone", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Administration/Footstone\")");
+addOnEvent("Marker/Marker/Form", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Marker/Form\")");
+addOnEvent("Marker/Marker/Marker_Colour", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Marker/Marker_Colour\")");
+addOnEvent("Marker/Marker/Material", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Marker/Material\")");
+addOnEvent("Marker/Marker/Lettering", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Marker/Lettering\")");
+addOnEvent("Marker/Marker/Footstone", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Marker/Footstone\")");
 addOnEvent("Motif/Motif/Location", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Motif/Motif/Location\")");
 
 /******************************************************************************/
@@ -933,17 +933,17 @@ void makeVocab(String type, String path, String attrib, List vocabExclusions, St
       }
     });
 }
-makeVocab("DropDown", "Plot/Administration/Orientation", "Orientation");
+makeVocab("DropDown", "Plot/Plot/Orientation", "Orientation");
 makeVocab("DropDown", "Plot/Plot/Plot_Type", "Plot Type");
 makeVocab("CheckBoxGroup", "Plot/Plot/Fence_Border", "Fence Border");
-makeVocab("DropDown", "Plot/Plot/Other_Items", "Other Items");
+makeVocab("CheckBoxGroup", "Plot/Plot/Other_Items", "Other Items");
 makeVocab("CheckBoxGroup", "Plot/Historical_Info/Denomination", "Denomination");
 makeVocab("CheckBoxGroup", "Plot/Historical_Info/Sources", "Sources");
-makeVocab("CheckBoxGroup", "Marker/Administration/Form", "Form");
-makeVocab("DropDown", "Marker/Administration/Marker_Colour", "Marker Colour");
-makeVocab("DropDown", "Marker/Administration/Material", "Material");
-makeVocab("DropDown", "Marker/Administration/Lettering", "Lettering");
-makeVocab("DropDown", "Marker/Administration/Footstone", "Footstone");
+makeVocab("DropDown", "Marker/Marker/Form", "Form");
+makeVocab("DropDown", "Marker/Marker/Marker_Colour", "Marker Colour");
+makeVocab("DropDown", "Marker/Marker/Material", "Material");
+makeVocab("DropDown", "Marker/Marker/Lettering", "Lettering");
+makeVocab("DropDown", "Marker/Marker/Footstone", "Footstone");
 makeVocab("CheckBoxGroup", "Marker/Inscription/Style_of_Languages", "Style of Languages");
 makeVocab("CheckBoxGroup", "Marker/Inscription/Key_Wording", "Key Wording");
 makeVocab("CheckBoxGroup", "Marker/Inscription/Tense", "Tense");
@@ -1126,7 +1126,7 @@ void populateAuthorAndTimestamp(String tabgroup) {
   Map tabgroupToAuthor    = new HashMap();
   Map tabgroupToTimestamp = new HashMap();
   tabgroupToTimestamp.put("Cemetery", "Cemetery/Administration/timestamp");
-  tabgroupToTimestamp.put("Plot", "Plot/Administration/timestamp");
+  tabgroupToTimestamp.put("Plot", "Plot/Plot/timestamp");
   tabgroupToTimestamp.put("Burial", "Burial/Vars/timestamp");
 
   String authorPath    = tabgroupToAuthor.get(tabgroup);
@@ -1197,17 +1197,6 @@ void onClickPlotAddMarker () {
   parentTabgroup__ = tabgroup;
   newMarker();
 }
-void onClickMarkerAddBurial () {
-  // TODO: Add some things which should happen when this element is clicked
-  String tabgroup = "Marker";
-  if (isNull(getUuid(tabgroup))){
-    showToast("{You_must_save_this_tabgroup_first}");
-    return;
-  }
-  parentTabgroup   = tabgroup;
-  parentTabgroup__ = tabgroup;
-  newBurial();
-}
 void onClickMarkerAddMotif () {
   // TODO: Add some things which should happen when this element is clicked
   String tabgroup = "Marker";
@@ -1219,25 +1208,32 @@ void onClickMarkerAddMotif () {
   parentTabgroup__ = tabgroup;
   newMotif();
 }
+void onClickMarkerAddBurial () {
+  // TODO: Add some things which should happen when this element is clicked
+  String tabgroup = "Marker";
+  if (isNull(getUuid(tabgroup))){
+    showToast("{You_must_save_this_tabgroup_first}");
+    return;
+  }
+  parentTabgroup   = tabgroup;
+  parentTabgroup__ = tabgroup;
+  newBurial();
+}
 
 addOnEvent("Login/Login/Log_in", "click", "onClickLoginLogin()");
-addOnEvent("Control/Control/New_Cemetery", "click", "onClickControlNewCemetery()");
+addOnEvent("Control/Cemeteries/New_Cemetery", "click", "onClickControlNewCemetery()");
 addOnEvent("Cemetery/Administration/New_Plot", "click", "onClickCemeteryNewPlot()");
 addOnEvent("Plot/Marker/Add_Marker", "click", "onClickPlotAddMarker()");
-addOnEvent("Marker/Burial/Add_Burial", "click", "onClickMarkerAddBurial()");
 addOnEvent("Marker/Motif/Add_Motif", "click", "onClickMarkerAddMotif()");
+addOnEvent("Marker/Burial/Add_Burial", "click", "onClickMarkerAddBurial()");
 
 
 /******************************************************************************/
 /*                   AUDIO, CAMERA, FILE AND VIDEO BINDINGS                   */
 /******************************************************************************/
-addOnEvent("Plot/Administration/Button_Photos", "click", "attachPictureTo(\"Plot/Administration/Photos\")");
-addOnEvent("Marker/Administration/Button_Attach_Shape_File", "click", "attachFileTo(\"Marker/Administration/Attach_Shape_File\")");
-
-/******************************************************************************/
-/*                 BINDINGS FOR 'VIEW ATTACHED FILES' BUTTONS                 */
-/******************************************************************************/
-addOnEvent("Marker/Administration/View_Attached_Files", "click", "viewArchEntAttachedFiles(getUuid(\"Marker\"))");
+addOnEvent("Plot/Plot/Button_Plot_Photograph", "click", "attachPictureTo(\"Plot/Plot/Plot_Photograph\")");
+addOnEvent("Marker/Marker/Button_Marker_Photograph", "click", "attachPictureTo(\"Marker/Marker/Marker_Photograph\")");
+addOnEvent("Motif/Motif/Button_Motif_Photograph", "click", "attachPictureTo(\"Motif/Motif/Motif_Photograph\")");
 
 /******************************************************************************/
 /*                             NAVIGATION DRAWER                              */
@@ -1668,7 +1664,7 @@ void duplicatePlot(){
   clearGpsInTabGroup(tabgroup);
   populateAuthorAndTimestamp(tabgroup);
   populateEntityListsInTabGroup(tabgroup);
-  populateCameraPictureGallery("Plot/Administration/Photos", new ArrayList());
+  populateCameraPictureGallery("Plot/Plot/Plot_Photograph", new ArrayList());
 
   onCopyPlot__();
 
@@ -1700,7 +1696,7 @@ void duplicatePlot(){
   fetchAll(getDuplicateAttributeQuery(uuidOld, extraDupeAttributes), new FetchCallback(){
     onFetch(result) {
       excludeAttributes = new ArrayList();
-      excludeAttributes.add("Photos");
+      excludeAttributes.add("Plot Photograph");
 
       duplicateTabGroup(tabgroup, null, getExtraAttributes(result), excludeAttributes, saveCallback);
     }
@@ -1792,7 +1788,7 @@ void duplicateMarker(){
   clearGpsInTabGroup(tabgroup);
   populateAuthorAndTimestamp(tabgroup);
   populateEntityListsInTabGroup(tabgroup);
-  populateFileList("Marker/Administration/Attach_Shape_File", new ArrayList());
+  populateCameraPictureGallery("Marker/Marker/Marker_Photograph", new ArrayList());
 
   onCopyMarker__();
 
@@ -1824,7 +1820,7 @@ void duplicateMarker(){
   fetchAll(getDuplicateAttributeQuery(uuidOld, extraDupeAttributes), new FetchCallback(){
     onFetch(result) {
       excludeAttributes = new ArrayList();
-      excludeAttributes.add("Attach Shape File");
+      excludeAttributes.add("Marker Photograph");
 
       duplicateTabGroup(tabgroup, null, getExtraAttributes(result), excludeAttributes, saveCallback);
     }
@@ -2038,6 +2034,7 @@ void duplicateMotif(){
   clearGpsInTabGroup(tabgroup);
   populateAuthorAndTimestamp(tabgroup);
   populateEntityListsInTabGroup(tabgroup);
+  populateCameraPictureGallery("Motif/Motif/Motif_Photograph", new ArrayList());
 
   onCopyMotif__();
 
@@ -2069,6 +2066,7 @@ void duplicateMotif(){
   fetchAll(getDuplicateAttributeQuery(uuidOld, extraDupeAttributes), new FetchCallback(){
     onFetch(result) {
       excludeAttributes = new ArrayList();
+      excludeAttributes.add("Motif Photograph");
 
       duplicateTabGroup(tabgroup, null, getExtraAttributes(result), excludeAttributes, saveCallback);
     }
@@ -2380,7 +2378,7 @@ String getEntityMenuPopulationFunction(String[] menuDescriptor) {
 ENTITY_MENUS = new ArrayList();
 ENTITY_MENUS.add(new String[] {
   "List",
-  "Control/Control/List_of_Existing_Cemeteries",
+  "Control/Cemeteries/List_of_Existing_Cemeteries",
   "getUuid(\"Control\")",
   "Cemetery",
   ""
@@ -2408,17 +2406,17 @@ ENTITY_MENUS.add(new String[] {
 });
 ENTITY_MENUS.add(new String[] {
   "List",
-  "Marker/Burial/List_of_Existing_Burials",
-  "getUuid(\"Marker\")",
-  "Burial",
-  "Marker - Burial",
-});
-ENTITY_MENUS.add(new String[] {
-  "List",
   "Marker/Motif/List_of_Existing_Motifs",
   "getUuid(\"Marker\")",
   "Motif",
   "Marker - Motif",
+});
+ENTITY_MENUS.add(new String[] {
+  "List",
+  "Marker/Burial/List_of_Existing_Burials",
+  "getUuid(\"Marker\")",
+  "Burial",
+  "Marker - Burial",
 });
 for (m : ENTITY_MENUS) {
   String path         = m[1];
@@ -2426,18 +2424,28 @@ for (m : ENTITY_MENUS) {
 
   execute(functionCall);
 }
-addOnEvent("Control/Control/List_of_Existing_Cemeteries", "click", "loadEntity()");
+addOnEvent("Control/Cemeteries/List_of_Existing_Cemeteries", "click", "loadEntity()");
 addOnEvent("Control/Plots/Plots", "click", "loadEntity()");
 addOnEvent("Cemetery/Administration/List_of_Existing_Plots", "click", "loadEntity(true)");
 addOnEvent("Plot/Marker/List_of_Existing_Markers", "click", "loadEntity()");
-addOnEvent("Marker/Burial/List_of_Existing_Burials", "click", "loadEntity()");
 addOnEvent("Marker/Motif/List_of_Existing_Motifs", "click", "loadEntity()");
+addOnEvent("Marker/Burial/List_of_Existing_Burials", "click", "loadEntity()");
 
 /******************************************************************************/
 /*                             HANDWRITTEN LOGIC                              */
 /******************************************************************************/
 
 /******************************* CUSTOM SEARCH ********************************/
+
+  // Overrides autogenerated definition
+  entityTypes = new ArrayList();
+  entityTypes.add(new NameValuePair("{All}", ""));
+  entityTypes.add(new NameValuePair("{Cemetery}", "Cemetery"));
+  entityTypes.add(new NameValuePair("{Plot}", "Plot"));
+  entityTypes.add(new NameValuePair("{Marker}", "Marker"));
+  entityTypes.add(new NameValuePair("{Motif}", "Motif"));
+  entityTypes.add(new NameValuePair("{Burial}", "Burial"));
+  populateDropDown("Control/Search/Entity_Types", entityTypes);
 
   // Overrides autogenerated definition
   void search(){
@@ -2469,18 +2477,18 @@ addOnEvent("Marker/Motif/List_of_Existing_Motifs", "click", "loadEntity()");
 /******************************** DEMO NOTICE *********************************/
   showWarning(
       "This is a Demo Module",
-      "This module is intended for demonstration only. It should not be used to" +
-      " collect field data."
+      "This module is intended for demonstration only. It should not be used" +
+      " to collect field data."
   );
 
 /******************************** INHERITANCE *********************************/
   inheritFieldValue(
       "Cemetery/Administration/Cemetery_Site_Location",
-      "Plot/Administration/Plot_Site_Location"
+      "Plot/Plot/Plot_Site_Location"
   );
 
   inheritFieldValue(
-      "Plot/Administration/Plot_Plot_ID",
+      "Plot/Plot/Plot_Plot_ID",
       "Marker/Vars/Marker_Plot_ID"
   );
 
