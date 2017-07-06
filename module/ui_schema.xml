@@ -56,7 +56,7 @@
             <Administration>
               <Plot_Site_Location/>
               <timestamp/>
-              <Plot_Plot_ID/>
+              <Plot_ID/>
               <Orientation/>
               <Total_number_of_Headstones_in_This_Plot/>
               <Photos/>
@@ -122,9 +122,6 @@
               <Add_Motif/>
               <List_of_Existing_Motifs/>
             </Motif>
-            <Vars>
-              <Marker_Plot_ID/>
-            </Vars>
           </Marker>
           <Burial>
             <Burial>
@@ -134,7 +131,6 @@
               <Is_Primary_Burial/>
             </Burial>
             <Vars>
-              <Burial_Plot_ID/>
               <timestamp/>
             </Vars>
           </Burial>
@@ -147,7 +143,7 @@
           <logic/>
         </faims>
       </instance>
-      <bind type="decimal" nodeset="/faims/Plot/Administration/Plot_Plot_ID"/>
+      <bind type="decimal" nodeset="/faims/Plot/Administration/Plot_ID"/>
       <bind type="decimal" nodeset="/faims/Plot/Administration/Total_number_of_Headstones_in_This_Plot"/>
       <bind type="decimal" nodeset="/faims/Plot/Plot/Total_number_of_Interments_in_This_Plot"/>
       <bind type="decimal" nodeset="/faims/Plot/Plot/Fence_Border_Height"/>
@@ -296,7 +292,7 @@
         <input ref="timestamp" faims_attribute_name="Plot timestamp" faims_attribute_type="measure" faims_read_only="true" faims_annotation="false" faims_certainty="false">
           <label>{Date_of_Recording}</label>
         </input>
-        <input faims_attribute_type="measure" ref="Plot_Plot_ID" faims_attribute_name="Plot Plot ID">
+        <input faims_attribute_type="measure" ref="Plot_ID" faims_attribute_name="Plot ID">
           <label>{Plot_ID}</label>
         </input>
         <select1 faims_attribute_type="vocab" ref="Orientation" faims_attribute_name="Orientation">
@@ -552,12 +548,6 @@
           </item>
         </select1>
       </group>
-      <group ref="Vars" faims_hidden="true">
-        <label>{Vars}</label>
-        <input faims_attribute_type="measure" ref="Marker_Plot_ID" faims_attribute_name="Marker Plot ID">
-          <label>{Marker_Plot_ID}</label>
-        </input>
-      </group>
     </group>
     <group ref="Burial" faims_archent_type="Burial">
       <label>{Burial}</label>
@@ -582,9 +572,6 @@
       </group>
       <group ref="Vars" faims_hidden="true">
         <label>{Vars}</label>
-        <input faims_attribute_type="measure" ref="Burial_Plot_ID" faims_attribute_name="Burial Plot ID">
-          <label>{Burial_Plot_ID}</label>
-        </input>
         <input ref="timestamp" faims_attribute_name="Burial timestamp" faims_attribute_type="measure" faims_read_only="true" faims_annotation="false" faims_certainty="false">
           <label>{timestamp}</label>
         </input>
