@@ -1,4 +1,4 @@
-gravestones 2.5
+gravestones2.0
 ==============
 
-This module requires a version 2.5 server.
+For Flinders gravestones module FAIMS 2.0
