@@ -551,6 +551,7 @@ addOnEvent("Marker/Administration/Marker_Colour", "click", "DROPDOWN_ITEM_VALUE 
 addOnEvent("Marker/Administration/Material", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Administration/Material\")");
 addOnEvent("Marker/Administration/Lettering", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Administration/Lettering\")");
 addOnEvent("Marker/Administration/Footstone", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Marker/Administration/Footstone\")");
+addOnEvent("Burial/Burial/Is_Primary_Burial", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Burial/Burial/Is_Primary_Burial\")");
 addOnEvent("Motif/Motif/Location", "click", "DROPDOWN_ITEM_VALUE = getFieldValue(\"Motif/Motif/Location\")");
 
 /******************************************************************************/
@@ -949,7 +950,7 @@ makeVocab("CheckBoxGroup", "Marker/Inscription/Key_Wording", "Key Wording");
 makeVocab("CheckBoxGroup", "Marker/Inscription/Tense", "Tense");
 makeVocab("CheckBoxGroup", "Marker/Inscription/Author", "Author");
 makeVocab("CheckBoxGroup", "Marker/Inscription/Burials_Described_in_Relation_to", "Burials Described in Relation to");
-makeVocab("RadioGroup", "Burial/Burial/Is_Primary_Burial", "Is Primary Burial");
+makeVocab("DropDown", "Burial/Burial/Is_Primary_Burial", "Is Primary Burial");
 makeVocab("HierarchicalPictureGallery", "Motif/Motif/Motif", "Motif");
 makeVocab("DropDown", "Motif/Motif/Location", "Location");
 
@@ -1175,6 +1176,21 @@ void onClickControlNewCemetery () {
   parentTabgroup__ = "Control";
   newCemetery();
 }
+void onClickPlotListofExistingMarkers () {
+  // TODO: Add some things which should happen when this element is clicked
+  parentTabgroup__ = "Plot";
+  newlist();
+}
+void onClickMarkerListofExistingBurials () {
+  // TODO: Add some things which should happen when this element is clicked
+  parentTabgroup__ = "Marker";
+  newlist();
+}
+void onClickMarkerListofExistingMotifs () {
+  // TODO: Add some things which should happen when this element is clicked
+  parentTabgroup__ = "Marker";
+  newlist();
+}
 void onClickCemeteryNewPlot () {
   // TODO: Add some things which should happen when this element is clicked
   String tabgroup = "Cemetery";
@@ -1224,8 +1240,11 @@ addOnEvent("Login/Login/Log_in", "click", "onClickLoginLogin()");
 addOnEvent("Control/Control/New_Cemetery", "click", "onClickControlNewCemetery()");
 addOnEvent("Cemetery/Administration/New_Plot", "click", "onClickCemeteryNewPlot()");
 addOnEvent("Plot/Marker/Add_Marker", "click", "onClickPlotAddMarker()");
+addOnEvent("Plot/Marker/List_of_Existing_Markers", "click", "onClickPlotListofExistingMarkers()");
 addOnEvent("Marker/Burial/Add_Burial", "click", "onClickMarkerAddBurial()");
+addOnEvent("Marker/Burial/List_of_Existing_Burials", "click", "onClickMarkerListofExistingBurials()");
 addOnEvent("Marker/Motif/Add_Motif", "click", "onClickMarkerAddMotif()");
+addOnEvent("Marker/Motif/List_of_Existing_Motifs", "click", "onClickMarkerListofExistingMotifs()");
 
 
 /******************************************************************************/
