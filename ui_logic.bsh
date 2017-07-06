@@ -1,0 +1,1804 @@
+import java.util.concurrent.Callable;
+User user; // dont touch
+String userid;
+
+setSyncEnabled(true);
+setFileSyncEnabled(true);
+
+addActionBarItem("sync", new ToggleActionButtonCallback() {
+    actionOnLabel() {
+        "Disable Sync";
+    }
+    actionOn() {
+        setSyncEnabled(false);
+        setFileSyncEnabled(false);
+        showToast("Sync disabled.");
+    }
+    isActionOff() {
+        isSyncEnabled();
+    }
+    actionOffLabel() {
+        "Enable Sync";
+    }
+    actionOff() {
+        setSyncEnabled(true);
+        setFileSyncEnabled(true);
+        showToast("Sync enabled.");
+    }
+});
+
+/*** control ***/
+onEvent("control", "show", "cemetery_id = null; plot_id = null;removeNavigationButtons();");
+onEvent("control/cemetery", "show", "refreshCemeteries()");
+onEvent("control/plot", "show", "refreshPlots()");
+onEvent("control/cemetery/CemeteryList", "click", "loadCemetery()");
+onEvent("control/cemetery/newCemetery", "click", "newCemetery()");
+onEvent("control/plot/PlotList", "click", "loadPlot()");
+
+refreshCemeteries() {
+    fetchEntityList("Cemetery", new FetchCallback() {
+        onFetch(entities) {
+            populateList("control/cemetery/CemeteryList", entities);
+        }
+
+        onError(message) {
+            showWarning("Error fetching Entity List", message);
+        }
+    });
+}
+
+refreshPlots() {
+    fetchEntityList("Plot", new FetchCallback() {
+        onFetch(entities) {
+            populateList("control/plot/PlotList", entities);
+        }
+
+        onError(message) {
+            showWarning("Error fetching Entity List", message);
+        }
+    });
+}
+
+removeNavigationButtons() {
+    removeNavigationButton("duplicate");
+    removeNavigationButton("new");
+    removeNavigationButton("close");
+    removeNavigationButton("delete");
+}
+
+/*** ArchEnt: Cemetery ***/
+onEvent("Cemetery", "show", "autoSaveCemetery();addCemeteryNavigation();");
+onEvent("Cemetery/Cemetery", "show", "updateAllCemetery();");
+onEvent("Cemetery/Cemetery/newPlot", "click", "saveCemeteryNewPlot()");
+onEvent("Cemetery/Cemetery/PlotList", "click", "loadPlot()");
+onFocus("Cemetery/Cemetery/Site", null, "activateAutoSaveCemetery();");
+
+String cemetery_id = null;
+
+newCemetery() {
+    newTabGroup("Cemetery");
+    cemetery_id = null;
+    setTimestamp("Cemetery/Cemetery/Date_of_recording");
+}
+
+loadCemetery() {
+    cemetery_id = getListItemValue();
+    loadCemeteryFrom(cemetery_id);
+}
+
+loadCemeteryFrom(entid) {
+    if (isNull(entid)) return;
+    showTabGroup("Cemetery", entid, new FetchCallback() {
+        onFetch(result) {
+            cemetery_id = entid;
+            keepTabGroupChanges("Cemetery");
+            saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    cemetery_id = uuid;
+                }
+            }, true);
+        }
+    });
+}
+
+saveCemetery(Callable callback) {
+    if (isNull(getFieldValue("Cemetery/Cemetery/Site"))) { 
+        showWarning("Validation Error", "Please enter a Site/Location");
+        return;
+    }
+
+    saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            cemetery_id = uuid;
+            if(callback != null) callback.call();
+        }
+    });
+}
+
+activateAutoSaveCemetery() {
+    if (isNull(getFieldValue("Cemetery/Cemetery/Site"))) return;
+    if(!isNull(cemetery_id)) return;
+    saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            cemetery_id = uuid;
+            // Turn on autosaving
+            saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    cemetery_id = uuid;
+                }
+            }, true);
+        }
+    });
+}
+
+// Enable autosaving when returning to a Cemetery
+autoSaveCemetery() {
+    if(isNull(cemetery_id)) return;
+    keepTabGroupChanges("Cemetery");
+    saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            cemetery_id = uuid;
+        }
+    }, true);
+}
+
+saveCemeteryNewPlot() {
+    if(!isNull(cemetery_id)) {
+        newPlot();
+    } else {
+        saveCemetery(new Callable() {
+            call() {
+                newPlot();
+            }
+        });
+    }
+}
+
+deleteCemetery() {
+    if (!isNull(cemetery_id)) {
+        showAlert("Confirm Deletion", "Press OK to Delete this Cemetery!", "reallyDeleteCemetery()", "doNotDelete()");
+    } else {
+        cancelTabGroup("Cemetery", true);
+    }
+}
+
+reallyDeleteCemetery() {
+    deleteArchEnt(cemetery_id, new DeleteCallback() {
+        onDelete(uuid) {
+            cancelTabGroup("Cemetery", false);
+        }
+    });
+}
+
+// Cemeteries have a different workflow because there is only one field in the archent
+
+addCemeteryNavigation() {
+    removeNavigationButton("duplicate");
+    removeNavigationButton("new");
+    removeNavigationButton("close");
+    removeNavigationButton("delete");
+
+    addNavigationButton("duplicate", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Duplicate {Cemetery}";
+        }
+        actionOn() {
+            if(!isNull(cemetery_id)) {
+                cemetery_id = null;
+                showTabGroup("Cemetery", cemetery_id, new FetchCallback() {
+                    onFetch(result) {
+                        setTimestamp("Cemetery/Cemetery/Date_of_recording");
+                        saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+                            onSave(uuid, newRecord) {
+                                cemetery_id = uuid;
+                                saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+                                    onSave(uuid, newRecord) {
+                                        cemetery_id = uuid;
+                                    }
+                                }, true);
+                            }
+                        });
+                    }
+                });
+            } else if(!isNull(getFieldValue("Cemetery/Cemetery/Site"))) {
+                saveCemetery(new Callable() {
+                    call() {
+                        showTabGroup("Cemetery", cemetery_id, new FetchCallback() {
+                            onFetch(result) {
+                                setTimestamp("Cemetery/Cemetery/Date_of_recording");
+                                saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+                                    onSave(uuid, newRecord) {
+                                        cemetery_id = uuid;
+                                        saveTabGroup("Cemetery", cemetery_id, null, null, new SaveCallback() {
+                                            onSave(uuid, newRecord) {
+                                                cemetery_id = uuid;
+                                            }
+                                        }, true);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    }, "success");
+
+    addNavigationButton("new", new ActionButtonCallback() {
+        actionOnLabel() {
+            "New {Cemetery}";
+        }
+        actionOn() {
+            if(!isNull(cemetery_id)) {
+                cancelTabGroup("Cemetery", false);
+                newCemetery();
+            } else if(!isNull(getFieldValue("Cemetery/Cemetery/Site"))) {
+                saveCemetery(new Callable() {
+                    call() {
+                        newCemetery();
+                    }
+                });
+            } else {
+                newCemetery();
+            }
+        }
+    }, "success");
+
+    addNavigationButton("close", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Close {Cemetery}";
+        }
+        actionOn() {
+            if(!isNull(cemetery_id)) {
+                cancelTabGroup("Cemetery", false);
+            } else if(!isNull(getFieldValue("Cemetery/Cemetery/Site"))) {
+                saveCemetery(new Callable() {
+                    call() {
+                        cancelTabGroup("Cemetery", false);
+                    }
+                });
+            } else {
+                cancelTabGroup("Cemetery", true);
+            }
+        }
+    }, "success");
+
+    addNavigationButton("delete", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Delete {Cemetery}";
+        }
+        actionOn() {
+            deleteCemetery();
+        }
+    }, "danger");
+}
+
+updateAllCemetery() {
+    if (!isNull(cemetery_id)) {
+        fetchAll("select uuid, group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+            "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+            "            FROM latestNonDeletedArchentIdentifiers\n"+
+            "           WHERE aenttypename = 'Plot'\n"+
+            "             AND uuid in (select uuid\n"+
+            "                            FROM latestNonDeletedAentReln\n"+
+            "                           where relationshipid in (select relationshipid\n"+
+            "                                                      FROM latestNonDeletedAentReln\n"+
+            "                                                      JOIN relationship using (relationshipid)\n"+
+            "                                                      JOIN relntype using (relntypeid)\n"+
+            "                                                     where uuid = "+cemetery_id+"\n"+
+            "                                                       and relntypeName = 'CemeteryPlot')\n"+
+            "                             and uuid != "+cemetery_id+")\n"+
+            "        ORDER BY uuid, attributename ASC)\n"+
+            "group by uuid\n"+
+            "order by valuetimestamp desc, uuid, attributename;", new FetchCallback() {
+            onFetch(result) {
+                populateList("Cemetery/Cemetery/PlotList", result);
+            }
+        });
+        
+    } else {
+        populateList("Cemetery/Cemetery/PlotList", new ArrayList());
+    }
+}
+
+/*** ArchEnt: Plot ***/
+onEvent("Plot", "show", "autoSavePlot(); addPlotNavigation();");
+
+onEvent("Plot/Admin/attachPhoto", "delayclick", "attachPictureTo(\"Plot/Admin/Photo\")");
+
+onFocus("Plot/Admin/Grave_number", null, "activateAutoSavePlot();");
+onEvent("Plot/Admin/addNewBurial", "click", "newBurialFromPlot(true)");
+
+onEvent("Plot/Plot/Fence", "click", "addOtherFence()");
+onEvent("Plot/Plot/Other_items", "click", "addOtherItems()");
+onEvent("Plot/Historical_info/Denomination", "click", "addOtherDenomination()");
+onEvent("Plot/Historical_info/Sources", "click", "addOtherSources()");
+
+onEvent("Plot/Plot", "show", "updatePlotBurials()");
+onEvent("Plot/Admin", "show", "updatePrimaryBurial()");
+onEvent("Plot/Plot/newBurial", "click", "newBurialFromPlot(false)");
+onEvent("Plot/Plot/showBurial", "click", "loadBurial()");
+
+onEvent("Plot/Marker", "show", "updatePlotMarkers()");
+onEvent("Plot/Marker/newMarker", "click", "newMarkerFromPlot()");
+onEvent("Plot/Marker/MarkerList", "click", "loadMarker()");
+
+onEvent("Plot/Associated_plots", "show", "updateAssociatedPlots();" );
+onEvent("Plot/Associated_plots/AddPlot", "delayclick", "associatePlots()");
+onEvent("Plot/Associated_plots/ShowPlot", "click", "loadAssociatedPlot()");
+onEvent("Plot/Associated_plots/RemovePlot", "delayclick", "removeAssociatedPlot()");
+
+String plot_id = null;
+String new_plot_id = null;
+
+int size, count;
+
+// Boolean other_fence = false;
+// Boolean other_items = false;
+// Boolean other_denomination = false;
+// Boolean other_sources = false;
+
+newPlot() {
+    newTabGroup("Plot");
+    plot_id = null;
+    setFieldValue("Plot/Admin/Site", getFieldValue("Cemetery/Cemetery/Site"));
+    setTimestamp("Plot/Admin/Date");
+    setFieldValue("Plot/Admin/Primary_burial", "N/A");
+    setFieldValue("Plot/Admin/Date_of_death", "N/A");
+    keepTabGroupChanges("Plot");
+    // clearPlotOther();
+}
+
+loadPlot() {
+    plot_id = getListItemValue();
+    loadPlotFrom(plot_id);
+}
+
+loadPlotFrom(entid) {
+    if (isNull(entid)) return;
+    showTabGroup("Plot", entid, new FetchCallback() {
+        onFetch(result) {
+            plot_id = entid;
+            updatePrimaryBurial();
+            // clearPlotOther();
+            // addOtherFence();
+            // addOtherItems();
+            // addOtherDenomination();
+            // addOtherSources();
+            keepTabGroupChanges("Plot");
+            saveTabGroup("Plot", entid, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    plot_id = uuid;
+                }
+            }, true);
+        }
+    });
+}
+
+loadAssociatedPlot() {
+    plot_id = getFieldValue("Plot/Associated_plots/Associated_plots");
+    if(isNull(plot_id)) {
+        showToast("Please select a an associated plot to show");
+        return;
+    } else {
+        loadPlotFrom(plot_id);
+    }
+}
+
+activateAutoSavePlot() {
+    if (isNull(getFieldValue("Plot/Admin/Grave_number"))) return;
+    if(!isNull(plot_id)) return;
+    saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            plot_id = uuid;
+            if(newRecord) {
+                saveEntitiesToRel("CemeteryPlot", cemetery_id, plot_id);
+            }
+            // Turn on autosaving
+            saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    plot_id = uuid;
+                }
+            }, true);
+        }
+    });
+    
+}
+
+autoSavePlot() {
+    if(isNull(plot_id)) return;
+    saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            plot_id = uuid;
+        }
+    }, true);
+}
+
+isPlotSaved() {
+    if(isNull(plot_id)) {
+        if (isNull(getFieldValue("Plot/Admin/Grave_number"))) { 
+            showWarning("Validation Error", "Please enter a Grave Number");
+            showTab("Plot/Admin");
+        } else {
+            showToast("Please wait for this {Plot} to save");
+        }
+        return false;
+    }
+    return true;
+}
+
+newMarkerFromPlot() {
+    if(isPlotSaved()) newMarker();
+}
+
+newBurialFromPlot(Boolean primary) {
+    if(isPlotSaved()) {
+        if(primary) {
+            newPrimaryBurial();
+        } else {
+            newBurial();
+        }
+    }
+}
+
+loadPlotAttributes() {
+    makeVocab("DropDown", "Plot/Admin/Orientation", "Orientation");
+    makeVocab("CheckBoxGroup", "Plot/Historical_info/Denomination", "Denomination");
+    makeVocab("CheckBoxGroup", "Plot/Historical_info/Sources", "Sources");
+    makeVocab("DropDown", "Plot/Plot/Plot_type", "Plot type");
+    makeVocab("DropDown", "Plot/Plot/Fence", "Fence");
+    makeVocab("CheckBoxGroup", "Plot/Plot/Other_items", "Other items");
+}
+
+deletePlot() {
+    if (!isNull(plot_id)) {
+        showAlert("Confirm Deletion", "Press OK to Delete this Plot!", "reallyDeletePlot()", "doNotDelete()");
+    } else {
+        cancelTabGroup("Plot", true);
+        if(isNull(cemetery_id)) showTab("control/plot");
+    }
+}
+
+reallyDeletePlot() {
+    deleteArchEnt(plot_id, new DeleteCallback() {
+        onDelete(uuid) {
+            cancelTabGroup("Plot", false);
+            if(isNull(cemetery_id)) showTab("control/plot");
+        }
+    });
+}
+
+addPlotNavigation() {
+    removeNavigationButton("duplicate");
+    removeNavigationButton("new");
+    removeNavigationButton("close");
+    removeNavigationButton("delete");
+
+    addNavigationButton("duplicate", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Duplicate {Plot}";
+        }
+        actionOn() {
+            if(isPlotSaved()) {
+                showTabGroup("Plot", plot_id, new FetchCallback() {
+                    onFetch(result) {
+                        plot_id = null;
+                        setTimestamp("Plot/Admin/Date");
+                        populateCameraPictureGallery("Plot/Admin/Photo", new ArrayList());
+                        saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
+                            onSave(uuid, newRecord) {
+                                plot_id = uuid;
+                                if(newRecord) {
+                                    saveEntitiesToRel("CemeteryPlot", cemetery_id, uuid);
+                                }
+                                saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
+                                    onSave(uuid, newRecord) {
+                                        plot_id = uuid;
+                                    }
+                                }, true);        
+                            }
+                        });
+                        
+                    }
+                });
+            }
+        }
+    }, "success");
+
+    addNavigationButton("new", new ActionButtonCallback() {
+        actionOnLabel() {
+            "New {Plot}";
+        }
+        actionOn() {
+            if(!isNull(plot_id)) {
+                cancelTabGroup("Plot", false);
+                newPlot();
+            } else {
+                showAlert("Warning", "You will lose any unsaved changes!", "newPlot()", "");
+            }
+        }
+    }, "success");
+
+    addNavigationButton("close", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Close {Plot}";
+        }
+        actionOn() {
+            if(!isNull(plot_id)) {
+                cancelTabGroup("Plot", false);
+                if(isNull(cemetery_id)) showTab("control/plot");
+            } else {
+                cancelTabGroup("Plot", true);
+            }
+        }
+    }, "success");
+
+    addNavigationButton("delete", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Delete {Plot}";
+        }
+        actionOn() {
+            deletePlot();
+        }
+    }, "danger");
+}
+
+updatePrimaryBurial() {
+    hasPrimaryBurial = new Callable() {
+        call() {
+            setFieldValue("Plot/Admin/Primary_burial", primaryBurialName);
+            setFieldValue("Plot/Admin/Date_of_death", primaryBurialDate);
+        }
+    };
+    hasNoPrimaryBurial = new Callable() {
+        call() {
+            setFieldValue("Plot/Admin/Primary_burial", "N/A");
+            setFieldValue("Plot/Admin/Date_of_death", "N/A");
+        }
+    };
+    fetchPrimaryBurial(hasPrimaryBurial, hasNoPrimaryBurial);
+}
+
+updatePlotBurials() {
+    if (!isNull(plot_id)) {
+        fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+        "            FROM latestNonDeletedArchentIdentifiers\n"+
+        "           WHERE aenttypename = 'Burial'\n"+
+        "             AND uuid in (select uuid\n"+
+        "                            FROM latestNonDeletedAentReln\n"+
+        "                           where relationshipid in (select relationshipid\n"+
+        "                                                      FROM latestNonDeletedAentReln\n"+
+        "                                                      JOIN relationship using (relationshipid)\n"+
+        "                                                      JOIN relntype using (relntypeid)\n"+
+        "                                                     where uuid = "+plot_id+"\n"+
+        "                                                       and relntypeName = 'PlotBurial')\n"+
+        "                             and uuid != "+plot_id+")\n"+
+        "        ORDER BY uuid, attributename ASC)\n"+
+        "group by uuid\n"+
+        "order by valuetimestamp desc, uuid, attributename;", new FetchCallback() {
+            onFetch(result) {
+                populateDropDown("Plot/Plot/BurialList",  result);
+            }
+        });
+    } else {
+        populateDropDown("Plot/Plot/BurialList",  new ArrayList());
+    }
+}
+
+updatePlotMarkers() {
+    if (!isNull(plot_id)) {
+        fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+        "            FROM latestNonDeletedArchentIdentifiers\n"+
+        "           WHERE aenttypename = 'Marker'\n"+
+        "             AND uuid in (select uuid\n"+
+        "                            FROM latestNonDeletedAentReln\n"+
+        "                           where relationshipid in (select relationshipid\n"+
+        "                                                      FROM latestNonDeletedAentReln\n"+
+        "                                                      JOIN relationship using (relationshipid)\n"+
+        "                                                      JOIN relntype using (relntypeid)\n"+
+        "                                                     where uuid = "+plot_id+"\n"+
+        "                                                       and relntypeName = 'PlotMarker')\n"+
+        "                             and uuid != "+plot_id+")\n"+
+        "        ORDER BY uuid, attributename ASC)\n"+
+        "group by uuid\n"+
+        "order by valuetimestamp desc, uuid, attributename;", new FetchCallback() {
+            onFetch(result) {
+                populateList("Plot/Marker/MarkerList", result);
+            }
+        });
+    } else {
+        populateList("Plot/Marker/MarkerList", new ArrayList());
+    }
+}
+
+updateAssociatedPlots() {
+    fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp " +
+    "      FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename " +
+    "                FROM latestNonDeletedArchentIdentifiers " +
+    "               WHERE aenttypename = 'Plot' " +
+    "                 AND uuid != "+plot_id+" " +
+    "                 AND uuid not in (select uuid " +
+    "                                FROM latestNonDeletedAentReln " +
+    "                               where relationshipid in (select relationshipid " +
+    "                                                          FROM latestNonDeletedAentReln " +
+    "                                                          JOIN relationship using (relationshipid) " +
+    "                                                          JOIN relntype using (relntypeid) " +
+    "                                                         where uuid = "+plot_id+" " +
+    "                                                           and relntypeName = 'PlotPlot') " +
+    "                                 )                      " +
+    "            ORDER BY uuid, attributename ASC) " +
+    "    group by uuid " +
+    "    order by valuetimestamp desc, uuid, attributename;", new FetchCallback() {
+        onFetch(result) {
+            populateDropDown("Plot/Associated_plots/Associate_plot", result);
+        }
+    });
+    
+    if (!isNull(plot_id)) {
+        fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+        "            FROM latestNonDeletedArchentIdentifiers\n"+
+        "           WHERE aenttypename = 'Plot'\n"+
+        "             AND uuid in (select uuid\n"+
+        "                            FROM latestNonDeletedAentReln\n"+
+        "                           where relationshipid in (select relationshipid\n"+
+        "                                                      FROM latestNonDeletedAentReln\n"+
+        "                                                      JOIN relationship using (relationshipid)\n"+
+        "                                                      JOIN relntype using (relntypeid)\n"+
+        "                                                     where uuid = "+plot_id+"\n"+
+        "                                                       and relntypeName = 'PlotPlot')\n"+
+        "                             and uuid != "+plot_id+")\n"+
+        "        ORDER BY uuid, attributename ASC)\n"+
+        "group by uuid\n"+
+        "order by valuetimestamp desc, uuid, attributename;", new FetchCallback() {
+            onFetch(result) {
+                populateDropDown("Plot/Associated_plots/Associated_plots",  result);
+            }
+        });
+        
+    } else {
+        populateDropDown("Plot/Associated_plots/Associated_plots",  new ArrayList());
+    }
+}
+
+associatePlots() {
+    new_plot_id = getFieldValue("Plot/Associated_plots/Associate_plot");
+
+    if(isNull(new_plot_id)) { 
+        showToast("Please select a plot to associate");
+        return;
+    } else {
+        saveTabGroup("Plot", plot_id, null, null, new SaveCallback() {
+            onSave(uuid, newRecord) {
+                plot_id = uuid;
+                callback = new Callable() {
+                    call() {
+                        updateAssociatedPlots();
+                    }
+                };
+                saveEntitiesToRel("PlotPlot", plot_id, new_plot_id, callback);
+            }
+        });
+    }
+}
+
+removeAssociatedPlot() {
+    new_plot_id = getFieldValue("Plot/Associated_plots/Associated_plots");
+    if(isNull(new_plot_id)) {
+        showToast("Please select an associated plot to remove");
+        return;
+    } else {
+        Object relnToDelete;
+        fetchAll("select distinct relationshipid " +
+            "from latestNonDeletedAentReln a join latestnondeletedRelationship using (relationshipid) " +
+            "join relntype using (relntypeid) join latestNonDeletedAentReln b using (relationshipid) " +
+            "where relntypename = 'PlotPlot' and a.uuid != b.uuid and a.uuid = "+ plot_id +" and b.uuid = "+ new_plot_id + ";",
+            new FetchCallback() {
+                onFetch(result) {
+                    relnToDelete = result;
+                    for(int i =0; i < relnToDelete.size(); i++) {
+                        fetchOne("insert into aentreln (uuid, relationshipid, deleted, participatesverb, userid) " +
+                            "select uuid, relationshipid, 'true', participatesverb, '"+userid+"' " +
+                            "from latestnondeletedaentreln where relationshipid = '"+relnToDelete.get(i).get(0)+"';", null);
+                        deleteRel(relnToDelete.get(i).get(0), new DeleteCallback() {
+                            onDelete(uuid) {
+                                updateAssociatedPlots();
+                            }
+                        });
+                    }
+                }
+            }); 
+    }
+}
+
+addOtherFence() {
+    matchVocab("Plot/Plot/Fence", "{Other}", new FetchCallback() {
+        onFetch(result) {
+            if(!isNull(result)  && isNull(getFieldValue("Plot/Plot/Fence"))) {
+                showTextAlert("Alert", "Set annotation for other {Fence_Border}:", "setFieldAnnotation(\"Plot/Plot/Fence\", getLastTextAlertInput());", "");
+            }
+        }
+    });
+}
+
+addOtherItems() {
+    // count = 0;
+    // size = getFieldValue("Plot/Plot/Other_items").size();
+    // if(size == 0 && other_items) {
+    //     removeView("Plot/Plot/Other_Other_Items");
+    //     other_items = false;
+    // }
+    // for(vocabid : getFieldValue("Plot/Plot/Other_items")) {
+    //     matchVocabID(vocabid.getName(), "{Other}", new FetchCallback() {
+    //         onFetch(result) {
+    //             if(!isNull(result)) {
+    //                 if(!other_items) {
+    //                     textDef = createViewDef();
+    //                     textDef.createTextField().
+    //                             setLabel("Extra Items Associated With Grave").
+    //                             setAttributeType("freetext").
+    //                             setAnnotationEnabled(false).
+    //                             setCertaintyEnabled(false).
+    //                             setReadOnly(false).
+    //                             setStyleCss("required");
+    //                     createView("Plot/Plot/Other_Other_Items", textDef, "Plot/Plot/Other_Other_Items_Container");
+    //                     refreshTabgroupCSS("Plot");
+    //                     other_items = true;
+    //                     setFieldValue("Plot/Plot/Other_Other_Items", getFieldAnnotation("Plot/Plot/Other_items"));
+    //                     onFocus("Plot/Plot/Other_Other_Items", "", "setFieldAnnotation(\"Plot/Plot/Other_items\", getFieldValue(\"Plot/Plot/Other_Other_Items\"));");
+    //                 }
+    //             } else {
+    //                 count++;
+    //                 if(other_items && count == size) {
+    //                     removeView("Plot/Plot/Other_Other_Items");
+    //                     other_items = false;
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+}
+
+addOtherDenomination() {
+    // count = 0;
+    // size = getFieldValue("Plot/Historical_info/Denomination").size();
+    // if(size == 0 && other_denomination) {
+    //     removeView("Plot/Historical_info/Other_Denomination");
+    //     other_denomination = false;
+    // }
+    // for(vocabid : getFieldValue("Plot/Historical_info/Denomination")) {
+    //     matchVocabID(vocabid.getName(), "{Other}", new FetchCallback() {
+    //         onFetch(result) {
+    //             if(!isNull(result)) {
+    //                 if(!other_denomination) {
+    //                     textDef = createViewDef();
+    //                     textDef.createTextField().
+    //                             setLabel("Other Denomination").
+    //                             setAttributeType("freetext").
+    //                             setAnnotationEnabled(false).
+    //                             setCertaintyEnabled(false).
+    //                             setReadOnly(false).
+    //                             setStyleCss("required");
+    //                     createView("Plot/Historical_info/Other_Denomination", textDef, "Plot/Historical_info/Other_Denomination_Container");
+    //                     refreshTabgroupCSS("Plot");
+    //                     other_denomination = true;
+    //                     setFieldValue("Plot/Historical_info/Other_Denomination", getFieldAnnotation("Plot/Historical_info/Denomination"));
+    //                     onFocus("Plot/Historical_info/Other_Denomination", "", "setFieldAnnotation(\"Plot/Historical_info/Denomination\", getFieldValue(\"Plot/Historical_info/Other_Denomination\"));");
+    //                 }
+    //             } else {
+    //                 count++;
+    //                 if(other_denomination && count == size) {
+    //                     removeView("Plot/Historical_info/Other_Denomination");
+    //                     other_denomination = false;
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+}
+
+addOtherSources() {
+    // count = 0;
+    // size = getFieldValue("Plot/Historical_info/Sources").size();
+
+    // if(size == 0 && other_sources) {
+    //     removeView("Plot/Historical_info/Other_Sources");
+    //     other_sources = false;
+    // }
+    // for(vocabid : getFieldValue("Plot/Historical_info/Sources")) {
+    //     matchVocabID(vocabid.getName(), "{Other}", new FetchCallback() {
+    //         onFetch(result) {
+    //             if(!isNull(result)) {
+    //                 if(!other_sources) {
+    //                     textDef = createViewDef();
+    //                     textDef.createTextField().
+    //                             setLabel("Other Sources").
+    //                             setAttributeType("freetext").
+    //                             setAnnotationEnabled(false).
+    //                             setCertaintyEnabled(false).
+    //                             setReadOnly(false).
+    //                             setStyleCss("required");
+    //                     createView("Plot/Historical_info/Other_Sources", textDef, "Plot/Historical_info/Other_Sources_Container");
+    //                     refreshTabgroupCSS("Plot");
+    //                     other_sources = true;
+    //                     setFieldValue("Plot/Historical_info/Other_Sources", getFieldAnnotation("Plot/Historical_info/Sources"));
+    //                     onFocus("Plot/Historical_info/Other_Sources", "", "setFieldAnnotation(\"Plot/Historical_info/Sources\", getFieldValue(\"Plot/Historical_info/Other_Sources\"));");
+    //                 }
+    //             } else {
+    //                 count++;
+    //                 if(other_sources && count == size) {
+    //                     removeView("Plot/Historical_info/Other_Sources");
+    //                     other_sources = false;
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+}
+
+// clearPlotOther() {
+//     if(other_fence) {
+//         removeView("Plot/Plot/Other_Fence");
+//         other_fence = false;
+//     }
+//     if(other_items) {
+//         other_items = false;
+//         removeView("Plot/Plot/Other_Other_Items");
+//     }
+//     if(other_denomination) {
+//         other_denomination = false;
+//         removeView("Plot/Historical_info/Other_Denomination");
+//     }
+//     if(other_sources) {
+//         other_sources = false;
+//         removeView("Plot/Historical_info/Other_Sources");
+//     }
+// }
+
+/*** ArchEnt: Marker ***/
+onEvent("Marker", "show", "autoSaveMarker(); addMarkerNavigation();");
+
+onEvent("Marker/Motif", "show", "updateAllMarkerMotifs()");
+onEvent("Marker/Motif/newMotif", "click", "newMotifFromMarker()");
+onEvent("Marker/Motif/MotifList", "click", "loadMotif()");
+
+onEvent("Marker/Marker/Form", "click", "activateAutoSaveMarker();addOtherForm();");
+onEvent("Marker/Marker/Marker_colour", "click", "addOtherMarkerColour()");
+onEvent("Marker/Marker/Material", "click", "activateAutoSaveMarker();addOtherMaterial();");
+onEvent("Marker/Marker/Lettering", "click", "addOtherLettering()");
+onEvent("Marker/Inscription/Key_words", "click", "addOtherKeyWords()");
+
+onEvent("Marker/Marker/attachShape", "click", "attachFileTo(\"Marker/Marker/Shape\")");
+onEvent("Marker/Marker/viewAttached", "click", "viewArchEntAttachedFiles(marker_id)");
+
+onFocus("Marker/Inscription/Inscription", null, "activateAutoSaveMarker();");
+
+String marker_id = null;
+// Boolean other_form = false;
+// Boolean other_marker_colour = false;
+// Boolean other_material = false;
+// Boolean other_lettering = false;
+// Boolean other_key_words = false;
+
+newMarker() {
+    newTabGroup("Marker");
+    marker_id = null;
+    // clearMarkerOther();
+    setTimestamp("Marker/hidden/timestamp");
+}
+
+loadMarker() {
+    marker_id = getListItemValue();
+    loadMarkerFrom(marker_id);
+}
+
+loadMarkerFrom(entid) {
+    if (isNull(entid)) return;
+    showTabGroup("Marker", entid, new FetchCallback() {
+        onFetch(result) {
+            marker_id = entid;
+            // clearMarkerOther();
+            // addOtherForm();
+            // addOtherMarkerColour();
+            // addOtherMaterial();
+            // addOtherLettering();
+            // addOtherKeyWords();
+            keepTabGroupChanges("Marker");
+            saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    marker_id = uuid;
+                }
+            }, true);
+        }
+    });
+}
+
+activateAutoSaveMarker() {
+    if (isNull(getFieldValue("Marker/Marker/Form")) && 
+        isNull(getFieldValue("Marker/Marker/Material")) && 
+        isNull(getFieldValue("Marker/Inscription/Inscription"))) return;
+    if(!isNull(marker_id)) return;
+    saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            marker_id = uuid;
+            if(newRecord) {
+                saveEntitiesToRel("PlotMarker", marker_id, plot_id);
+            }
+            // Turn on autosaving
+            saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    marker_id = uuid;
+                }
+            }, true);
+        }
+    });
+}
+
+autoSaveMarker() {
+    if(isNull(marker_id)) return;
+    saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            marker_id = uuid;
+        }
+    }, true);
+}
+
+isMarkerSaved() {
+    if(isNull(marker_id)) {
+        if (isNull(getFieldValue("Marker/Marker/Form")) && 
+            isNull(getFieldValue("Marker/Marker/Material")) && 
+            isNull(getFieldValue("Marker/Inscription/Inscription"))) {
+            showWarning("Validation Error", "Please select a Form, Material or Inscription.");
+        } else {
+            showToast("Please wait for this {Marker} to save");
+        }
+        return false;
+    }
+    return true;
+    
+}
+newMotifFromMarker() {
+    if(isMarkerSaved()) newMotif();
+}
+
+loadMarkerAttributes() {
+    makeVocab("CheckBoxGroup", "Marker/Marker/Form", "Form");
+    makeVocab("CheckBoxGroup", "Marker/Marker/Marker_colour", "Marker colour");
+    makeVocab("CheckBoxGroup", "Marker/Marker/Material", "Material");
+    makeVocab("DropDown", "Marker/Marker/Lettering", "Lettering");
+    makeVocab("RadioGroup", "Marker/Marker/Footstone", "Footstone");
+    makeVocab("CheckBoxGroup", "Marker/Inscription/Style_of_language", "Style of language");
+    makeVocab("CheckBoxGroup", "Marker/Inscription/Key_words", "Key words");
+    makeVocab("CheckBoxGroup", "Marker/Inscription/Tense", "Tense");
+    makeVocab("CheckBoxGroup", "Marker/Inscription/Author", "Author");
+    makeVocab("CheckBoxGroup", "Marker/Inscription/Burials_described_in_relation_to", "Burials described in relation to");
+}
+
+deleteMarker() {
+    if (!isNull(marker_id)) {
+        showAlert("Confirm Deletion", "Press OK to Delete this Marker!", "reallyDeleteMarker()", "doNotDelete()");
+    } else {
+        cancelTabGroup("Marker", true);
+        showTab("Plot/Marker");
+    }
+}
+
+reallyDeleteMarker() {
+    deleteArchEnt(marker_id, new DeleteCallback() {
+        onDelete(uuid) {
+            cancelTabGroup("Marker", false);
+            showTab("Plot/Marker");
+        }
+    });
+}
+
+addMarkerNavigation() {
+    removeNavigationButton("duplicate");
+    removeNavigationButton("new");
+    removeNavigationButton("close");
+    removeNavigationButton("delete");
+
+    addNavigationButton("duplicate", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Duplicate {Marker}";
+        }
+        actionOn() {
+            if(isMarkerSaved()) {
+                showTabGroup("Marker", marker_id, new FetchCallback() {
+                    onFetch(result) {
+                        marker_id = null;
+                        populateFileList("Marker/Marker/Shape", new ArrayList());
+                        setTimestamp("Marker/hidden/timestamp");
+                        saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
+                            onSave(uuid, newRecord) {
+                                marker_id = uuid;
+                                if(newRecord) {
+                                    saveEntitiesToRel("PlotMarker", marker_id, plot_id);
+                                }
+                                saveTabGroup("Marker", marker_id, null, null, new SaveCallback() {
+                                    onSave(uuid, newRecord) {
+                                        marker_id = uuid;
+                                    }
+                                }, true);
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    }, "success");
+
+    addNavigationButton("new", new ActionButtonCallback() {
+        actionOnLabel() {
+            "New {Marker}";
+        }
+        actionOn() {
+            if(!isNull(marker_id)) {
+                cancelTabGroup("Marker", false);
+                newMarker();
+            } else {
+                showAlert("Warning", "You will lose any unsaved changes!", "newMarker()", "");
+            }
+            
+        }
+    }, "success");
+
+    addNavigationButton("close", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Close {Marker}";
+        }
+        actionOn() {
+            if(!isNull(marker_id)) {
+                cancelTabGroup("Marker", false);
+                showTab("Plot/Marker");
+            } else {
+                cancelTabGroup("Marker", true);
+            }
+        }
+    }, "success");
+
+    addNavigationButton("delete", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Delete {Marker}";
+        }
+        actionOn() {
+            deleteMarker();
+        }
+    }, "danger");
+}
+
+updateAllMarkerMotifs() {
+    if (!isNull(marker_id)) {
+        fetchAll("select uuid, aenttypename || ': ' || group_concat(coalesce(measure || ' ' || vocabname || '(' ||freetext||')',  measure || ' (' || freetext ||')',  vocabname || ' (' || freetext ||')',  measure || ' ' || vocabname ,  vocabname || ' (' || freetext || ')',  measure || ' (' || freetext || ')',  measure,  vocabname,  freetext,  measure,  vocabname,  freetext), ' | ') as response, valuetimestamp\n"+
+        "  FROM (  SELECT uuid, attributeid, vocabid, attributename, vocabname, measure, freetext, certainty, attributetype, valuetimestamp, aenttypename\n"+
+        "            FROM latestNonDeletedArchentIdentifiers\n"+
+        "           WHERE aenttypename = 'Motif'\n"+
+        "             AND uuid in (select uuid\n"+
+        "                            FROM latestNonDeletedAentReln\n"+
+        "                           where relationshipid in (select relationshipid\n"+
+        "                                                      FROM latestNonDeletedAentReln\n"+
+        "                                                      JOIN relationship using (relationshipid)\n"+
+        "                                                      JOIN relntype using (relntypeid)\n"+
+        "                                                     where uuid = "+marker_id+"\n"+
+        "                                                       and relntypeName = 'MarkerMotif')\n"+
+        "                             and uuid != "+marker_id+")\n"+
+        "        ORDER BY uuid, attributename ASC)\n"+
+        "group by uuid\n"+
+        "order by valuetimestamp desc, uuid, attributename;", new FetchCallback() {
+            onFetch(result) {
+                populateList("Marker/Motif/MotifList", result);
+            }
+        });
+    } else {
+        populateList("Marker/Motif/MotifList", new ArrayList());
+    }
+}
+
+addOtherForm() {
+    // count = 0;
+    // size = getFieldValue("Marker/Marker/Form").size();
+    // if(size == 0 && other_form) {
+    //     removeView("Marker/Marker/Other_Form");
+    //     other_form = false;
+    // }
+    // for(vocabid : getFieldValue("Marker/Marker/Form")) {
+    //     matchVocabID(vocabid.getName(), "{Other}", new FetchCallback() {
+    //         onFetch(result) {
+    //             if(!isNull(result)) {
+    //                 if(!other_form) {
+    //                     textDef = createViewDef();
+    //                     textDef.createTextField().
+    //                             setLabel("Other Form").
+    //                             setAnnotationEnabled(false).
+    //                             setCertaintyEnabled(false).
+    //                             setReadOnly(false).
+    //                             setStyleCss("required");
+    //                     createView("Marker/Marker/Other_Form", textDef, "Marker/Marker/Other_Form_Container");
+    //                     refreshTabgroupCSS("Marker");
+    //                     other_form = true;
+    //                     setFieldValue("Marker/Marker/Other_Form", getFieldAnnotation("Marker/Marker/Form"));
+    //                     onFocus("Marker/Marker/Other_Form", "", "setFieldAnnotation(\"Marker/Marker/Form\", getFieldValue(\"Marker/Marker/Other_Form\"));");
+    //                 }
+    //             } else {
+    //                 count++;
+    //                 if(other_form && count == size) {
+    //                     removeView("Marker/Marker/Other_Form");
+    //                     other_form = false;
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+}
+
+addOtherMarkerColour() {
+    // count = 0;
+    // size = getFieldValue("Marker/Marker/Marker_colour").size();
+    // if(size == 0 && other_marker_colour) {
+    //     removeView("Marker/Marker/Other_Marker_Colour");
+    //     other_marker_colour = false;
+    // }
+    // for(vocabid : getFieldValue("Marker/Marker/Marker_colour")) {
+    //     matchVocabID(vocabid.getName(), "{Other}", new FetchCallback() {
+    //         onFetch(result) {
+    //             if(!isNull(result)) {
+    //                 if(!other_marker_colour) {
+    //                     textDef = createViewDef();
+    //                     textDef.createTextField().
+    //                             setLabel("Other Marker Colour").
+    //                             setAttributeType("freetext").
+    //                             setAnnotationEnabled(false).
+    //                             setCertaintyEnabled(false).
+    //                             setReadOnly(false).
+    //                             setStyleCss("required");
+    //                     createView("Marker/Marker/Other_Marker_Colour", textDef, "Marker/Marker/Other_Marker_Colour_Container");
+    //                     refreshTabgroupCSS("Marker");
+    //                     other_marker_colour = true;
+    //                     setFieldValue("Marker/Marker/Other_Marker_Colour", getFieldAnnotation("Marker/Marker/Marker_colour"));
+    //                     onFocus("Marker/Marker/Other_Marker_Colour", "", "setFieldAnnotation(\"Marker/Marker/Marker_colour\", getFieldValue(\"Marker/Marker/Other_Marker_Colour\"));");
+    //                 }
+    //             } else {
+    //                 count++;
+    //                 if(other_marker_colour && count == size) {
+    //                     removeView("Marker/Marker/Other_Marker_Colour");
+    //                     other_marker_colour = false;
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+}
+
+addOtherMaterial() {
+    // count = 0;
+    // size = getFieldValue("Marker/Marker/Material").size();
+    // if(size == 0 && other_material) {
+    //     removeView("Marker/Marker/Other_Material");
+    //     other_material = false;
+    // }
+    // for(vocabid : getFieldValue("Marker/Marker/Material")) {
+    //     matchVocabID(vocabid.getName(), "{Other}", new FetchCallback() {
+    //         onFetch(result) {
+    //             if(!isNull(result)) {
+    //                 if(!other_material) {
+    //                     textDef = createViewDef();
+    //                     textDef.createTextField().
+    //                             setLabel("Other Material").
+    //                             setAttributeType("freetext").
+    //                             setAnnotationEnabled(false).
+    //                             setCertaintyEnabled(false).
+    //                             setReadOnly(false).
+    //                             setStyleCss("required");
+    //                     createView("Marker/Marker/Other_Material", textDef, "Marker/Marker/Other_Material_Container");
+    //                     refreshTabgroupCSS("Marker");
+    //                     other_material = true;
+    //                     setFieldValue("Marker/Marker/Other_Material", getFieldAnnotation("Marker/Marker/Material"));
+    //                     onFocus("Marker/Marker/Other_Material", "", "setFieldAnnotation(\"Marker/Marker/Material\", getFieldValue(\"Marker/Marker/Other_Material\"));");
+    //                 }
+    //             } else {
+    //                 count++;
+    //                 if(other_material && count == size) {
+    //                     removeView("Marker/Marker/Other_Material");
+    //                     other_material = false;
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+}
+
+addOtherLettering() {
+    matchVocab("Marker/Marker/Lettering", "{Other}", new FetchCallback() {
+        onFetch(result) {
+            if(!isNull(result) && isNull(getFieldValue("Marker/Marker/Lettering"))) {
+                showTextAlert("Alert", "Set annotation for other {Lettering}:", "setFieldAnnotation(\"Marker/Marker/Lettering\", getLastTextAlertInput());", "");
+            }
+        }
+    });
+}
+
+addOtherKeyWords() {
+    // count = 0;
+    // size = getFieldValue("Marker/Inscription/Key_words").size();
+    // if(size == 0 && other_key_words) {
+    //     removeView("Marker/Inscription/Other_Key_Words");
+    //     other_key_words = false;
+    // }
+    // for(vocabid : getFieldValue("Marker/Inscription/Key_words")) {
+    //     matchVocabID(vocabid.getName(), "{Other}", new FetchCallback() {
+    //         onFetch(result) {
+    //             if(!isNull(result)) {
+    //                 if(!other_key_words) {
+    //                     textDef = createViewDef();
+    //                     textDef.createTextField().
+    //                             setLabel("Other Key Words").
+    //                             setAttributeName("Other Key Words").
+    //                             setAttributeType("freetext").
+    //                             setAnnotationEnabled(false).
+    //                             setCertaintyEnabled(false).
+    //                             setReadOnly(false).
+    //                             setStyleCss("required");
+    //                     createView("Marker/Inscription/Other_Key_Words", textDef, "Marker/Inscription/Other_Key_Words_Container");
+    //                     refreshTabgroupCSS("Marker");
+    //                     other_key_words = true;
+    //                     setFieldValue("Marker/Inscription/Other_Key_Words", getFieldAnnotation("Marker/Inscription/Key_words"));
+    //                     onFocus("Marker/Inscription/Other_Key_Words", "", "setFieldAnnotation(\"Marker/Inscription/Key_words\", getFieldValue(\"Marker/Inscription/Other_Key_Words\"));");
+    //                 }
+    //             } else {
+    //                 count++;
+    //                 if(other_key_words && count == size) {
+    //                     removeView("Marker/Marker/Other_Key_Words");
+    //                     other_key_words = false;
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+}
+
+// clearMarkerOther() {
+//     if(other_form) {
+//         removeView("Marker/Marker/Other_Form");
+//         other_form = false;
+//     }
+//     if(other_marker_colour) {
+//         other_marker_colour = false;
+//         removeView("Marker/Marker/Other_Marker_Colour");
+//     }
+//     if(other_material) {
+//         other_material = false;
+//         removeView("Marker/Marker/Other_Material");
+//     }
+//     if(other_lettering) {
+//         other_lettering = false;
+//         removeView("Marker/Marker/Other_Lettering");
+//     }
+//     if(other_key_words) {
+//         other_key_words = false;
+//         removeView("Marker/Inscription/Other_Key_Words");
+//     }
+// }
+
+
+/** ArchEnt: Motif **/
+onEvent("Motif", "show", "addMotifNavigation();");
+onEvent("Motif/Motif/Motif", "click", "activateAutoSaveMotif();");
+
+String motif_id = null;
+
+newMotif() {
+    newTabGroup("Motif");
+    motif_id = null;
+    setTimestamp("Marker/hidden/timestamp");
+}
+
+loadMotif() {
+    motif_id = getListItemValue();
+    loadMotifFrom(motif_id);
+}
+
+loadMotifFrom(entid) {
+    if (isNull(entid)) return;
+    showTabGroup("Motif", entid, new FetchCallback() {
+        onFetch(result) {
+            keepTabGroupChanges("Motif");
+            motif_id = entid;
+            saveTabGroup("Motif", motif_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    motif_id = uuid;
+                }
+            }, true);
+        }
+    });
+}
+
+activateAutoSaveMotif() {
+    if(!isNull(motif_id)) return;
+    saveTabGroup("Motif", motif_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            motif_id = uuid;
+            if(newRecord) {
+                saveEntitiesToRel("MarkerMotif", motif_id, marker_id);
+            }
+            // Turn on autosaving
+            saveTabGroup("Motif", motif_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    motif_id = uuid;
+                }
+            }, true);
+        }
+    });
+}
+
+isMotifSaved() {
+    if(isNull(motif_id)) {
+        if (isNull(getFieldValue("Motif/Motif/Motif"))) { 
+            showWarning("Validation Error", "Please select a Motif");
+        } else {
+            showToast("Please wait for this {Motif} to save");
+        }
+        return false;
+    }
+    return true;
+}
+
+loadMotifAttributes() {
+    populateHierarchicalPictureGallery("Motif/Motif/Motif", "Motif");
+    makeVocab("DropDown", "Motif/Motif/Location", "Location");
+}
+
+deleteMotif() {
+    if (!isNull(motif_id)) {
+        showAlert("Confirm Deletion", "Press OK to Delete this Motif!", "reallyDeleteMotif()", "doNotDelete()");
+    } else {
+        cancelTabGroup("Motif", true);
+        showTab("Marker/Motif");
+    }
+}
+
+reallyDeleteMotif() {
+    deleteArchEnt(motif_id, new DeleteCallback() {
+        onDelete(uuid) {
+            cancelTabGroup("Motif", false);
+            showTab("Marker/Motif");
+        }
+    });
+}
+
+addMotifNavigation() {
+    removeNavigationButton("duplicate");
+    removeNavigationButton("new");
+    removeNavigationButton("close");
+    removeNavigationButton("delete");
+
+    addNavigationButton("duplicate", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Duplicate {Motif}";
+        }
+        actionOn() {
+            if(isMotifSaved()) {
+                showTabGroup("Motif", motif_id, new FetchCallback() {
+                    onFetch(result) {
+                        motif_id = null;
+                        setTimestamp("Marker/hidden/timestamp");
+                        saveTabGroup("Motif", motif_id, null, null, new SaveCallback() {
+                            onSave(uuid, newRecord) {
+                                motif_id = uuid;
+                                if(newRecord) {
+                                    saveEntitiesToRel("MarkerMotif", marker_id, motif_id);
+                                }
+                                saveTabGroup("Motif", motif_id, null, null, new SaveCallback() {
+                                    onSave(uuid, newRecord) {
+                                        motif_id = uuid;
+                                    }
+                                }, true);
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    }, "success");
+
+    addNavigationButton("new", new ActionButtonCallback() {
+        actionOnLabel() {
+            "New {Motif}";
+        }
+        actionOn() {
+            if(!isNull(motif_id)) {
+                cancelTabGroup("Motif", false);
+                newMotif();
+            } else {
+                showAlert("Warning", "You will lose any unsaved changes!", "newMotif()", "");
+            }
+            
+        }
+    }, "success");
+
+    addNavigationButton("close", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Close {Motif}";
+        }
+        actionOn() {
+            if(!isNull(motif_id)) {
+                cancelTabGroup("Motif", false);
+                showTab("Marker/Motif");
+            } else {
+                cancelTabGroup("Motif", true);
+            }
+        }
+    }, "success");
+
+    addNavigationButton("delete", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Delete {Motif}";
+        }
+        actionOn() {
+            deleteMotif();
+        }
+    }, "danger");
+}
+
+/*** ArchEnt: Burial ***/
+onEvent("Burial", "show", "autoSaveBurial(); addBurialNavigation();");
+onFocus("Burial/Burial/Name", null, "activateAutoSaveBurial()");
+onFocus("Burial/Burial/Date_of_death", null, "activateAutoSaveBurial()");
+onEvent("Burial/Burial/Is_primary_burial", "click", "checkPrimaryBurial()");
+
+String burial_id = null;
+String primaryBurialID = null;
+String primaryBurialName = null;
+String primaryBurialDate = null;
+
+newBurial() {
+    newTabGroup("Burial");
+    burial_id = null;
+    setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{No}");
+    setTimestamp("Marker/hidden/timestamp");
+}
+
+newPrimaryBurial() {
+    newTabGroup("Burial");
+    burial_id = null;
+    Callable callbackIfTrue = new Callable() {
+        call() {
+            showToast("You can only have one primary burial.");
+            setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{No}");
+        }
+    };
+    Callable callbackIfFalse = new Callable() {
+        call() {
+            setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{Yes}");
+        }
+    };
+    fetchPrimaryBurial(callbackIfTrue, callbackIfFalse);
+    
+}
+
+loadBurial() {
+    burial_id = getFieldValue("Plot/Plot/BurialList");
+    loadBurialFrom(burial_id);
+}
+
+loadBurialFrom(entid) {
+    if (isNull(entid)) {
+        showToast("No Burial selected.");
+        return;
+    }
+    showTabGroup("Burial", entid, new FetchCallback() {
+        onFetch(result) {
+            burial_id = entid;
+            saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    burial_id = uuid;
+                }
+            }, true);
+        }
+    });
+}
+
+activateAutoSaveBurial() {
+    if(isNull(getFieldValue("Burial/Burial/Name")) || isNull(getFieldValue("Burial/Burial/Date_of_death"))) return;
+    if(!isNull(burial_id)) return;
+    saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            burial_id = uuid;
+            if(newRecord) {
+                saveEntitiesToRel("PlotBurial", burial_id, plot_id);
+            }
+            // Turn on autosaving
+            saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
+                onSave(uuid, newRecord) {
+                    burial_id = uuid;
+                }
+            }, true);
+        }
+    });
+}
+
+autoSaveBurial() {
+    if(isNull(burial_id)) return;
+    saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
+        onSave(uuid, newRecord) {
+            burial_id = uuid;
+        }
+    }, true);
+}
+
+isBurialSaved() {
+    if(isNull(burial_id)) {
+        if(isNull(getFieldValue("Burial/Burial/Name")) || isNull(getFieldValue("Burial/Burial/Date_of_death"))) {
+            showWarning("Validation Error", "Please enter a Name and Date of Death");
+        } else {
+            showToast("Please wait for this {Burial} to save");
+        }
+        return false;
+    }
+    return true;
+}
+
+loadBurialAttributes() {
+    makeVocab("RadioGroup", "Burial/Burial/Is_primary_burial", "Is primary burial");
+}
+
+deleteBurial() {
+    if (!isNull(burial_id)) {
+        showAlert("Confirm Deletion", "Press OK to Delete this Burial!", "reallyDeleteBurial()", "doNotDelete()");
+    } else {
+        cancelTabGroup("Burial", false);
+        showTab("Plot/Admin");
+    }
+}
+
+reallyDeleteBurial() {
+    deleteArchEnt(burial_id, new DeleteCallback() {
+        onDelete(uuid) {
+            cancelTabGroup("Burial", false);
+            showTab("Plot/Admin");
+        }
+    });
+}
+
+addBurialNavigation() {
+    removeNavigationButton("duplicate");
+    removeNavigationButton("new");
+    removeNavigationButton("close");
+    removeNavigationButton("delete");
+
+    addNavigationButton("duplicate", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Duplicate {Burial}";
+        }
+        actionOn() {
+            if(isBurialSaved()) {
+                showTabGroup("Burial", burial_id, new FetchCallback() {
+                    onFetch(result) {
+                        burial_id = null;
+                        setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{No}");
+                        setTimestamp("Marker/hidden/timestamp");
+                        saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
+                            onSave(uuid, newRecord) {
+                                burial_id = uuid;
+                                if(newRecord) {
+                                    saveEntitiesToRel("PlotBurial", burial_id, plot_id);
+                                }
+                                saveTabGroup("Burial", burial_id, null, null, new SaveCallback() {
+                                    onSave(uuid, newRecord) {
+                                        burial_id = uuid;
+                                    }
+                                }, true);
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    }, "success");
+
+    addNavigationButton("new", new ActionButtonCallback() {
+        actionOnLabel() {
+            "New {Burial}";
+        }
+        actionOn() {
+            if(!isNull(burial_id)) {
+                cancelTabGroup("Burial", false);
+                newBurial(false);
+            } else {
+                showAlert("Warning", "You will lose any unsaved changes!", "newBurial(false)", "");
+            }
+        }
+    }, "success");
+
+    addNavigationButton("close", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Close {Burial}";
+        }
+        actionOn() {
+            if(!isNull(burial_id)) {
+                cancelTabGroup("Burial", false);
+                showTab("Plot/Admin");
+            } else {
+                cancelTabGroup("Burial", true);
+            }
+        }
+    }, "success");
+
+    addNavigationButton("delete", new ActionButtonCallback() {
+        actionOnLabel() {
+            "Delete {Burial}";
+        }
+        actionOn() {
+            deleteBurial();
+        }
+    }, "danger");
+}
+
+
+checkPrimaryBurial() {
+    matchVocab("Burial/Burial/Is_primary_burial", "{Yes}", new FetchCallback() {
+        onFetch(result) {
+            if(!isNull(result)) {
+                hasPrimaryBurial = new Callable() {
+                    call() {
+                        if(!primaryBurialID.equals(burial_id)) {
+                            showWarning("Validation Error:", "You can only have one primary burial.");
+                            setVocab("Burial/Burial/Is_primary_burial", "Is primary burial", "{No}");
+                        }
+                    }
+                };
+                fetchPrimaryBurial(hasPrimaryBurial, null);
+            }
+        }
+    });
+}
+
+fetchPrimaryBurial(Callable callbackIfTrue, Callable callbackIfFalse) {
+    primaryBurialID = null;
+    primaryBurialName = null;
+    primaryBurialDate =  null;
+    if(!isNull(plot_id)) {
+        Object primaryBurial;
+        fetchAll("select distinct uuid, measure, attributename, relationshipid "+
+        "       from latestnondeletedaentvalue join attributekey using (attributeid)  "+
+        "       join latestnondeletedaentreln using (uuid) "+
+        "      where uuid in (select uuid  "+
+        "                       from latestnondeletedaentvalue  "+
+        "                      where vocabid = (select vocabid  "+
+        "                                         from vocabulary  "+
+        "                                         join attributekey using (attributeid)  "+
+        "                                        where attributeName = 'Is primary burial'  "+
+        "                                          and vocabname = '{Yes}') "+
+        "                      )  "+
+        "      and uuid in (select uuid  "+
+        "                     from latestnondeletedaentreln "+
+        "                    where relationshipid in (select relationshipid  "+
+        "                                               from latestnondeletedaentreln "+
+        "                                              where uuid = "+ plot_id +") "+
+        "                   ) "+
+        "         and (attributename = 'Name' "+
+        "              or attributename = 'Date of death') "+
+        "    order by attributename desc;", new FetchCallback() {
+            onFetch(result) {
+                if (!isNull(result)) {
+                    primaryBurialID = result.get(0).get(0);
+                    primaryBurialName = result.get(0).get(1);
+                    primaryBurialDate = result.get(1).get(1);
+                    if(callbackIfTrue != null) callbackIfTrue.call();
+                } else {
+                    if(callbackIfFalse != null) callbackIfFalse.call();
+                }
+            }
+        });
+    }
+}
+
+// MISC FUNCTIONS
+saveEntitiesToRel(String type, String entity1, String entity2) {
+    if (isNull(entity1) || isNull(entity2)) return;
+    saveRel(null, type, null, null, new SaveCallback() {
+        onSave(rel_id, newRecord) {
+            addReln(entity1, rel_id, null);
+            addReln(entity2, rel_id, null);
+        }
+
+        onError(message) {
+            showToast(message);
+        }
+    });
+}
+
+saveEntitiesToRel(String type, String entity1, String entity2, Callable callback) {
+    if (isNull(entity1) || isNull(entity2)) return;
+    saveRel(null, type, null, null, new SaveCallback() {
+        onSave(rel_id, newRecord) {
+            addReln(entity1, rel_id, null);
+            addReln(entity2, rel_id, null);
+            callback.call();
+        }
+
+        onError(message) {
+            showToast(message);
+        }
+    });
+}
+
+makeVocab(String type, String path, String attrib) {
+    fetchAll("select vocabid, vocabname from vocabulary join attributekey using (attributeid) where attributename = '"+attrib+"' order by vocabcountorder",
+        new FetchCallback() {
+            onFetch(result) {
+                if(type.equals("CheckBoxGroup")) {
+                    populateCheckBoxGroup(path, result);
+                } else if(type.equals("DropDown")) {
+                    populateDropDown(path, result);
+                } else if(type.equals("RadioGroup")) {
+                    populateRadioGroup(path, result);
+                } else if(type.equals("List")) {
+                    populateList(path, result);
+                }
+            }
+
+            onError(message) {
+                showToast(message);
+            }
+        });
+}
+
+matchVocab(String path, String vocabName, FetchCallback callback) {
+    fetchOne("select vocabname from vocabulary where vocabname = '" + vocabName + "' and vocabid = '" + getFieldValue(path) + "';", callback);
+}
+
+matchVocabID(String vocabid, String vocabName, FetchCallback callback) {
+    fetchOne("select vocabname from vocabulary where vocabname = '" + vocabName + "' and vocabid = '" + vocabid + "';", callback);
+}
+
+setVocab(String path, String attribName, String vocabName) {
+    fetchOne("select vocabid from vocabulary join attributekey using (attributeid) where attributeName = '" + attribName + "' and vocabname = '" + vocabName + "';",
+        new FetchCallback() {
+            onFetch(result) {
+                setFieldValue(path, result.get(0));
+            }
+        });
+}
+
+setTimestamp(String path) {
+    setFieldValue(path, new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss z").format(new Date()));
+}
+
+doNotDelete() {
+    showToast("Delete Cancelled.");
+}
+
+/*** Uneditable - you can edit the code below with extreme precaution ***/
+/*** USER ***/
+
+loadUsers() {
+    fetchAll("select userid, fname || ' ' || lname from user where userdeleted is null", new FetchCallback() {
+        onFetch(result) {
+            populateList("user/usertab/users", result);
+        }
+    });
+}
+
+String username = "";
+String device = "";
+
+login() {
+    fetchOne("select userid,fname,lname,email from user where userid='" + getListItemValue() + "';", new FetchCallback() {
+        onFetch(result) {
+            user = new User(result.get(0),result.get(1),result.get(2),result.get(3));
+            setUser(user);
+            username = result.get(1) + " " + result.get(2);
+            showTabGroup("control");
+        }
+    });
+}
+
+onEvent("user/usertab/users", "click", "login()");
+
+loadUsers();
+loadPlotAttributes();
+loadMarkerAttributes();
+loadBurialAttributes();
+loadMotifAttributes();
